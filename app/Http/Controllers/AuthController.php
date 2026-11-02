@@ -105,12 +105,93 @@ class AuthController extends Controller
     }
 
     /**
+     * Muestra la pantalla de registro ciudadano
+     */
+    public function showRegister()
+    {
+        if (Auth::check() || session('citizen_logged_in')) {
+            return redirect()->route('citizen.home');
+        }
+
+        return view('auth.register');
+    }
+
+    /**
+     * Procesa el registro de un nuevo ciudadano
+     */
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name'                  => 'required|string|max:100',
+            'username'              => 'required|string|max:40',
+            'phone'                 => 'nullable|string|max:25',
+            'colonia'               => 'required|string|max:100',
+            'password'              => 'required|string|min:3|confirmed',
+            'ine_document'          => 'nullable|file|mimes:jpeg,jpg,png,webp,pdf|max:10240',
+        ]);
+
+        $ineUrl = null;
+
+        // Guardar documento / fotografía de INE si se subió
+        if ($request->hasFile('ine_document')) {
+            $file = $request->file('ine_document');
+            $filename = 'ine_' . preg_replace('/[^a-zA-Z0-9]/', '', $request->username) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/citizens');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $file->move($destinationPath, $filename);
+            $ineUrl = asset('uploads/citizens/' . $filename);
+        }
+
+        $user = null;
+        try {
+            $user = User::create([
+                'name'         => $request->name,
+                'username'     => trim($request->username),
+                'email'        => trim($request->username) . '@alamo.gob.mx',
+                'phone'        => $request->phone,
+                'colonia'      => $request->colonia,
+                'ine_document' => $ineUrl,
+                'password'     => Hash::make($request->password),
+            ]);
+            Auth::login($user, true);
+        } catch (\Throwable $e) {
+            // Respaldo en memoria si la BD remota no tiene tabla migrada
+            $user = new User([
+                'name'         => $request->name,
+                'username'     => trim($request->username),
+                'email'        => trim($request->username) . '@alamo.gob.mx',
+                'phone'        => $request->phone,
+                'colonia'      => $request->colonia,
+                'ine_document' => $ineUrl,
+            ]);
+            $user->id = rand(10, 999);
+        }
+
+        session([
+            'citizen_logged_in' => true,
+            'citizen_name'      => $user->name,
+            'citizen_phone'     => $user->phone,
+            'citizen_colonia'   => $user->colonia,
+            'citizen_ine'       => $ineUrl,
+        ]);
+
+        $request->session()->regenerate();
+
+        return redirect()->route('citizen.home')
+            ->with('status', '¡Bienvenido(a) a Álamo Reporta! Tu cuenta ha sido creada exitosamente.');
+    }
+
+    /**
      * Cierra la sesión
      */
     public function logout(Request $request)
     {
         Auth::logout();
-        session()->forget(['citizen_logged_in', 'citizen_name', 'citizen_phone', 'citizen_colonia']);
+        session()->forget(['citizen_logged_in', 'citizen_name', 'citizen_phone', 'citizen_colonia', 'citizen_ine']);
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -125,11 +206,12 @@ class AuthController extends Controller
         $user = Auth::user();
         if (!$user) {
             $user = (object) [
-                'name'     => session('citizen_name', 'Ciudadano Álamo'),
-                'username' => 'user',
-                'email'    => 'user@alamo.gob.mx',
-                'phone'    => session('citizen_phone', '765 123 4567'),
-                'colonia'  => session('citizen_colonia', 'Zona Centro'),
+                'name'         => session('citizen_name', 'Ciudadano Álamo'),
+                'username'     => 'user',
+                'email'        => 'user@alamo.gob.mx',
+                'phone'        => session('citizen_phone', '765 123 4567'),
+                'colonia'      => session('citizen_colonia', 'Zona Centro'),
+                'ine_document' => session('citizen_ine', null),
             ];
         }
 

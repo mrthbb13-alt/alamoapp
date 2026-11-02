@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'colonia',
+        'ine_document',
         'password',
     ];
 

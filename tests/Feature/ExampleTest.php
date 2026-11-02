@@ -23,8 +23,26 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
         $response->assertRedirect(route('login'));
 
-        // 2. Pantalla de login disponible
+        // 2. Pantalla de login y registro disponibles
         $this->get(route('login'))->assertStatus(200);
+        $this->get(route('register'))->assertStatus(200);
+
+        // Registro de nuevo usuario ciudadano con documento INE
+        $fakeIne = \Illuminate\Http\UploadedFile::fake()->create('ine_frontal.jpg', 150, 'image/jpeg');
+        $regResponse = $this->post(route('register.post'), [
+            'name'                  => 'Mariana Valdez',
+            'username'              => 'mariana',
+            'phone'                 => '7651122334',
+            'colonia'               => 'Zona Centro',
+            'password'              => 'marianapass',
+            'password_confirmation' => 'marianapass',
+            'ine_document'          => $fakeIne,
+        ]);
+        $regResponse->assertRedirect(route('citizen.home'));
+        $this->assertDatabaseHas('users', ['username' => 'mariana']);
+
+        // Cerrar sesión para probar login
+        $this->post(route('logout'));
 
         // 3. Intento con contraseña incorrecta
         $failLogin = $this->post(route('login.post'), [

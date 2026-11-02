@@ -96,5 +96,5 @@
 @endsection
 
 @section('page_js')
-    <script src="{{ asset('js/citizen/feed.js') }}"></script>
+    <script src="{{ asset('js/citizen/feed.js') }}?v={{ time() }}"></script>
 @endsection

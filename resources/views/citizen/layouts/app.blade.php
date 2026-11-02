@@ -75,7 +75,7 @@
     <!-- Librería Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Script Base del Layout -->
-    <script src="{{ asset('js/citizen/layout.js') }}"></script>
+    <script src="{{ asset('js/citizen/layout.js') }}?v={{ time() }}"></script>
     @yield('page_js')
 </body>
 </html>
