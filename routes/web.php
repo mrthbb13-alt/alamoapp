@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MunicipalDashboardController;
 use App\Http\Controllers\CitizenAppController;
@@ -46,4 +47,20 @@ Route::middleware('auth')->prefix('reportar')->group(function () {
     Route::post('/apoyar/{id}', [CitizenAppController::class, 'upvote'])->name('citizen.upvote');
     Route::get('/api/cercanos', [CitizenAppController::class, 'checkNearby'])->name('citizen.nearby');
     Route::get('/api/folio/{folio}', [CitizenAppController::class, 'searchFolio'])->name('citizen.folio');
+=======
+use App\Http\Controllers\MunicipalDashboardController;
+
+// Redirigir la raíz al Centro de Mando Municipal
+Route::get('/', function () {
+    return redirect()->route('municipal.dashboard');
+>>>>>>> 07f4414d6cc612454c057473736c3da37896928c
+});
+
+// ==========================================
+// FASE 1: PLATAFORMA WEB GOBIERNO MUNICIPAL
+// ==========================================
+Route::prefix('panel-municipal')->group(function () {
+    Route::get('/', [MunicipalDashboardController::class, 'index'])->name('municipal.dashboard');
+    Route::get('/api/poll', [MunicipalDashboardController::class, 'poll'])->name('municipal.poll');
+    Route::post('/reportes/{id}/actualizar', [MunicipalDashboardController::class, 'updateStatus'])->name('municipal.update');
 });
