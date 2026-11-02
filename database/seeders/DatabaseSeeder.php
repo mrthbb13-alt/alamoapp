@@ -17,9 +17,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        \App\Models\User::updateOrCreate(
+            ['email' => 'user@alamo.gob.mx'],
+            [
+                'name'     => 'Ciudadano Álamo',
+                'username' => 'user',
+                'phone'    => '765 123 4567',
+                'colonia'  => 'Zona Centro',
+                'password' => \Illuminate\Support\Facades\Hash::make('123'),
+            ]
+        );
+
+        $this->call([
+            IncidentReportSeeder::class,
         ]);
     }
 }

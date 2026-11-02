@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. SEGURIDAD: Bloquear acceso directo a archivos confidenciales en Hostinger
+    RewriteRule ^\.env - [F,L,NC]
+    RewriteRule ^database/(.*\.sqlite|.*\.sql) - [F,L,NC]
+    RewriteRule ^storage/logs/.* - [F,L,NC]
+    RewriteRule ^composer\.(json|lock) - [F,L,NC]
+    RewriteRule ^package(-lock)?\.json - [F,L,NC]
+
+    # 2. ENCAMINAR TRÁFICO A LA CARPETA PUBLIC
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L,QSA]
+</IfModule>
+
