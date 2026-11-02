@@ -9,277 +9,364 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/citizen/layout.css') }}">
     <style>
-        .login-wrap {
+        .login-page {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 24px 16px;
-            background: linear-gradient(180deg, rgba(250, 204, 21, 0.12) 0%, rgba(234, 88, 12, 0.05) 100%);
+            background-color: var(--bg-body);
+            position: relative;
+            overflow-x: hidden;
         }
-        .login-card {
-            width: 100%;
-            max-width: 420px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 32px 24px;
-            box-shadow: var(--shadow-card);
-        }
-        .login-header {
+
+        /* Cabecera ondulada orgánica inspirada en TravelApp */
+        .login-hero-wave {
+            position: relative;
+            background: linear-gradient(145deg, #FBBF24 0%, #F59E0B 40%, #EA580C 100%);
+            padding: 48px 24px 80px 24px;
             text-align: center;
-            margin-bottom: 24px;
+            color: #FFFFFF;
         }
-        .login-icon-badge {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #FACC15 0%, #EA580C 100%);
-            border-radius: 18px;
+
+        .login-hero-wave::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 48px;
+            background-color: var(--bg-body);
+            clip-path: ellipse(58% 100% at 50% 100%);
+            transition: background-color 0.25s ease;
+        }
+
+        .theme-float-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #FFFFFF;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 10;
+        }
+        .theme-float-btn:hover {
+            transform: scale(1.08);
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .login-logo-circle {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            background: #FFFFFF;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #FFFFFF;
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            box-shadow: 0 8px 16px -4px rgba(234, 88, 12, 0.35);
+            color: #EA580C;
+            font-size: 2.3rem;
+            margin-bottom: 14px;
+            box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.22);
+            position: relative;
         }
-        .login-title {
-            font-size: 1.4rem;
+
+        .login-logo-circle::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 255, 255, 0.7);
+        }
+
+        .login-brand-name {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .login-brand-tagline {
+            font-size: 0.95rem;
+            opacity: 0.92;
+            font-weight: 500;
+        }
+
+        /* Contenedor flotante del formulario */
+        .login-body {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 40px 20px;
+            position: relative;
+            z-index: 2;
+            margin-top: -24px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 32px;
+            padding: 34px 28px;
+            box-shadow: 0 16px 36px -8px rgba(234, 88, 12, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+            transition: background-color 0.25s, border-color 0.25s;
+        }
+
+        .login-card-title {
+            font-size: 1.25rem;
             font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            text-align: center;
         }
-        .login-subtitle {
+
+        .login-card-subtitle {
             font-size: 0.88rem;
             color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 24px;
         }
-        .demo-notice {
-            background: rgba(250, 204, 21, 0.18);
-            border: 1px dashed var(--accent-orange);
-            border-radius: 12px;
-            padding: 12px 14px;
-            margin-bottom: 22px;
-            font-size: 0.82rem;
-            line-height: 1.4;
-            color: var(--text-primary);
-        }
-        .demo-notice strong {
-            color: var(--accent-orange);
-            display: block;
-            margin-bottom: 3px;
-        }
+
         .form-group {
             margin-bottom: 18px;
         }
+
         .form-label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 6px;
+            margin-bottom: 7px;
+            padding-left: 6px;
         }
-        .input-wrapper {
+
+        .input-pill-wrap {
             position: relative;
             display: flex;
             align-items: center;
         }
-        .input-icon {
+
+        .input-pill-icon {
             position: absolute;
-            left: 14px;
+            left: 18px;
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 1.05rem;
+            pointer-events: none;
+            transition: color 0.2s;
         }
-        .form-input {
+
+        .input-pill {
             width: 100%;
-            height: 48px;
-            padding: 0 16px 0 42px;
-            border-radius: 12px;
-            border: 1px solid var(--border-subtle);
+            height: 52px;
+            padding: 0 20px 0 48px;
+            border-radius: 9999px;
+            border: 1.5px solid var(--border-subtle);
             background: var(--bg-input);
             color: var(--text-primary);
-            font-size: 0.95rem;
+            font-size: 0.98rem;
+            font-weight: 500;
             transition: all 0.2s ease;
         }
-        .form-input:focus {
+
+        .input-pill:focus {
             outline: none;
             border-color: var(--accent-orange);
-            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+            background: var(--bg-surface);
+            box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.14);
         }
+
+        .input-pill:focus + .input-pill-icon {
+            color: var(--accent-orange);
+        }
+
         .toggle-pwd-btn {
             position: absolute;
-            right: 12px;
+            right: 16px;
             background: none;
             border: none;
             color: var(--text-muted);
             cursor: pointer;
-            padding: 6px;
+            padding: 8px;
+            font-size: 1rem;
+            transition: color 0.2s;
         }
-        .remember-row {
+
+        .toggle-pwd-btn:hover {
+            color: var(--accent-orange);
+        }
+
+        .remember-wrap {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 22px;
-            font-size: 0.85rem;
+            margin: 20px 6px;
+            font-size: 0.86rem;
         }
+
         .remember-label {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 9px;
             color: var(--text-secondary);
             cursor: pointer;
             user-select: none;
+            font-weight: 500;
         }
+
         .remember-checkbox {
-            width: 17px;
-            height: 17px;
+            width: 18px;
+            height: 18px;
             accent-color: var(--accent-orange);
             cursor: pointer;
+            border-radius: 5px;
         }
-        .btn-login {
+
+        /* Botón estilo píldora TravelApp */
+        .btn-pill-submit {
             width: 100%;
-            height: 50px;
+            height: 54px;
+            border-radius: 9999px;
             background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
-            border: none;
-            border-radius: 12px;
             color: #FFFFFF;
-            font-size: 1rem;
+            border: none;
+            font-size: 1.05rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             cursor: pointer;
-            box-shadow: 0 8px 18px -4px rgba(234, 88, 12, 0.35);
-            transition: transform 0.15s ease, opacity 0.2s;
+            box-shadow: 0 10px 22px -5px rgba(234, 88, 12, 0.42);
+            transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s;
+            margin-top: 10px;
         }
-        .btn-login:hover {
-            transform: translateY(-1px);
+
+        .btn-pill-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 26px -4px rgba(234, 88, 12, 0.52);
         }
-        .btn-login:active {
+
+        .btn-pill-submit:active {
             transform: translateY(1px);
         }
-        .biometric-preview-box {
-            margin-top: 24px;
-            padding-top: 18px;
-            border-top: 1px solid var(--border-subtle);
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-        .biometric-badges {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 8px;
-        }
-        .bio-badge {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-subtle);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
+
+        /* Alerta limpia únicamente si hay error */
+        .error-pill {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            color: #EF4444;
+            padding: 12px 18px;
+            border-radius: 16px;
+            font-size: 0.88rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
+            margin-bottom: 20px;
+            animation: shake 0.3s ease;
         }
-        .error-alert {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #F87171;
-            color: #EF4444;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            margin-bottom: 18px;
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
         }
     </style>
 </head>
 <body>
-    <div class="login-wrap">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-icon-badge">
-                    <i class="fa-solid fa-shield-heart"></i>
-                </div>
-                <h1 class="login-title">Álamo Reporta</h1>
-                <p class="login-subtitle">Atención Ciudadana y Centro de Mando</p>
+    <div class="login-page">
+
+        <!-- CABECERA ONDULADA CON LOGO Y BOTÓN DE MODO CLARO / OSCURO -->
+        <header class="login-hero-wave">
+            <button type="button" id="theme-toggle-btn" class="theme-float-btn" aria-label="Cambiar tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
+
+            <div class="login-logo-circle">
+                <i class="fa-solid fa-shield-heart"></i>
             </div>
+            <h1 class="login-brand-name">Álamo Reporta</h1>
+            <p class="login-brand-tagline">Atención Ciudadana y Respuesta Inmediata</p>
+        </header>
 
-            <div class="demo-notice">
-                <strong><i class="fa-solid fa-circle-info"></i> Acceso Rápido Habilitado</strong>
-                Las credenciales de prueba ya están precargadas. Solo presiona <strong>"Ingresar"</strong> para continuar.
-            </div>
+        <!-- TARJETA FLOTANTE CON CAMPOS ESTILO TRAVELAPP -->
+        <main class="login-body">
+            <div class="login-card">
+                <h2 class="login-card-title">Bienvenido(a)</h2>
+                <p class="login-card-subtitle">Inicia sesión para reportar o dar seguimiento a tus reportes</p>
 
-            @if($errors->any())
-                <div class="error-alert">
-                    <i class="fa-solid fa-triangle-exclamation"></i> {{ $errors->first() }}
-                </div>
-            @endif
-
-            <form action="{{ route('login.post') }}" method="POST">
-                @csrf
-
-                <div class="form-group">
-                    <label for="username-input" class="form-label">Usuario o Correo Electrónico</label>
-                    <div class="input-wrapper">
-                        <i class="fa-solid fa-user input-icon"></i>
-                        <input type="text"
-                               id="username-input"
-                               name="username"
-                               class="form-input"
-                               value="{{ old('username', $defaultUser) }}"
-                               required
-                               placeholder="user o correo"
-                               autocomplete="username">
+                @if($errors->has('login_error') || $errors->any())
+                    <div class="error-pill">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>{{ $errors->first('login_error') ?: 'Usuario o contraseña incorrectos.' }}</span>
                     </div>
-                </div>
+                @endif
 
-                <div class="form-group">
-                    <label for="password-input" class="form-label">Contraseña</label>
-                    <div class="input-wrapper">
-                        <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password"
-                               id="password-input"
-                               name="password"
-                               class="form-input"
-                               value="{{ $defaultPass }}"
-                               required
-                               placeholder="Contraseña"
-                               autocomplete="current-password">
-                        <button type="button" id="toggle-pwd" class="toggle-pwd-btn" aria-label="Mostrar u ocultar contraseña">
-                            <i id="toggle-pwd-icon" class="fa-solid fa-eye"></i>
-                        </button>
+                <form action="{{ route('login.post') }}" method="POST">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="username" class="form-label">Usuario o Correo</label>
+                        <div class="input-pill-wrap">
+                            <i class="fa-solid fa-user input-pill-icon"></i>
+                            <input type="text"
+                                   id="username"
+                                   name="username"
+                                   class="input-pill"
+                                   value="{{ old('username', $defaultUser) }}"
+                                   required
+                                   autocomplete="username">
+                        </div>
                     </div>
-                </div>
 
-                <div class="remember-row">
-                    <label class="remember-label">
-                        <input type="checkbox" name="remember" class="remember-checkbox" checked>
-                        <span>Mantener mi sesión iniciada</span>
-                    </label>
-                </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <div class="input-pill-wrap">
+                            <i class="fa-solid fa-lock input-pill-icon"></i>
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   class="input-pill"
+                                   value="{{ $defaultPass }}"
+                                   required
+                                   autocomplete="current-password">
+                            <button type="button" id="toggle-pwd" class="toggle-pwd-btn" aria-label="Mostrar/ocultar contraseña">
+                                <i id="toggle-pwd-icon" class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
 
-                <button type="submit" class="btn-login">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    <span>Ingresar a la Plataforma</span>
-                </button>
-            </form>
+                    <div class="remember-wrap">
+                        <label class="remember-label">
+                            <input type="checkbox" name="remember" class="remember-checkbox" checked>
+                            <span>Mantener mi sesión iniciada</span>
+                        </label>
+                    </div>
 
-            <div class="biometric-preview-box">
-                <span>Próxima integración de autenticación oficial:</span>
-                <div class="biometric-badges">
-                    <span class="bio-badge"><i class="fa-solid fa-id-card"></i> INE / CURP</span>
-                    <span class="bio-badge"><i class="fa-solid fa-face-viewfinder"></i> Reconocimiento Facial</span>
-                    <span class="bio-badge"><i class="fa-solid fa-eye"></i> Escaneo de Iris</span>
-                </div>
+                    <button type="submit" class="btn-pill-submit">
+                        <span>Iniciar Sesión</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
             </div>
-        </div>
+        </main>
     </div>
 
+    <!-- Script de Cambio de Contraseña y Tema -->
     <script>
+        // Mostrar / Ocultar contraseña
         const toggleBtn = document.getElementById('toggle-pwd');
-        const pwdInput = document.getElementById('password-input');
+        const pwdInput = document.getElementById('password');
         const pwdIcon = document.getElementById('toggle-pwd-icon');
 
         if (toggleBtn && pwdInput) {
@@ -290,7 +377,35 @@
                 pwdIcon.classList.toggle('fa-eye-slash', isPassword);
             });
         }
+
+        // Modo Claro / Oscuro con persistencia en localStorage
+        const htmlRoot = document.documentElement;
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        const themeIcon = document.getElementById('theme-icon');
+
+        const savedTheme = localStorage.getItem('alamo_citizen_theme') || 'light';
+        applyTheme(savedTheme);
+
+        if (themeBtn) {
+            themeBtn.addEventListener('click', function () {
+                const current = htmlRoot.getAttribute('data-theme');
+                const next = current === 'light' ? 'dark' : 'light';
+                applyTheme(next);
+                localStorage.setItem('alamo_citizen_theme', next);
+            });
+        }
+
+        function applyTheme(theme) {
+            htmlRoot.setAttribute('data-theme', theme);
+            if (!themeIcon) return;
+            if (theme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
     </script>
 </body>
 </html>
-

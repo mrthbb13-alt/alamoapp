@@ -5,12 +5,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MunicipalDashboardController;
 use App\Http\Controllers\CitizenAppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\CitizenAuth;
 
 // ====================================================
 // AUTENTICACIÓN CIUDADANA Y ACCESO INICIAL
 // ====================================================
 Route::get('/', function () {
-    return Auth::check()
+    return (Auth::check() || session('citizen_logged_in'))
         ? redirect()->route('citizen.home')
         : redirect()->route('login');
 });
@@ -31,7 +32,7 @@ Route::prefix('panel-municipal')->group(function () {
 // ====================================================
 // FASE 2: APLICACIÓN WEB CIUDADANA (PROTEGIDA CON LOGIN)
 // ====================================================
-Route::middleware('auth')->prefix('reportar')->group(function () {
+Route::middleware(CitizenAuth::class)->prefix('reportar')->group(function () {
     // Vistas principales
     Route::get('/', [CitizenAppController::class, 'home'])->name('citizen.home');
     Route::get('/comunidad', [CitizenAppController::class, 'feed'])->name('citizen.feed');

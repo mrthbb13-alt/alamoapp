@@ -1,45 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root[data-theme="light"] {
-    --bg-body: #FFFDF5;
+    --bg-body: #F8FAFC;
     --bg-surface: #FFFFFF;
-    --bg-elevated: #FEF9E7;
+    --bg-elevated: #FFF7ED;
     --bg-input: #FFFFFF;
-    --text-primary: #1E293B;
+    --text-primary: #0F172A;
     --text-secondary: #64748B;
     --text-muted: #94A3B8;
-    --accent-yellow: #FACC15;
-    --accent-yellow-soft: #FEF08A;
+    --accent-yellow: #FBBF24;
+    --accent-yellow-soft: #FEF3C7;
     --accent-orange: #EA580C;
     --accent-orange-hover: #C2410C;
     --accent-orange-soft: #FFEDD5;
-    --border-color: #FDE68A;
+    --border-color: rgba(245, 158, 11, 0.22);
     --border-subtle: #E2E8F0;
-    --shadow-card: 0 10px 25px -5px rgba(234, 88, 12, 0.08), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
-    --header-gradient: linear-gradient(135deg, #FACC15 0%, #F59E0B 60%, #EA580C 100%);
-    --header-text: #1E293B;
+    --shadow-card: 0 14px 34px -8px rgba(234, 88, 12, 0.09), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+    --shadow-float: 0 18px 40px -10px rgba(234, 88, 12, 0.25);
+    --header-gradient: linear-gradient(145deg, #FBBF24 0%, #F59E0B 45%, #EA580C 100%);
+    --header-text: #FFFFFF;
     --status-pending: #EF4444;
     --status-process: #F59E0B;
     --status-resolved: #10B981;
 }
 
 :root[data-theme="dark"] {
-    --bg-body: #0F172A;
-    --bg-surface: #1E293B;
-    --bg-elevated: #26334D;
-    --bg-input: #0F172A;
+    --bg-body: #090D16;
+    --bg-surface: #131B2E;
+    --bg-elevated: #1E293B;
+    --bg-input: #0B1120;
     --text-primary: #F8FAFC;
-    --text-secondary: #CBD5E1;
+    --text-secondary: #94A3B8;
     --text-muted: #64748B;
-    --accent-yellow: #FACC15;
-    --accent-yellow-soft: rgba(250, 204, 21, 0.15);
-    --accent-orange: #F97316;
-    --accent-orange-hover: #FB923C;
-    --accent-orange-soft: rgba(249, 115, 22, 0.18);
-    --border-color: rgba(250, 204, 21, 0.28);
+    --accent-yellow: #FBBF24;
+    --accent-yellow-soft: rgba(251, 191, 36, 0.15);
+    --accent-orange: #FB923C;
+    --accent-orange-hover: #F97316;
+    --accent-orange-soft: rgba(251, 146, 60, 0.18);
+    --border-color: rgba(245, 158, 11, 0.25);
     --border-subtle: #334155;
-    --shadow-card: 0 12px 28px -6px rgba(0, 0, 0, 0.5);
-    --header-gradient: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+    --shadow-card: 0 16px 36px -8px rgba(0, 0, 0, 0.55);
+    --shadow-float: 0 18px 40px -10px rgba(0, 0, 0, 0.7);
+    --header-gradient: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
     --header-text: #F8FAFC;
     --status-pending: #F87171;
     --status-process: #FBBF24;
@@ -59,32 +61,34 @@ body {
     color: var(--text-primary);
     transition: background-color 0.25s ease, color 0.25s ease;
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
-/* Contenedor tipo App Móvil centrado en pantallas grandes */
 .app-shell {
-    max-width: 540px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 520px;
     min-height: 100vh;
     background-color: var(--bg-body);
     display: flex;
     flex-direction: column;
     position: relative;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
 }
 
-/* Encabezado Institucional */
+/* Encabezado Superior Curvo Inspirado en TravelApp */
 .app-header {
     background: var(--header-gradient);
-    padding: 14px 18px;
+    padding: 20px 20px 28px 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.22);
     position: sticky;
     top: 0;
-    z-index: 100;
-    border-bottom: 2px solid var(--accent-orange);
-    box-shadow: 0 4px 15px rgba(234, 88, 12, 0.15);
+    z-index: 90;
+    transition: background 0.3s ease;
 }
 
 .header-brand {
@@ -93,31 +97,22 @@ body {
     gap: 12px;
 }
 
-/* Apartado reservado para el Logo */
 .logo-placeholder {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background-color: #FFFFFF;
-    border: 2px dashed #EA580C;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #FFFFFF;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: #EA580C;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
     flex-shrink: 0;
-}
-
-.logo-icon {
-    font-size: 16px;
-    margin-bottom: 2px;
+    font-size: 1.25rem;
 }
 
 .logo-tag {
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
+    display: none;
 }
 
 .brand-titles {
@@ -129,60 +124,74 @@ body {
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--header-text);
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 .brand-name {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 800;
     color: var(--header-text);
     line-height: 1.15;
+    letter-spacing: -0.3px;
 }
 
-/* Botón Modo Claro / Oscuro */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .theme-btn {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    background-color: #FFFFFF;
-    color: #EA580C;
-    font-size: 17px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-btn:hover {
+    transform: scale(1.08);
+    background: rgba(255, 255, 255, 0.35);
 }
 
 .theme-btn:active {
-    transform: scale(0.92);
+    transform: scale(0.95);
 }
 
 /* Área de Contenido Principal */
 .app-content {
     flex: 1;
-    padding: 18px 16px 96px 16px;
+    padding: 20px 16px 98px 16px;
 }
 
-/* Barra de Navegación Inferior */
+/* Barra de Navegación Inferior Flotante (Dock Estilo TravelApp) */
 .bottom-nav {
     position: fixed;
-    bottom: 0;
+    bottom: 14px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 540px;
+    width: calc(100% - 28px);
+    max-width: 480px;
     background-color: var(--bg-surface);
-    border-top: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 8px 10px 12px 10px;
+    padding: 8px 10px;
     z-index: 100;
-    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(12px);
+    transition: background-color 0.25s, border-color 0.25s;
 }
 
 .nav-item {
@@ -193,23 +202,29 @@ body {
     text-decoration: none;
     color: var(--text-secondary);
     padding: 6px 4px;
-    border-radius: 12px;
+    border-radius: 9999px;
     transition: all 0.2s ease;
-    gap: 4px;
+    gap: 3px;
 }
 
 .nav-icon {
-    font-size: 19px;
+    font-size: 17px;
+    transition: transform 0.2s ease;
 }
 
 .nav-label {
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
 }
 
 .nav-item.is-active {
-    background-color: var(--accent-yellow-soft);
-    color: var(--accent-orange);
+    background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+}
+
+.nav-item.is-active .nav-icon {
+    transform: translateY(-1px);
 }
 
 /* Utilidades Globales */

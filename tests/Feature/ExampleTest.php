@@ -26,23 +26,20 @@ class ExampleTest extends TestCase
         // 2. Pantalla de login disponible
         $this->get(route('login'))->assertStatus(200);
 
-        // 3. Crear usuario local de prueba
-        $user = User::create([
-            'name'     => 'Ciudadano Álamo',
+        // 3. Intento con contraseña incorrecta
+        $failLogin = $this->post(route('login.post'), [
             'username' => 'user',
-            'email'    => 'user@alamo.gob.mx',
-            'phone'    => '765 123 4567',
-            'colonia'  => 'Zona Centro',
-            'password' => Hash::make('123'),
+            'password' => 'clave_incorrecta',
         ]);
+        $failLogin->assertSessionHasErrors('login_error');
 
-        // 4. Iniciar sesión con user y 123
+        // 4. Iniciar sesión con user y 123 (local fija garantizada)
         $loginResponse = $this->post(route('login.post'), [
             'username' => 'user',
             'password' => '123',
         ]);
         $loginResponse->assertRedirect(route('citizen.home'));
-        $this->assertAuthenticatedAs($user);
+        $user = User::where('username', 'user')->first();
 
         // 5. Visitar pantallas autenticadas
         $this->actingAs($user)->get(route('citizen.home'))->assertStatus(200);
