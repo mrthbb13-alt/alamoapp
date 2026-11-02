@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icon-192x192.png') }}?v={{ time() }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}?v={{ time() }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/favicon-16x16.png') }}?v={{ time() }}">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('icons/icon.svg') }}?v={{ time() }}">
+    <link rel="icon" type="image/png" href="{{ asset('icons/logo.png') }}?v={{ time() }}">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -484,8 +484,8 @@
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
             </button>
 
-            <div class="register-logo-circle" style="padding: 0; overflow: hidden; border: none;">
-                <img src="{{ asset('icons/icon.svg') }}" alt="Álamo Reporta" style="width: 100%; height: 100%; border-radius: 50%; display: block;">
+            <div class="register-logo-circle" style="padding: 0; overflow: hidden; border: none; background: transparent; box-shadow: none;">
+                <img src="{{ asset('icons/logo.png') }}?v={{ time() }}" alt="Álamo Reporta" style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain; display: block;">
             </div>
             <h1 class="register-brand-name">Registrarse</h1>
             <p class="register-brand-tagline">H. Ayuntamiento de Álamo Temapache, Ver.</p>

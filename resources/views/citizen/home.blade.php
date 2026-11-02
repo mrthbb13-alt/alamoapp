@@ -185,7 +185,8 @@
                 <p id="dup-title" class="duplicate-title"></p>
                 <p id="dup-meta" class="duplicate-meta"></p>
                 <button type="button" id="btn-upvote-existing" class="btn-upvote-dup">
-                    <i class="fa-solid fa-thumbs-up"></i> Sumarme para darle prioridad (+1 Me afecta)
+                    <i class="fa-solid fa-thumbs-up"></i>
+                    <span>Sumarme para darle prioridad (+1)</span>
                 </button>
             </div>
         </div>

@@ -18,10 +18,11 @@
         <h2 class="search-title">Consulta el avance de tu reporte</h2>
         <p class="search-subtitle">Ingresa tu folio oficial (ejemplo: <strong>ALM-2026-0001</strong>) o toca uno de los recientes.</p>
 
-        <form id="folio-search-form" class="search-bar-wrap">
+        <form id="folio-search-form" class="search-bar-wrap" autocomplete="off">
             <input type="text" id="folio-input" class="search-input" placeholder="ALM-2026-0001" value="{{ $initialFolio }}" required>
             <button type="submit" class="btn-search">
-                <i class="fa-solid fa-magnifying-glass"></i> Buscar
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Buscar</span>
             </button>
         </form>
 

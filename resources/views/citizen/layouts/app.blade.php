@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icon-192x192.png') }}?v={{ time() }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}?v={{ time() }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/favicon-16x16.png') }}?v={{ time() }}">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('icons/icon.svg') }}?v={{ time() }}">
+    <link rel="icon" type="image/png" href="{{ asset('icons/logo.png') }}?v={{ time() }}">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
 
     <!-- Iconos FontAwesome 6 -->
@@ -39,7 +39,7 @@
         <header class="app-header">
             <div class="header-brand">
                 <div class="logo-placeholder" title="Álamo Reporta">
-                    <img src="{{ asset('icons/icon.svg') }}" alt="Álamo Reporta" class="brand-logo-img">
+                    <img src="{{ asset('icons/logo.png') }}?v={{ time() }}" alt="Álamo Reporta" class="brand-logo-img">
                 </div>
                 <div class="brand-titles">
                     <span class="brand-locality">Álamo Temapache, Ver.</span>
@@ -62,7 +62,7 @@
         <!-- BANNER DISCRETO DE INSTALACIÓN (Solo visible si se abre en el navegador Safari/Chrome y no en modo app) -->
         <div id="pwa-install-banner" class="pwa-install-banner is-hidden" style="margin: 14px 16px 0 16px;">
             <div class="pwa-banner-left">
-                <img src="{{ asset('icons/icon-192x192.png') }}" alt="App Icon" class="pwa-banner-icon">
+                <img src="{{ asset('icons/logo.png') }}?v={{ time() }}" alt="App Icon" class="pwa-banner-icon">
                 <div>
                     <span class="pwa-banner-text">Instalar como App</span>
                     <span class="pwa-banner-sub">Úsala a pantalla completa sin barras</span>
@@ -112,7 +112,7 @@
         <div class="pwa-modal-card">
             <div class="pwa-modal-header">
                 <div class="pwa-modal-title">
-                    <img src="{{ asset('icons/icon-192x192.png') }}" alt="Logo" style="width: 28px; height: 28px; border-radius: 8px;">
+                    <img src="{{ asset('icons/logo.png') }}?v={{ time() }}" alt="Logo" style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover;">
                     <span>Instalar Álamo Reporta</span>
                 </div>
                 <button type="button" id="btn-close-pwa-modal" style="background: none; border: none; font-size: 1.2rem; color: var(--text-muted); cursor: pointer;">
