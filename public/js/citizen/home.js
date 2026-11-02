@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const homeLightboxModal = document.getElementById('home-lightbox-modal');
     const homeLightboxImg = document.getElementById('home-lightbox-img');
     const btnCloseHomeLightbox = document.getElementById('btn-close-home-lightbox');
-    const btnLightboxRemovePhoto = document.getElementById('btn-lightbox-remove-photo');
 
     let currentPhotoUrl = '';
 
@@ -71,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (btnClearPhoto) btnClearPhoto.addEventListener('click', removeSelectedPhoto);
-    if (btnLightboxRemovePhoto) btnLightboxRemovePhoto.addEventListener('click', removeSelectedPhoto);
 
     // Abrir visor Lightbox
     function openLightbox() {

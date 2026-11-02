@@ -27,8 +27,18 @@ class ExampleTest extends TestCase
         $this->get(route('login'))->assertStatus(200);
         $this->get(route('register'))->assertStatus(200);
 
-        // Registro de nuevo usuario ciudadano con documento INE
-        $fakeIne = \Illuminate\Http\UploadedFile::fake()->create('ine_frontal.jpg', 150, 'image/jpeg');
+        // Registro falla si falta el teléfono (campo obligatorio)
+        $invalidReg = $this->post(route('register.post'), [
+            'name'                  => 'Mariana Valdez',
+            'username'              => 'mariana',
+            'phone'                 => '',
+            'colonia'               => 'Zona Centro',
+            'password'              => 'marianapass',
+            'password_confirmation' => 'marianapass',
+        ]);
+        $invalidReg->assertSessionHasErrors('phone');
+
+        // Registro de nuevo usuario ciudadano con todos los campos obligatorios
         $regResponse = $this->post(route('register.post'), [
             'name'                  => 'Mariana Valdez',
             'username'              => 'mariana',
@@ -36,7 +46,6 @@ class ExampleTest extends TestCase
             'colonia'               => 'Zona Centro',
             'password'              => 'marianapass',
             'password_confirmation' => 'marianapass',
-            'ine_document'          => $fakeIne,
         ]);
         $regResponse->assertRedirect(route('citizen.home'));
         $this->assertDatabaseHas('users', ['username' => 'mariana']);

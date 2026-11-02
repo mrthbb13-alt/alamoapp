@@ -124,10 +124,17 @@ class AuthController extends Controller
         $request->validate([
             'name'                  => 'required|string|max:100',
             'username'              => 'required|string|max:40',
-            'phone'                 => 'nullable|string|max:25',
+            'phone'                 => 'required|string|max:25',
             'colonia'               => 'required|string|max:100',
             'password'              => 'required|string|min:3|confirmed',
-            'ine_document'          => 'nullable|file|mimes:jpeg,jpg,png,webp,pdf|max:10240',
+        ], [
+            'name.required'         => 'El nombre completo es obligatorio.',
+            'username.required'     => 'El nombre de usuario es obligatorio.',
+            'phone.required'        => 'El teléfono o WhatsApp es obligatorio.',
+            'colonia.required'      => 'La colonia o localidad es obligatoria.',
+            'password.required'     => 'La contraseña es obligatoria.',
+            'password.confirmed'    => 'Las contraseñas no coinciden.',
+            'password.min'          => 'La contraseña debe tener al menos 3 caracteres.',
         ]);
 
         $ineUrl = null;

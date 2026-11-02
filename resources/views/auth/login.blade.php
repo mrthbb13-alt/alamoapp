@@ -360,9 +360,9 @@
                 </form>
 
                 <div style="text-align: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle);">
-                    <span style="font-size: 0.86rem; color: var(--text-secondary);">¿Aún no estás registrado?</span>
+                    <span style="font-size: 0.86rem; color: var(--text-secondary);">¿Aún no tienes una cuenta?</span>
                     <a href="{{ route('register') }}" style="display: block; margin-top: 8px; color: var(--accent-orange); font-weight: 800; text-decoration: none; font-size: 0.94rem;">
-                        Registrarme con datos e INE &rarr;
+                        Registrarse &rarr;
                     </a>
                 </div>
             </div>

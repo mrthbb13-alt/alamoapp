@@ -258,12 +258,6 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <img id="home-lightbox-img" src="" alt="Ampliación de fotografía" style="max-width: 90vw; max-height: 75vh; border-radius: 20px; object-fit: contain; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); border: 2px solid rgba(255, 255, 255, 0.2);">
-            
-            <div style="margin-top: 16px; display: flex; gap: 12px;">
-                <button type="button" id="btn-lightbox-remove-photo" style="background: rgba(239, 68, 68, 0.25); border: 1.5px solid #EF4444; color: #EF4444; padding: 10px 22px; border-radius: 9999px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-trash-can"></i> Quitar esta foto [X]
-                </button>
-            </div>
         </div>
     </div>
 @endsection
