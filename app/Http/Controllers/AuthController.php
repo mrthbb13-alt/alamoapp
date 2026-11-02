@@ -126,15 +126,28 @@ class AuthController extends Controller
             'username'              => 'required|string|max:40',
             'phone'                 => 'required|string|max:25',
             'colonia'               => 'required|string|max:100',
-            'password'              => 'required|string|min:3|confirmed',
+            'password'              => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[A-Z]/',      // Al menos una mayúscula
+                'regex:/[\W_]/',      // Al menos un símbolo o carácter especial (!"#$@...)
+                'confirmed',
+            ],
+            'ine_document'          => 'required|file|mimes:jpeg,jpg,png,webp,pdf,doc,docx|max:15360',
         ], [
-            'name.required'         => 'El nombre completo es obligatorio.',
-            'username.required'     => 'El nombre de usuario es obligatorio.',
-            'phone.required'        => 'El teléfono o WhatsApp es obligatorio.',
-            'colonia.required'      => 'La colonia o localidad es obligatoria.',
-            'password.required'     => 'La contraseña es obligatoria.',
-            'password.confirmed'    => 'Las contraseñas no coinciden.',
-            'password.min'          => 'La contraseña debe tener al menos 3 caracteres.',
+            'name.required'                  => 'El nombre completo es obligatorio.',
+            'username.required'              => 'El nombre de usuario es obligatorio.',
+            'phone.required'                 => 'El teléfono o WhatsApp es obligatorio.',
+            'colonia.required'               => 'La colonia o localidad es obligatoria.',
+            'password.required'              => 'La contraseña es obligatoria.',
+            'password.min'                   => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.regex'                 => 'La contraseña debe contener al menos una letra mayúscula (A-Z) y al menos un símbolo especial (!"#$@...).',
+            'password.confirmed'             => 'Las contraseñas no coinciden.',
+            'ine_document.required'          => 'Debes adjuntar tu identificación INE o documento oficial.',
+            'ine_document.file'              => 'El archivo adjunto no es válido.',
+            'ine_document.mimes'             => 'El formato debe ser imagen (JPG, PNG, WEBP) o documento (PDF, DOC).',
+            'ine_document.max'               => 'El archivo no puede exceder 15 MB.',
         ]);
 
         $ineUrl = null;

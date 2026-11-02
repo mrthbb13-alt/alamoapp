@@ -140,7 +140,7 @@
         .input-pill {
             width: 100%;
             height: 50px;
-            padding: 0 20px 0 46px;
+            padding: 0 46px 0 46px;
             border-radius: 9999px;
             border: 1.5px solid var(--border-subtle);
             background: var(--bg-input);
@@ -155,6 +155,260 @@
             border-color: var(--accent-orange);
             background: var(--bg-surface);
             box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.14);
+        }
+
+        .toggle-pwd-btn {
+            position: absolute;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 6px;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .toggle-pwd-btn:hover {
+            color: var(--accent-orange);
+        }
+
+        /* Indicadores de requisitos de contraseña estilo apps comerciales */
+        .pwd-rules-box {
+            margin-top: 8px;
+            padding: 8px 14px;
+            background: var(--bg-elevated);
+            border-radius: 14px;
+            font-size: 0.78rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .pwd-rule-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+            font-weight: 600;
+        }
+
+        .pwd-rule-item.is-valid {
+            color: #10B981;
+        }
+
+        .pwd-rule-icon {
+            font-size: 0.72rem;
+            width: 14px;
+            text-align: center;
+        }
+
+        /* Selector de archivo INE (Cámara, Galería o Documentos) */
+        .file-upload-dropzone {
+            display: block;
+            border: 2px dashed var(--accent-orange);
+            border-radius: 24px;
+            padding: 20px 16px;
+            background-color: var(--bg-elevated);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .file-upload-dropzone:hover {
+            background-color: var(--accent-yellow-soft);
+        }
+
+        .file-input-hidden {
+            display: none;
+        }
+
+        .upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .upload-icon-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+            color: #FFFFFF;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 14px rgba(234, 88, 12, 0.3);
+            margin-bottom: 4px;
+        }
+
+        .upload-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .upload-subtitle {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+        }
+
+        /* Tarjeta del archivo seleccionado */
+        .selected-file-card {
+            background: var(--bg-surface);
+            border: 1.5px solid var(--accent-orange);
+            border-radius: 20px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 18px rgba(234, 88, 12, 0.12);
+        }
+
+        .file-preview-thumb {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+        .file-preview-thumb:hover {
+            transform: scale(1.05);
+        }
+
+        .file-icon-thumb {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: var(--accent-yellow-soft);
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+        }
+
+        .file-meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-view-preview {
+            background: none;
+            border: none;
+            color: var(--accent-orange);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Botón circular [X] para retirar el archivo */
+        .btn-remove-file {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1.5px solid #EF4444;
+            color: #EF4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-remove-file:hover {
+            background: #EF4444;
+            color: #FFFFFF;
+            transform: scale(1.08);
+        }
+
+        /* VISOR MODAL LIGHTBOX CON FONDO TRANSPARENTE Y DESENFOCADO */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox-modal.is-active {
+            display: flex;
+        }
+
+        .lightbox-content-wrap {
+            position: relative;
+            max-width: 90vw;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 75vh;
+            border-radius: 20px;
+            object-fit: contain;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-close-btn {
+            position: absolute;
+            top: -18px;
+            right: -18px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.95);
+            color: #FFFFFF;
+            border: 2px solid #FFFFFF;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            transition: transform 0.15s;
+        }
+
+        .lightbox-close-btn:hover {
+            transform: scale(1.12);
         }
 
         .btn-pill-submit {
@@ -198,6 +452,10 @@
             align-items: center;
             gap: 10px;
         }
+
+        .is-hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -209,7 +467,7 @@
             </button>
 
             <div class="register-logo-circle">
-                <i class="fa-solid fa-user-plus"></i>
+                <i class="fa-solid fa-address-card"></i>
             </div>
             <h1 class="register-brand-name">Registrarse</h1>
             <p class="register-brand-tagline">H. Ayuntamiento de Álamo Temapache, Ver.</p>
@@ -225,7 +483,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('register.post') }}" method="POST">
+                <form action="{{ route('register.post') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <!-- 1. NOMBRE COMPLETO (OBLIGATORIO) -->
@@ -275,12 +533,31 @@
                         </div>
                     </div>
 
-                    <!-- 5. CONTRASEÑA (OBLIGATORIA) -->
+                    <!-- 5. CONTRASEÑA CON REQUISITOS (OBLIGATORIA) -->
                     <div class="form-group">
                         <label for="password" class="form-label">Contraseña *</label>
                         <div class="input-pill-wrap">
                             <i class="fa-solid fa-lock input-pill-icon"></i>
-                            <input type="password" id="password" name="password" class="input-pill" required placeholder="Mínimo 3 caracteres">
+                            <input type="password" id="password" name="password" class="input-pill" required placeholder="Crea tu contraseña">
+                            <button type="button" id="toggle-pwd" class="toggle-pwd-btn" aria-label="Mostrar/ocultar contraseña">
+                                <i id="toggle-pwd-icon" class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+
+                        <!-- Indicadores dinámicos estilo apps comerciales -->
+                        <div class="pwd-rules-box">
+                            <div id="rule-length" class="pwd-rule-item">
+                                <i class="fa-solid fa-circle-check pwd-rule-icon"></i>
+                                <span>Mínimo 8 caracteres</span>
+                            </div>
+                            <div id="rule-upper" class="pwd-rule-item">
+                                <i class="fa-solid fa-circle-check pwd-rule-icon"></i>
+                                <span>Al menos 1 letra mayúscula (A-Z)</span>
+                            </div>
+                            <div id="rule-special" class="pwd-rule-item">
+                                <i class="fa-solid fa-circle-check pwd-rule-icon"></i>
+                                <span>Al menos 1 símbolo especial (!"#$@...)</span>
+                            </div>
                         </div>
                     </div>
 
@@ -290,6 +567,57 @@
                         <div class="input-pill-wrap">
                             <i class="fa-solid fa-shield-halved input-pill-icon"></i>
                             <input type="password" id="password_confirmation" name="password_confirmation" class="input-pill" required placeholder="Repite tu contraseña">
+                            <button type="button" id="toggle-pwd-confirm" class="toggle-pwd-btn" aria-label="Mostrar/ocultar contraseña">
+                                <i id="toggle-pwd-confirm-icon" class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 7. SUBIDA DE INE / DOCUMENTO OFICIAL (OBLIGATORIO) -->
+                    <div class="form-group">
+                        <label class="form-label">Identificación Oficial INE o Documento *</label>
+                        
+                        <!-- Caja de selección para Cámara, Galería o Archivos -->
+                        <label for="ine-input" id="ine-dropzone" class="file-upload-dropzone">
+                            <!-- Sin capture forzado para que el sistema permita elegir entre Cámara, Galería o Archivos -->
+                            <input type="file"
+                                   id="ine-input"
+                                   name="ine_document"
+                                   accept="image/*,application/pdf,.doc,.docx"
+                                   class="file-input-hidden"
+                                   required>
+                            
+                            <div class="upload-content">
+                                <div class="upload-icon-circle">
+                                    <i class="fa-solid fa-id-card"></i>
+                                </div>
+                                <span class="upload-title">Adjuntar INE o Documento</span>
+                                <span class="upload-subtitle">Tomar foto con Cámara, Galería o Archivos (PDF, DOC)</span>
+                            </div>
+                        </label>
+
+                        <!-- Tarjeta que aparece cuando un archivo ha sido seleccionado -->
+                        <div id="ine-preview-card" class="selected-file-card is-hidden">
+                            <img id="ine-thumb-img" src="" alt="Vista previa" class="file-preview-thumb">
+                            <div id="ine-thumb-icon" class="file-icon-thumb is-hidden">
+                                <i class="fa-solid fa-file-pdf"></i>
+                            </div>
+
+                            <div class="file-info">
+                                <span id="ine-file-name" class="file-name">archivo.jpg</span>
+                                <div class="file-meta">
+                                    <span id="ine-file-size">0 KB</span>
+                                    <span>•</span>
+                                    <button type="button" id="btn-open-lightbox" class="btn-view-preview">
+                                        <i class="fa-solid fa-magnifying-glass-plus"></i> Ver foto
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Botón [X] para retirar el archivo -->
+                            <button type="button" id="btn-clear-ine" class="btn-remove-file" title="Quitar archivo">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -310,8 +638,142 @@
         </main>
     </div>
 
+    <!-- MODAL LIGHTBOX TRANSPARENTE PARA VISUALIZAR FOTO CON BOTÓN [X] SUPERIOR -->
+    <div id="lightbox-modal" class="lightbox-modal">
+        <div class="lightbox-content-wrap">
+            <button type="button" id="btn-close-lightbox" class="lightbox-close-btn" title="Cerrar visor">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="lightbox-img" src="" alt="Ampliación de fotografía" class="lightbox-img">
+        </div>
+    </div>
+
     <script>
-        // Tema Claro / Oscuro
+        // 1. Mostrar / Ocultar contraseñas
+        function setupTogglePwd(btnId, inputId, iconId) {
+            const btn = document.getElementById(btnId);
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (!btn || !input || !icon) return;
+
+            btn.addEventListener('click', function () {
+                const isPwd = input.type === 'password';
+                input.type = isPwd ? 'text' : 'password';
+                icon.classList.toggle('fa-eye', !isPwd);
+                icon.classList.toggle('fa-eye-slash', isPwd);
+            });
+        }
+        setupTogglePwd('toggle-pwd', 'password', 'toggle-pwd-icon');
+        setupTogglePwd('toggle-pwd-confirm', 'password_confirmation', 'toggle-pwd-confirm-icon');
+
+        // 2. Validación dinámica de requisitos de contraseña (8+ dígitos, 1 mayúscula, 1 símbolo)
+        const pwdInput = document.getElementById('password');
+        const ruleLength = document.getElementById('rule-length');
+        const ruleUpper = document.getElementById('rule-upper');
+        const ruleSpecial = document.getElementById('rule-special');
+
+        if (pwdInput) {
+            pwdInput.addEventListener('input', function () {
+                const val = pwdInput.value;
+                const hasLength = val.length >= 8;
+                const hasUpper = /[A-Z]/.test(val);
+                const hasSpecial = /[\W_]/.test(val);
+
+                ruleLength.classList.toggle('is-valid', hasLength);
+                ruleUpper.classList.toggle('is-valid', hasUpper);
+                ruleSpecial.classList.toggle('is-valid', hasSpecial);
+            });
+        }
+
+        // 3. Manejo de archivo INE (Cámara, Galería, Archivos/Documentos)
+        const ineInput = document.getElementById('ine-input');
+        const ineDropzone = document.getElementById('ine-dropzone');
+        const inePreviewCard = document.getElementById('ine-preview-card');
+        const ineThumbImg = document.getElementById('ine-thumb-img');
+        const ineThumbIcon = document.getElementById('ine-thumb-icon');
+        const ineFileName = document.getElementById('ine-file-name');
+        const ineFileSize = document.getElementById('ine-file-size');
+        const btnClearIne = document.getElementById('btn-clear-ine');
+
+        // Lightbox
+        const lightboxModal = document.getElementById('lightbox-modal');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const btnOpenLightbox = document.getElementById('btn-open-lightbox');
+        const btnCloseLightbox = document.getElementById('btn-close-lightbox');
+
+        let currentFileUrl = '';
+
+        if (ineInput) {
+            ineInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                ineFileName.textContent = file.name;
+                ineFileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        currentFileUrl = evt.target.result;
+                        ineThumbImg.src = currentFileUrl;
+                        lightboxImg.src = currentFileUrl;
+                        ineThumbImg.classList.remove('is-hidden');
+                        ineThumbIcon.classList.add('is-hidden');
+                        btnOpenLightbox.classList.remove('is-hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    currentFileUrl = '';
+                    ineThumbImg.classList.add('is-hidden');
+                    ineThumbIcon.classList.remove('is-hidden');
+                    btnOpenLightbox.classList.add('is-hidden');
+                }
+
+                ineDropzone.classList.add('is-hidden');
+                inePreviewCard.classList.remove('is-hidden');
+            });
+        }
+
+        // Botón circular [X] para quitar archivo
+        function removeSelectedFile() {
+            if (ineInput) ineInput.value = '';
+            currentFileUrl = '';
+            if (inePreviewCard) inePreviewCard.classList.add('is-hidden');
+            if (ineDropzone) ineDropzone.classList.remove('is-hidden');
+            if (lightboxModal) lightboxModal.classList.remove('is-active');
+        }
+
+        if (btnClearIne) btnClearIne.addEventListener('click', removeSelectedFile);
+
+        // Abrir visor modal con fondo transparente
+        if (btnOpenLightbox) {
+            btnOpenLightbox.addEventListener('click', function() {
+                if (currentFileUrl && lightboxModal) lightboxModal.classList.add('is-active');
+            });
+        }
+
+        if (ineThumbImg) {
+            ineThumbImg.addEventListener('click', function() {
+                if (currentFileUrl && lightboxModal) lightboxModal.classList.add('is-active');
+            });
+        }
+
+        // Cerrar visor modal mediante botón [X] o clic en fondo transparente
+        if (btnCloseLightbox) {
+            btnCloseLightbox.addEventListener('click', function() {
+                if (lightboxModal) lightboxModal.classList.remove('is-active');
+            });
+        }
+
+        if (lightboxModal) {
+            lightboxModal.addEventListener('click', function(e) {
+                if (e.target === lightboxModal) {
+                    lightboxModal.classList.remove('is-active');
+                }
+            });
+        }
+
+        // 4. Modo Claro / Oscuro con persistencia en localStorage
         const htmlRoot = document.documentElement;
         const themeBtn = document.getElementById('theme-toggle-btn');
         const themeIcon = document.getElementById('theme-icon');

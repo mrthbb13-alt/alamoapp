@@ -38,14 +38,39 @@ class ExampleTest extends TestCase
         ]);
         $invalidReg->assertSessionHasErrors('phone');
 
-        // Registro de nuevo usuario ciudadano con todos los campos obligatorios
+        // Registro falla si falta el documento INE (campo obligatorio)
+        $missingIne = $this->post(route('register.post'), [
+            'name'                  => 'Mariana Valdez',
+            'username'              => 'mariana',
+            'phone'                 => '7651122334',
+            'colonia'               => 'Zona Centro',
+            'password'              => 'Valdez@2026',
+            'password_confirmation' => 'Valdez@2026',
+        ]);
+        $missingIne->assertSessionHasErrors('ine_document');
+
+        // Registro falla si la contraseña no cumple requisitos (sin símbolo o mayúscula)
+        $weakPwd = $this->post(route('register.post'), [
+            'name'                  => 'Mariana Valdez',
+            'username'              => 'mariana',
+            'phone'                 => '7651122334',
+            'colonia'               => 'Zona Centro',
+            'password'              => 'simple123',
+            'password_confirmation' => 'simple123',
+            'ine_document'          => \Illuminate\Http\UploadedFile::fake()->create('ine.jpg', 120, 'image/jpeg'),
+        ]);
+        $weakPwd->assertSessionHasErrors('password');
+
+        // Registro exitoso con contraseña robusta (8+ caracteres, mayúscula, símbolo) y documento INE
+        $fakeIne = \Illuminate\Http\UploadedFile::fake()->create('ine_frontal.jpg', 150, 'image/jpeg');
         $regResponse = $this->post(route('register.post'), [
             'name'                  => 'Mariana Valdez',
             'username'              => 'mariana',
             'phone'                 => '7651122334',
             'colonia'               => 'Zona Centro',
-            'password'              => 'marianapass',
-            'password_confirmation' => 'marianapass',
+            'password'              => 'Valdez@2026',
+            'password_confirmation' => 'Valdez@2026',
+            'ine_document'          => $fakeIne,
         ]);
         $regResponse->assertRedirect(route('citizen.home'));
         $this->assertDatabaseHas('users', ['username' => 'mariana']);
