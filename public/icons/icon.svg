@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="45%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#EA580C" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.22" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <!-- White Central Badge -->
+  <circle cx="256" cy="256" r="195" fill="#FFFFFF" filter="url(#shadow)" />
+
+  <!-- Orange Shield -->
+  <path d="M 148 160 L 364 160 C 364 260 256 376 256 376 C 256 376 148 260 148 160 Z" fill="#EA580C" />
+
+  <!-- White Heart inside Shield -->
+  <path d="M 256 226 
+           C 244 200, 206 195, 186 215 
+           C 164 238, 164 274, 192 302 
+           L 256 348 
+           L 320 302 
+           C 348 274, 348 238, 326 215 
+           C 306 195, 268 200, 256 226 Z" fill="#FFFFFF" />
+</svg>
+

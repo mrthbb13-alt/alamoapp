@@ -2,9 +2,27 @@
 <html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Registrarse | Álamo Reporta</title>
+
+    <!-- METATAGS PWA Y PANTALLA COMPLETA SIN NAVEGADOR (iOS y Android) -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Álamo Reporta">
+    <meta name="application-name" content="Álamo Reporta">
+    <meta name="theme-color" content="#EA580C">
+    <meta name="msapplication-navbutton-color" content="#EA580C">
+
+    <!-- ICONOS PARA PANTALLA DE INICIO (iOS Safari, Android Chrome y PWA) -->
+    <link rel="manifest" href="{{ asset('manifest.json') }}?v={{ time() }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.png') }}?v={{ time() }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icon-192x192.png') }}?v={{ time() }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}?v={{ time() }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/favicon-16x16.png') }}?v={{ time() }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('icons/icon.svg') }}?v={{ time() }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/citizen/layout.css') }}">
@@ -21,7 +39,7 @@
         .register-hero-wave {
             position: relative;
             background: linear-gradient(145deg, #FBBF24 0%, #F59E0B 40%, #EA580C 100%);
-            padding: 42px 24px 75px 24px;
+            padding: calc(42px + env(safe-area-inset-top, 0px)) 24px 75px 24px;
             text-align: center;
             color: #FFFFFF;
         }
@@ -466,8 +484,8 @@
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
             </button>
 
-            <div class="register-logo-circle">
-                <i class="fa-solid fa-address-card"></i>
+            <div class="register-logo-circle" style="padding: 0; overflow: hidden; border: none;">
+                <img src="{{ asset('icons/icon.svg') }}" alt="Álamo Reporta" style="width: 100%; height: 100%; border-radius: 50%; display: block;">
             </div>
             <h1 class="register-brand-name">Registrarse</h1>
             <p class="register-brand-tagline">H. Ayuntamiento de Álamo Temapache, Ver.</p>
