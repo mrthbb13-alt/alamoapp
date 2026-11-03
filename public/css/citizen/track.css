@@ -179,9 +179,13 @@
 
 .result-dept {
     font-size: 13px;
-    color: var(--accent-gold);
-    font-weight: 600;
+    color: var(--accent-wine-light);
+    font-weight: 700;
     margin-bottom: 22px;
+}
+
+:root[data-theme="dark"] .result-dept {
+    color: var(--accent-gold);
 }
 
 /* Línea de Progreso de 3 Pasos */

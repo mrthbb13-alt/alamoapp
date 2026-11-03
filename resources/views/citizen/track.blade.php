@@ -26,8 +26,9 @@
             </button>
         </form>
 
+        @if(count($latestReports) > 0)
         <div class="quick-folios">
-            <span class="quick-label">Folios de prueba rápida:</span>
+            <span class="quick-label">Folios recientes:</span>
             <div class="quick-chips">
                 @foreach($latestReports as $item)
                     <button type="button" class="folio-chip" data-folio="{{ $item->folio }}">
@@ -36,6 +37,7 @@
                 @endforeach
             </div>
         </div>
+        @endif
     </section>
 
     <p id="track-error" class="track-error-box is-hidden">No se encontró ningún reporte con ese número de folio.</p>

@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
             resNotes.textContent = r.resolution_notes;
             resImgBefore.onerror = function() {
                 this.onerror = null;
-                this.src = '/images/categories/ref_' + (r.category || 'bache') + '.jpg';
+                this.src = '/images/placeholder.svg';
             };
-            resImgBefore.src = r.evidence_initial;
+            resImgBefore.src = r.evidence_initial || '/images/placeholder.svg';
 
             // Actualizar barra de estado
             stepRecibido.classList.add('is-completed');

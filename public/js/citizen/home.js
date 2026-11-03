@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const homeLightboxModal = document.getElementById('home-lightbox-modal');
     const homeLightboxImg = document.getElementById('home-lightbox-img');
     const btnCloseHomeLightbox = document.getElementById('btn-close-home-lightbox');
+    const btnLightboxClear = document.getElementById('btn-lightbox-clear');
 
     let currentPhotoUrl = '';
 
@@ -63,7 +64,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (photoDocContainer) photoDocContainer.style.display = 'none';
 
                     if (photoDropzone) photoDropzone.style.display = 'none';
-                    if (photoSelectedCard) photoSelectedCard.style.display = 'block';
+                    if (photoSelectedCard) {
+                        photoSelectedCard.classList.remove('is-hidden');
+                        photoSelectedCard.style.display = 'block';
+                    }
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -73,7 +77,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (docFileNameText) docFileNameText.textContent = file.name;
 
                 if (photoDropzone) photoDropzone.style.display = 'none';
-                if (photoSelectedCard) photoSelectedCard.style.display = 'block';
+                if (photoSelectedCard) {
+                    photoSelectedCard.classList.remove('is-hidden');
+                    photoSelectedCard.style.display = 'block';
+                }
             }
         });
     }
@@ -81,12 +88,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function removeSelectedPhoto() {
         if (evidenceInput) evidenceInput.value = '';
         currentPhotoUrl = '';
-        if (photoSelectedCard) photoSelectedCard.style.display = 'none';
+        if (photoSelectedCard) {
+            photoSelectedCard.classList.add('is-hidden');
+            photoSelectedCard.style.display = 'none';
+        }
         if (photoDropzone) photoDropzone.style.display = 'block';
         if (homeLightboxModal) homeLightboxModal.style.display = 'none';
     }
 
     if (btnClearPhoto) btnClearPhoto.addEventListener('click', removeSelectedPhoto);
+    if (btnLightboxClear) btnLightboxClear.addEventListener('click', removeSelectedPhoto);
 
     // Abrir visor Lightbox
     function openLightbox() {

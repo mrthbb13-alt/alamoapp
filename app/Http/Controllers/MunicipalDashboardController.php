@@ -62,15 +62,16 @@ class MunicipalDashboardController extends Controller
         $evidenceFile = $request->file('evidence_resolution') ?? $request->file('evidence_file');
 
         if ($evidenceFile) {
-            $filename = 'res_' . $report->folio . '_' . time() . '.' . $evidenceFile->getClientOriginalExtension();
-            $destinationPath = public_path('uploads/evidences');
+            $extension = $evidenceFile->getClientOriginalExtension() ?: 'jpg';
+            $filename = 'res_' . $report->folio . '_' . time() . '.' . $extension;
+            $destinationPath = public_path('images');
 
             if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
+                @mkdir($destinationPath, 0775, true);
             }
 
             $evidenceFile->move($destinationPath, $filename);
-            $report->evidence_resolution = asset('uploads/evidences/' . $filename);
+            $report->evidence_resolution = '/images/' . $filename;
         }
 
         $report->save();

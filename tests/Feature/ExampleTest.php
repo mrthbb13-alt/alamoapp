@@ -142,7 +142,7 @@ class ExampleTest extends TestCase
         $storeResponse->assertJson(['success' => true]);
         $reportData = $storeResponse->json('report');
 
-        // Test reporte sin subir archivo (usa imagen de referencia de la categoría)
+        // Test reporte sin subir archivo (se guarda null sin imágenes mock)
         $noFileReport = $this->actingAs($user)->post(route('citizen.store'), [
             'category'          => 'accidente',
             'title'             => 'Accidente vial en crucero',
@@ -152,7 +152,7 @@ class ExampleTest extends TestCase
         ]);
         $noFileReport->assertStatus(200);
         $noFileReport->assertJson(['success' => true]);
-        $this->assertStringContainsString('ref_accidente.jpg', $noFileReport->json('report.evidence_initial'));
+        $this->assertNull($noFileReport->json('report.evidence_initial'));
 
         // 2. Dar +1 Me afecta
         $upvoteResponse = $this->actingAs($user)->post(route('citizen.upvote', ['id' => $reportData['id']]));

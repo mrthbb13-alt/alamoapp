@@ -40,32 +40,23 @@ class IncidentReport extends Model
     ];
 
     /**
-     * Devuelve la imagen de evidencia inicial o la imagen por defecto según su categoría
+     * Devuelve la imagen de evidencia inicial o null si no se adjuntó foto
      */
-    public function getEvidenceInitialAttribute($value): string
+    public function getEvidenceInitialAttribute($value): ?string
     {
         if (!empty($value) && $value !== 'null') {
             return $value;
         }
 
-        return self::getDefaultImageForCategory($this->category);
+        return null;
     }
 
     /**
-     * Obtiene la ruta de imagen por defecto según la categoría del reporte
+     * Obtiene el placeholder institucional de Álamo si se requiere imagen
      */
     public static function getDefaultImageForCategory(?string $category): string
     {
-        $cat = strtolower(trim((string)$category));
-        return match ($cat) {
-            'bache'     => asset('images/categories/ref_bache.jpg'),
-            'drenaje'   => asset('images/categories/ref_drenaje.jpg'),
-            'alumbrado' => asset('images/categories/ref_alumbrado.jpg'),
-            'agua'      => asset('images/categories/ref_agua.jpg'),
-            'basura'    => asset('images/categories/ref_basura.jpg'),
-            'accidente' => asset('images/categories/ref_accidente.jpg'),
-            default     => asset('images/categories/ref_bache.jpg'),
-        };
+        return asset('images/placeholder.svg');
     }
 
     /**

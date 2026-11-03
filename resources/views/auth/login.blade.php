@@ -158,7 +158,7 @@
         .login-card-title {
             font-size: 1.25rem;
             font-weight: 800;
-            color: #FFFFFF;
+            color: var(--text-primary);
             margin-bottom: 6px;
             text-align: center;
         }
@@ -178,7 +178,7 @@
             display: block;
             font-size: 0.84rem;
             font-weight: 700;
-            color: #FFFFFF;
+            color: var(--text-primary);
             margin-bottom: 7px;
             padding-left: 6px;
         }
@@ -205,7 +205,7 @@
             border-radius: 9999px;
             border: 1.5px solid rgba(140, 3, 38, 0.45);
             background: var(--bg-input);
-            color: #FFFFFF;
+            color: var(--text-primary);
             font-size: 0.98rem;
             font-weight: 500;
             transition: all 0.2s ease;
@@ -320,6 +320,9 @@
 
         <!-- CABECERA INSTITUCIONAL CON ESCUDO OFICIAL -->
         <header class="login-hero-wave">
+            <button type="button" id="theme-toggle-btn" class="theme-float-btn" aria-label="Cambiar tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
             <div class="login-logo-circle">
                 <img id="login-brand-logo"
                      src="{{ asset('images/alamo_shield.png') }}?v={{ time() }}"

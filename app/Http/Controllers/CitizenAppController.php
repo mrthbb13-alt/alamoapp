@@ -279,25 +279,20 @@ class CitizenAppController extends Controller
         $routing = IncidentReport::resolveDepartmentAndPriority($request->category);
         $folio = IncidentReport::generateNextFolio();
 
-        // Guardar evidencia fotográfica o asignar imagen de referencia local si no se tomó foto
+        // Guardar evidencia fotográfica en carpeta images de Hostinger o dejar null si no se adjuntó
         $evidenceUrl = null;
         if ($request->hasFile('evidence_initial')) {
             $file = $request->file('evidence_initial');
-            $filename = 'cit_' . $folio . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path('uploads/evidences');
+            $extension = $file->getClientOriginalExtension() ?: 'jpg';
+            $filename = 'cit_' . $folio . '_' . time() . '.' . $extension;
+            $destinationPath = public_path('images');
 
             if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
+                @mkdir($destinationPath, 0775, true);
             }
 
             $file->move($destinationPath, $filename);
-            $evidenceUrl = asset('uploads/evidences/' . $filename);
-        } else {
-            // Asignar imagen local de referencia según categoría para que nunca quede vacío
-            $cat = in_array($request->category, ['bache', 'drenaje', 'alumbrado', 'agua', 'basura', 'accidente'])
-                ? $request->category
-                : 'bache';
-            $evidenceUrl = asset('images/categories/ref_' . $cat . '.jpg');
+            $evidenceUrl = '/images/' . $filename;
         }
 
         $report = IncidentReport::create([

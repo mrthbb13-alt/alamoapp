@@ -262,8 +262,8 @@
 }
 
 .photo-upload-box:hover {
-    background-color: #290818;
-    border-color: var(--accent-gold);
+    background-color: var(--bg-surface);
+    border-color: var(--accent-wine);
 }
 
 .file-input-hidden {
@@ -352,7 +352,7 @@
 }
 
 .btn-gps:hover {
-    background-color: #2D0A1B;
+    background-color: rgba(140, 3, 38, 0.08);
     transform: translateY(-1px);
 }
 
@@ -378,14 +378,14 @@
 }
 
 .coords-bar strong {
-    color: var(--accent-gold);
+    color: var(--accent-wine);
     font-family: monospace;
 }
 
 /* Alerta de duplicados */
 .duplicate-box {
-    background-color: #250715;
-    border: 1.5px solid var(--accent-gold);
+    background-color: var(--bg-elevated);
+    border: 1.5px solid var(--accent-wine);
     border-radius: 20px;
     padding: 14px 16px;
     margin-top: 14px;
@@ -472,6 +472,33 @@
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
+}
+
+select.field-input option {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+}
+
+/* Tarjeta visible al seleccionar fotografía */
+.photo-preview-large-wrap {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--accent-gold);
+    border-radius: 22px;
+    padding: 14px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-card);
+    transition: background-color 0.25s;
+}
+
+.photo-preview-large-wrap .photo-file-title {
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.photo-preview-large-wrap .photo-file-meta {
+    color: var(--text-secondary);
+    font-size: 11px;
 }
 
 textarea.field-input {

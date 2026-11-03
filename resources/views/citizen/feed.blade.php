@@ -42,7 +42,7 @@
 
     <!-- LISTADO DE REPORTES DE LA COMUNIDAD -->
     <section class="feed-list">
-        @foreach($reports as $report)
+        @forelse($reports as $report)
             <article class="report-card"
                      data-id="{{ $report->id }}"
                      data-folio="{{ $report->folio }}"
@@ -53,16 +53,35 @@
                      data-lat="{{ $report->latitude }}"
                      data-lng="{{ $report->longitude }}">
 
-                <div class="card-media">
-                    <img src="{{ $report->evidence_initial }}"
-                         alt="{{ $report->title }}"
-                         class="card-img"
-                         loading="lazy"
-                         onerror="this.onerror=null; this.src='{{ \App\Models\IncidentReport::getDefaultImageForCategory($report->category) }}';">
-                    <span class="status-pill status-{{ $report->status }}">
-                        {{ strtoupper(str_replace('_', ' ', $report->status)) }}
-                    </span>
-                </div>
+                @if($report->evidence_initial)
+                    <div class="card-media">
+                        <img src="{{ $report->evidence_initial }}"
+                             alt="{{ $report->title }}"
+                             class="card-img"
+                             loading="lazy"
+                             onerror="this.onerror=null; this.src='/images/placeholder.svg';">
+                        <span class="status-pill status-{{ $report->status }}">
+                            {{ strtoupper(str_replace('_', ' ', $report->status)) }}
+                        </span>
+                    </div>
+                @else
+                    <div class="card-media card-media-placeholder">
+                        <div class="media-icon-badge">
+                            <i class="fa-solid {{ match($report->category) {
+                                'bache' => 'fa-road',
+                                'drenaje' => 'fa-water',
+                                'alumbrado' => 'fa-lightbulb',
+                                'agua' => 'fa-faucet-drip',
+                                'basura' => 'fa-trash-can',
+                                'accidente' => 'fa-car-burst',
+                                default => 'fa-triangle-exclamation'
+                            } }}"></i>
+                        </div>
+                        <span class="status-pill status-{{ $report->status }}">
+                            {{ strtoupper(str_replace('_', ' ', $report->status)) }}
+                        </span>
+                    </div>
+                @endif
 
                 <div class="card-body">
                     <div class="card-meta-row">
@@ -80,9 +99,9 @@
                         <div class="resolved-proof-box">
                             <span class="proof-label"><i class="fa-solid fa-check-double"></i> Reparado por el Municipio:</span>
                             <img src="{{ $report->evidence_resolution }}"
-                             alt="Evidencia de reparación"
-                             class="proof-img"
-                             onerror="this.onerror=null; this.src='{{ \App\Models\IncidentReport::getDefaultImageForCategory($report->category) }}';">
+                                 alt="Evidencia de reparación"
+                                 class="proof-img"
+                                 onerror="this.onerror=null; this.src='/images/placeholder.svg';">
                         </div>
                     @endif
 
@@ -98,7 +117,20 @@
                     </div>
                 </div>
             </article>
-        @endforeach
+        @empty
+            <div class="empty-state-card" style="text-align: center; padding: 48px 20px; background: var(--bg-surface); border-radius: 26px; border: 1.5px dashed var(--border-color); margin-top: 10px; box-shadow: var(--shadow-card);">
+                <div style="width: 68px; height: 68px; border-radius: 50%; background: rgba(140, 3, 38, 0.1); color: var(--accent-gold); display: inline-flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 16px;">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px;">No hay reportes registrados aún</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); max-width: 320px; margin: 0 auto 22px auto; line-height: 1.45;">
+                    La base de datos está limpia. Sé el primer ciudadano en reportar una incidencia comunitaria en Álamo Temapache.
+                </p>
+                <a href="{{ route('citizen.home') }}" class="btn-submit-main" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px; font-size: 0.92rem;">
+                    <i class="fa-solid fa-plus"></i> Crear nuevo reporte
+                </a>
+            </div>
+        @endforelse
     </section>
 @endsection
 

@@ -15,11 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            IncidentReportSeeder::class,
-        ]);
-        // User::factory(10)->create();
-
+        // Usuario demo para desarrollo si es necesario
         \App\Models\User::updateOrCreate(
             ['email' => 'user@alamo.gob.mx'],
             [
@@ -30,9 +26,5 @@ class DatabaseSeeder extends Seeder
                 'password' => \Illuminate\Support\Facades\Hash::make('123'),
             ]
         );
-
-        $this->call([
-            IncidentReportSeeder::class,
-        ]);
     }
 }

@@ -1,4 +1,4 @@
-.section-heading {
+ .section-heading {
     margin-bottom: 18px;
 }
 
@@ -27,12 +27,12 @@
 }
 
 .selected-pin-card {
-    background-color: #250715;
+    background-color: var(--bg-surface);
     border: 1.5px solid var(--accent-gold);
     border-radius: 22px;
     padding: 14px 18px;
     margin-bottom: 16px;
-    box-shadow: 0 8px 24px rgba(140, 3, 38, 0.4);
+    box-shadow: var(--shadow-card);
 }
 
 .pin-card-top {
@@ -54,7 +54,7 @@
 .pin-card-heading {
     font-size: 14px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 .pin-card-sub {
@@ -128,6 +128,30 @@
     width: 100%;
     height: 190px;
     background-color: var(--bg-elevated);
+}
+
+.card-media-placeholder {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(135deg, rgba(140, 3, 38, 0.08) 0%, rgba(212, 175, 55, 0.12) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.media-icon-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--accent-wine);
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 4px 12px rgba(140, 3, 38, 0.25);
 }
 
 .card-img {
@@ -249,7 +273,7 @@
     border: 1.5px solid rgba(140, 3, 38, 0.45);
     border-radius: 9999px;
     padding: 8px 16px;
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-size: 12.5px;
     font-weight: 700;
     cursor: pointer;

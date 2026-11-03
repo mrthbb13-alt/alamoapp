@@ -478,7 +478,7 @@ body {
 }
 
 .pwa-platform-tab:hover {
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 .pwa-platform-tab.is-active {
