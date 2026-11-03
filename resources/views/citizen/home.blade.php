@@ -107,51 +107,62 @@
             </div>
         </div>
 
-        <!-- PASO 2: EVIDENCIA FOTOGRÁFICA (CON IMAGEN DE REFERENCIA LOCAL Y OPCIÓN DE FOTO REAL) -->
+        <!-- PASO 2: EVIDENCIA FOTOGRÁFICA (ESPACIADO ATRACTIVO CON CÁMARA, GALERÍA O DOCUMENTO) -->
         <div class="form-step-card">
             <div class="step-header">
                 <span class="step-number">2</span>
                 <div>
-                    <h3 class="step-title">Fotografía del problema</h3>
-                    <p class="step-hint">Imagen sugerida o toma tu propia foto con la cámara</p>
+                    <h3 class="step-title">Toma o sube una fotografía</h3>
+                    <p class="step-hint">Cámara, Galería de fotos o Archivos</p>
                 </div>
             </div>
 
-            <!-- Input invisible para seleccionar cámara, galería o archivo -->
-            <input type="file" id="evidence-input" name="evidence_initial" accept="image/*" class="file-input-hidden" style="display: none;">
+            <!-- Selector de archivo con espaciado atractivo (sin capture forzado para elegir Cámara, Galería o Documentos) -->
+            <label for="evidence-input" id="photo-dropzone" class="photo-upload-box">
+                <input type="file"
+                       id="evidence-input"
+                       name="evidence_initial"
+                       accept="image/*,application/pdf,.doc,.docx"
+                       class="file-input-hidden"
+                       style="display: none;">
+                
+                <div id="photo-placeholder" class="photo-placeholder-content">
+                    <div class="camera-circle">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+                    <span class="upload-main-text">Toca para abrir cámara, galería o archivos</span>
+                    <span class="upload-sub-text">Formatos JPG, PNG, WebP o Fotos</span>
+                </div>
+            </label>
 
-            <!-- Contenedor de la fotografía actual (referencia o foto real del ciudadano) -->
-            <div class="photo-preview-container" style="background: var(--bg-surface); border: 1.5px solid var(--accent-orange); border-radius: 22px; padding: 14px; box-shadow: 0 8px 20px rgba(234, 88, 12, 0.1);">
-                <div style="display: flex; align-items: center; gap: 14px;">
-                    <div style="position: relative; width: 72px; height: 72px; border-radius: 16px; overflow: hidden; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.12); border: 2px solid #FFFFFF;">
-                        <img id="photo-preview-thumb" src="{{ asset('images/categories/ref_bache.jpg') }}" alt="Vista previa de evidencia" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; display: block;">
-                        <button type="button" id="btn-view-photo-lightbox" title="Ampliar imagen" style="position: absolute; bottom: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; background: rgba(0,0,0,0.65); color: #FFFFFF; border: none; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                            <i class="fa-solid fa-expand"></i>
+            <!-- Tarjeta con el archivo seleccionado (igual que la INE en Registro) -->
+            <div id="photo-selected-card" class="selected-file-card is-hidden" style="display: none; background: var(--bg-surface); border: 1.5px solid var(--accent-orange); border-radius: 20px; padding: 12px 14px; align-items: center; gap: 12px; box-shadow: 0 8px 18px rgba(234, 88, 12, 0.12);">
+                <img id="photo-preview-thumb" src="" alt="Vista previa" style="width: 58px; height: 58px; border-radius: 14px; object-fit: cover; cursor: pointer; border: 1.5px solid var(--border-subtle); flex-shrink: 0;">
+                
+                <div class="file-info" style="flex: 1; min-width: 0;">
+                    <span id="photo-file-name" style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">evidencia.jpg</span>
+                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px; display: flex; align-items: center; gap: 6px;">
+                        <span id="photo-file-size">0 KB</span>
+                        <span>•</span>
+                        <button type="button" id="btn-view-photo-lightbox" style="background: none; border: none; color: var(--accent-orange); font-size: 11.5px; font-weight: 700; cursor: pointer; padding: 0;">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i> Ver foto
                         </button>
                     </div>
-
-                    <div style="flex: 1; min-width: 0;">
-                        <div id="photo-badge-wrap" style="margin-bottom: 4px;">
-                            <span id="photo-status-badge" style="display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: #EA580C; background: rgba(234, 88, 12, 0.12); padding: 3px 9px; border-radius: 9999px;">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                <span id="photo-badge-text">Imagen de referencia</span>
-                            </span>
-                        </div>
-                        <span id="photo-file-name" style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">ref_bache.jpg</span>
-                        <span id="photo-file-desc" style="font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px;">Puedes usar esta foto o tomar la tuya propia</span>
-                    </div>
-
-                    <!-- Botón [X] para retirar foto real y volver a la referencia -->
-                    <button type="button" id="btn-clear-photo" style="display: none; width: 36px; height: 36px; border-radius: 50%; background: rgba(239, 68, 68, 0.12); border: 1.5px solid #EF4444; color: #EF4444; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; flex-shrink: 0;" title="Quitar mi foto y usar la de referencia">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
                 </div>
 
-                <!-- Botón llamativo para activar cámara o galería -->
-                <button type="button" id="btn-trigger-upload" style="margin-top: 12px; width: 100%; height: 46px; border-radius: 9999px; background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%); color: #FFFFFF; border: none; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 14px rgba(234, 88, 12, 0.25);">
-                    <i class="fa-solid fa-camera"></i>
-                    <span id="btn-upload-text">Tomar foto real o elegir de galería</span>
+                <!-- Botón circular [X] para retirar el archivo -->
+                <button type="button" id="btn-clear-photo" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(239, 68, 68, 0.12); border: 1.5px solid #EF4444; color: #EF4444; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; flex-shrink: 0;" title="Quitar fotografía">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
+            </div>
+
+            <!-- Aviso / Opción clara de imagen por defecto -->
+            <div id="default-photo-notice" style="margin-top: 12px; display: flex; align-items: center; gap: 10px; background: rgba(245, 158, 11, 0.1); border: 1px dashed rgba(245, 158, 11, 0.4); padding: 10px 14px; border-radius: 16px;">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-orange); font-size: 14px; flex-shrink: 0;"></i>
+                <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.35;">
+                    <span style="font-weight: 700; color: var(--text-primary); display: block;">Se usará imagen por defecto si no agregas foto</span>
+                    <span>Si no tienes una foto al momento, el sistema asignará automáticamente una imagen ilustrativa por defecto según el caso seleccionado.</span>
+                </div>
             </div>
         </div>
 

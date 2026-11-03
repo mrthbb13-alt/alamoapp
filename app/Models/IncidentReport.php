@@ -40,6 +40,35 @@ class IncidentReport extends Model
     ];
 
     /**
+     * Devuelve la imagen de evidencia inicial o la imagen por defecto según su categoría
+     */
+    public function getEvidenceInitialAttribute($value): string
+    {
+        if (!empty($value) && $value !== 'null') {
+            return $value;
+        }
+
+        return self::getDefaultImageForCategory($this->category);
+    }
+
+    /**
+     * Obtiene la ruta de imagen por defecto según la categoría del reporte
+     */
+    public static function getDefaultImageForCategory(?string $category): string
+    {
+        $cat = strtolower(trim((string)$category));
+        return match ($cat) {
+            'bache'     => asset('images/categories/ref_bache.jpg'),
+            'drenaje'   => asset('images/categories/ref_drenaje.jpg'),
+            'alumbrado' => asset('images/categories/ref_alumbrado.jpg'),
+            'agua'      => asset('images/categories/ref_agua.jpg'),
+            'basura'    => asset('images/categories/ref_basura.jpg'),
+            'accidente' => asset('images/categories/ref_accidente.jpg'),
+            default     => asset('images/categories/ref_bache.jpg'),
+        };
+    }
+
+    /**
      * Asigna automáticamente la Dirección Municipal y Prioridad según la categoría reportada
      */
     public static function resolveDepartmentAndPriority(string $category): array

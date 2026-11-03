@@ -54,7 +54,11 @@
                      data-lng="{{ $report->longitude }}">
 
                 <div class="card-media">
-                    <img src="{{ $report->evidence_initial }}" alt="{{ $report->title }}" class="card-img">
+                    <img src="{{ $report->evidence_initial }}"
+                         alt="{{ $report->title }}"
+                         class="card-img"
+                         loading="lazy"
+                         onerror="this.onerror=null; this.src='{{ \App\Models\IncidentReport::getDefaultImageForCategory($report->category) }}';">
                     <span class="status-pill status-{{ $report->status }}">
                         {{ strtoupper(str_replace('_', ' ', $report->status)) }}
                     </span>
@@ -75,7 +79,10 @@
                     @if($report->evidence_resolution)
                         <div class="resolved-proof-box">
                             <span class="proof-label"><i class="fa-solid fa-check-double"></i> Reparado por el Municipio:</span>
-                            <img src="{{ $report->evidence_resolution }}" alt="Evidencia de reparación" class="proof-img">
+                            <img src="{{ $report->evidence_resolution }}"
+                             alt="Evidencia de reparación"
+                             class="proof-img"
+                             onerror="this.onerror=null; this.src='{{ \App\Models\IncidentReport::getDefaultImageForCategory($report->category) }}';">
                         </div>
                     @endif
 

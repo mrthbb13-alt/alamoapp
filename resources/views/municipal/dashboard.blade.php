@@ -443,7 +443,7 @@
                         <div style="font-size:11px; font-weight:700; color:#ea580c;">${report.folio} • ${cat.label}</div>
                         <div style="font-weight:700; font-size:13px; margin: 3px 0; color:#0f172a;">${report.title}</div>
                         <div style="font-size:11px; color:#475569; margin-bottom:6px;">📍 ${report.colonia} (${report.address_reference || ''})</div>
-                        <img src="${report.evidence_initial}" style="width:100%; height:95px; object-fit:cover; border-radius:6px; margin-bottom:8px;">
+                        <img src="${report.evidence_initial}" onerror="this.src='/images/categories/ref_' + (report.category || 'bache') + '.jpg'" style="width:100%; height:95px; object-fit:cover; border-radius:6px; margin-bottom:8px;">
                         <button onclick="openReportModal(${report.id})" style="width:100%; background:#0f172a; color:#fff; border:none; padding:6px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;">
                             Inspeccionar y Atender
                         </button>
@@ -484,7 +484,7 @@
                         </td>
                         <td class="py-3.5 px-4">
                             <div class="flex items-center gap-1.5">
-                                <img src="${report.evidence_initial}" onclick="openReportModal(${report.id})" class="w-12 h-12 rounded-lg object-cover border border-slate-700 cursor-pointer hover:scale-105 transition" title="Foto Antes">
+                                <img src="${report.evidence_initial}" onerror="this.src='/images/categories/ref_' + (report.category || 'bache') + '.jpg'" onclick="openReportModal(${report.id})" class="w-12 h-12 rounded-lg object-cover border border-slate-700 cursor-pointer hover:scale-105 transition" title="Foto Antes">
                                 ${report.evidence_resolution ? `<img src="${report.evidence_resolution}" onclick="openReportModal(${report.id})" class="w-12 h-12 rounded-lg object-cover border-2 border-emerald-500 cursor-pointer" title="Foto Después">` : ''}
                             </div>
                         </td>
@@ -549,6 +549,10 @@
             document.getElementById('modal-report-id').value = report.id;
             document.getElementById('modal-folio').textContent = report.folio;
             document.getElementById('modal-title').textContent = report.title;
+            document.getElementById('modal-img-initial').onerror = function() {
+                this.onerror = null;
+                this.src = '/images/categories/ref_' + (report.category || 'bache') + '.jpg';
+            };
             document.getElementById('modal-img-initial').src = report.evidence_initial;
             document.getElementById('modal-department').textContent = report.department;
             document.getElementById('modal-address').textContent = `${report.colonia} — ${report.address_reference || ''}`;

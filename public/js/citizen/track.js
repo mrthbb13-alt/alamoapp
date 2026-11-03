@@ -43,6 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
             resTitle.textContent = r.title;
             resDept.textContent = r.department + ' • ' + r.colonia;
             resNotes.textContent = r.resolution_notes;
+            resImgBefore.onerror = function() {
+                this.onerror = null;
+                this.src = '/images/categories/ref_' + (r.category || 'bache') + '.jpg';
+            };
             resImgBefore.src = r.evidence_initial;
 
             // Actualizar barra de estado
