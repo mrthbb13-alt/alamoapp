@@ -30,11 +30,51 @@ Route::get('/api/db-status', function () {
         $driver = \Illuminate\Support\Facades\DB::connection()->getDriverName();
         $count = \App\Models\IncidentReport::count();
 
+        // Diagnóstico de rutas e imágenes en el servidor Hostinger
+        $candidateDirs = [
+            'public_images'      => public_path('images'),
+            'base_images'        => base_path('images'),
+            'docroot_images'     => isset($_SERVER['DOCUMENT_ROOT']) ? rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . '/images' : null,
+            'parent_images'      => dirname(base_path()) . '/images',
+            'parent_pub_images'  => dirname(base_path()) . '/public_html/images',
+            'home_pub_images'    => '/home/u841520431/public_html/images',
+            'domains_pub_images' => '/home/u841520431/domains/gestionmaplingps.com/public_html/images',
+        ];
+
+        $dirInfo = [];
+        $targetFile = 'res_ALM-2026-0002_1793738183.jpeg';
+        $foundAt = [];
+
+        foreach ($candidateDirs as $key => $dir) {
+            if (!$dir) continue;
+            $exists = file_exists($dir);
+            $isDir = is_dir($dir);
+            $files = [];
+            if ($isDir) {
+                $scanned = @scandir($dir) ?: [];
+                $files = array_values(array_filter($scanned, fn($f) => !in_array($f, ['.', '..'])));
+                if (in_array($targetFile, $files)) {
+                    $foundAt[] = $dir . '/' . $targetFile;
+                }
+            }
+            $dirInfo[$key] = [
+                'path' => $dir,
+                'exists' => $exists,
+                'is_dir' => $isDir,
+                'files' => array_slice($files, 0, 15),
+            ];
+        }
+
         return response()->json([
             'status'        => 'connected',
             'driver'        => $driver,
             'database'      => $dbName,
             'reports_count' => $count,
+            'doc_root'      => $_SERVER['DOCUMENT_ROOT'] ?? null,
+            'base_path'     => base_path(),
+            'public_path'   => public_path(),
+            'found_target'  => $foundAt,
+            'dirs'          => $dirInfo,
         ]);
     } catch (\Throwable $e) {
         return response()->json([
