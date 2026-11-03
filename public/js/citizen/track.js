@@ -57,11 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Mostrar evidencia del "Después" si ya fue cargada desde el Panel Municipal
             if (r.evidence_resolution) {
                 resImgAfter.src = r.evidence_resolution;
-                resImgAfter.classList.remove('is-hidden');
-                resEmptyAfter.classList.add('is-hidden');
+                resImgAfter.style.display = 'block';
+                resEmptyAfter.style.display = 'none';
             } else {
-                resImgAfter.classList.add('is-hidden');
-                resEmptyAfter.classList.remove('is-hidden');
+                resImgAfter.removeAttribute('src');
+                resImgAfter.style.display = 'none';
+                resEmptyAfter.style.display = 'flex';
             }
 
             resultCard.classList.remove('is-hidden');

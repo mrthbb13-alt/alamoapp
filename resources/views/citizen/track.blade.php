@@ -83,7 +83,7 @@
 
             <div class="evidence-panel">
                 <span class="panel-tag tag-after">2. Evidencia Municipal (Después)</span>
-                <img id="res-img-after" src="" alt="Foto Después" class="panel-img is-hidden">
+                <img id="res-img-after" alt="Evidencia de reparación" class="panel-img" style="display: none;">
                 <div id="res-empty-after" class="empty-after-box">
                     <i class="fa-solid fa-helmet-safety"></i>
                     <span>La cuadrilla subirá la foto de reparación al concluir los trabajos en sitio.</span>

@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => 'mysql',
 
     /*
     |--------------------------------------------------------------------------
@@ -47,14 +47,14 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'u841520431_AlamoApp'),
-            'username' => env('DB_USERNAME', 'u841520431_MaplinGPS'),
-            'password' => env('DB_PASSWORD', 'Miche11e@dmin'),
+            'host' => '127.0.0.1',
+            'port' => '3306',
+            'database' => 'u841520431_AlamoApp',
+            'username' => 'u841520431_MaplinGPS',
+            'password' => 'Miche11e@dmin',
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => env('DB_CHARSET', 'utf8mb4'),
-            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => false,

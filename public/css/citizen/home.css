@@ -337,9 +337,9 @@
     width: 100%;
     height: 48px;
     border-radius: 9999px;
-    border: 1.5px solid var(--accent-gold);
-    background-color: var(--bg-elevated);
-    color: var(--accent-gold);
+    border: 1.5px solid var(--accent-wine);
+    background-color: var(--bg-surface);
+    color: var(--accent-wine);
     font-size: 13.5px;
     font-weight: 800;
     display: flex;
@@ -349,6 +349,12 @@
     cursor: pointer;
     margin-bottom: 14px;
     transition: all 0.2s ease;
+}
+
+:root[data-theme="dark"] .btn-gps {
+    border-color: var(--accent-gold);
+    background-color: var(--bg-elevated);
+    color: var(--accent-gold);
 }
 
 .btn-gps:hover {
@@ -395,10 +401,14 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--accent-gold);
+    color: var(--accent-wine);
     font-weight: 800;
     font-size: 13px;
     margin-bottom: 6px;
+}
+
+:root[data-theme="dark"] .duplicate-header {
+    color: var(--accent-gold);
 }
 
 .duplicate-title {

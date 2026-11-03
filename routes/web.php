@@ -22,6 +22,28 @@ Route::get('/registro', [AuthController::class, 'showRegister'])->name('register
 Route::post('/registro', [AuthController::class, 'register'])->name('register.post');
 Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Diagnóstico de Conexión en Vivo a Hostinger MySQL
+Route::get('/api/db-status', function () {
+    try {
+        $pdo = \Illuminate\Support\Facades\DB::connection()->getPdo();
+        $dbName = \Illuminate\Support\Facades\DB::connection()->getDatabaseName();
+        $driver = \Illuminate\Support\Facades\DB::connection()->getDriverName();
+        $count = \App\Models\IncidentReport::count();
+
+        return response()->json([
+            'status'        => 'connected',
+            'driver'        => $driver,
+            'database'      => $dbName,
+            'reports_count' => $count,
+        ]);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'status'  => 'error',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+});
+
 // ====================================================
 // FASE 1: PLATAFORMA WEB GOBIERNO MUNICIPAL (BACKOFFICE / C2)
 // ====================================================

@@ -259,11 +259,15 @@
 .note-heading {
     font-size: 12px;
     font-weight: 800;
-    color: var(--accent-gold);
+    color: var(--accent-wine);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     display: block;
     margin-bottom: 6px;
+}
+
+:root[data-theme="dark"] .note-heading {
+    color: var(--accent-gold);
 }
 
 .note-content {
@@ -288,23 +292,34 @@
 
 .panel-tag {
     display: inline-block;
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 9999px;
-    font-size: 11px;
+    font-size: 11.5px;
     font-weight: 800;
     margin-bottom: 10px;
 }
 
 .tag-before {
-    background-color: rgba(140, 3, 38, 0.35);
+    background-color: rgba(140, 3, 38, 0.1);
+    color: var(--accent-wine);
+    border: 1px solid rgba(140, 3, 38, 0.3);
+}
+
+:root[data-theme="dark"] .tag-before {
+    background-color: rgba(140, 3, 38, 0.45);
     color: var(--accent-gold);
-    border: 1px solid rgba(245, 215, 163, 0.25);
+    border: 1px solid rgba(245, 215, 163, 0.3);
 }
 
 .tag-after {
-    background-color: rgba(16, 185, 129, 0.18);
-    color: #10B981;
+    background-color: rgba(16, 185, 129, 0.12);
+    color: #059669;
     border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+:root[data-theme="dark"] .tag-after {
+    background-color: rgba(16, 185, 129, 0.22);
+    color: #10B981;
 }
 
 .panel-img {
@@ -316,19 +331,26 @@
 }
 
 .empty-after-box {
-    height: 140px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     gap: 8px;
-    font-size: 12px;
-    padding: 0 16px;
+    font-size: 12.5px;
+    padding: 14px 16px;
+    background: rgba(140, 3, 38, 0.04);
+    border-radius: 14px;
+    border: 1px dashed var(--border-color);
 }
 
 .empty-after-box i {
     font-size: 26px;
+    color: var(--accent-wine);
+}
+
+:root[data-theme="dark"] .empty-after-box i {
     color: var(--accent-gold);
 }
