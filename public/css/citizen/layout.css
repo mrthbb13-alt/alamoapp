@@ -62,9 +62,10 @@
 
 html {
     min-height: 100%;
+    min-height: 100dvh;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    background-color: var(--bg-body);
+    background-color: var(--bg-body) !important;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -72,13 +73,15 @@ html {
 
 body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-body);
+    background-color: var(--bg-body) !important;
     color: var(--text-primary);
     transition: background-color 0.25s ease, color 0.25s ease;
     min-height: 100%;
     min-height: 100dvh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     overflow-y: visible;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -88,15 +91,16 @@ body {
 .app-shell {
     width: 100%;
     max-width: 520px;
-    min-height: 100vh;
+    min-height: 100%;
     min-height: 100dvh;
-    background-color: var(--bg-body);
+    background-color: var(--bg-body) !important;
     display: flex;
     flex-direction: column;
     position: relative;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.08);
     transition: background-color 0.25s ease;
     overflow-x: hidden;
+    flex: 1;
 }
 
 :root[data-theme="dark"] .app-shell {
@@ -271,51 +275,54 @@ body {
 
 /* Área de Contenido Principal con soporte Safe Area Inferior */
 .app-content {
-    flex: 1;
-    padding: 16px 16px calc(86px + env(safe-area-inset-bottom, 12px)) 16px;
-    animation: pageEnter 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+    flex: 1 0 auto;
+    padding: 16px 16px calc(76px + env(safe-area-inset-bottom, 12px)) 16px;
+    animation: pageEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
     will-change: opacity, transform;
 }
 
-/* Barra de Navegación Inferior Flotante - Compacta, Centrada y 100% Anclada (Posición uniforme en todas las pantallas) */
+/* Barra de Navegación Inferior Institucional - 100% Anclada al Borde Inferior (Sin separación ni fondo blanco) */
 .bottom-nav {
     position: fixed !important;
-    bottom: 12px !important;
-    left: 50% !important;
-    transform: translateX(-50%) translateZ(0) !important;
-    width: calc(100% - 24px) !important;
-    max-width: 440px !important;
-    height: 56px !important; /* Altura compacta, elegante y no estorba */
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 520px !important;
+    margin: 0 auto !important;
+    transform: translateZ(0) !important;
+    height: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 4px 6px calc(env(safe-area-inset-bottom, 0px) + 4px) 6px !important;
     background: #560315 !important;
-    border: 1.5px solid rgba(245, 215, 163, 0.28) !important;
-    border-radius: 9999px !important; /* Estilo Cápsula Dock moderna */
+    border-top: 1.5px solid rgba(245, 215, 163, 0.35) !important;
+    border-left: 1px solid rgba(245, 215, 163, 0.15) !important;
+    border-right: 1px solid rgba(245, 215, 163, 0.15) !important;
+    border-bottom: none !important;
+    border-radius: 22px 22px 0 0 !important;
     display: grid !important;
     grid-template-columns: repeat(5, 1fr) !important;
     align-items: center !important;
-    padding: 3px 5px !important;
-    margin: 0 !important;
     z-index: 9999 !important;
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 -8px 26px rgba(0, 0, 0, 0.45) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
     user-select: none !important;
     -webkit-user-select: none !important;
     box-sizing: border-box !important;
-    will-change: transform !important;
 }
 
 .nav-item {
-    height: 100% !important;
+    height: 48px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     text-decoration: none !important;
     color: #FFFFFF !important;
-    opacity: 0.8 !important;
+    opacity: 0.82 !important;
     padding: 3px 2px !important;
-    border-radius: 9999px !important;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 14px !important;
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease !important;
     gap: 2px !important;
     -webkit-touch-callout: none !important;
     position: relative !important;
@@ -326,16 +333,16 @@ body {
 }
 
 .nav-item:active {
-    transform: scale(0.92) !important;
+    transform: scale(0.93) !important;
 }
 
 .nav-icon {
-    font-size: 19px !important; /* Íconos más grandes, visibles y nítidos */
+    font-size: 19px !important;
     line-height: 1 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease !important;
+    transition: color 0.15s ease, transform 0.15s ease !important;
 }
 
 .nav-label {
@@ -344,27 +351,20 @@ body {
     line-height: 1 !important;
     white-space: nowrap !important;
     letter-spacing: -0.1px !important;
-    transition: color 0.2s ease !important;
-}
-
-/* Animación elástica de la Píldora de Selección */
-@keyframes navPillPop {
-    0% { transform: scale(0.92); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1.02); }
+    transition: color 0.15s ease !important;
 }
 
 .nav-item.is-active {
     background: linear-gradient(135deg, #F5D7A3 0%, #D4AF37 100%) !important;
     color: #5B0215 !important;
     opacity: 1 !important;
-    animation: navPillPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.5) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.45) !important;
 }
 
 .nav-item.is-active .nav-icon {
     color: #5B0215 !important;
-    font-size: 20px !important;
+    font-size: 19.5px !important;
     transform: translateY(-0.5px) !important;
 }
 

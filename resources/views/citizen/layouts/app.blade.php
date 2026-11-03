@@ -26,18 +26,18 @@
     </script>
 
     <!-- ICONOS PARA PANTALLA DE INICIO (iOS Safari, Android Chrome y PWA) -->
-    <link rel="manifest" href="{{ asset('manifest.json') }}?v=5.2">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.png') }}?v=5.2">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icon-192x192.png') }}?v=5.2">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}?v=5.2">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/favicon-16x16.png') }}?v=5.2">
-    <link rel="icon" type="image/png" href="{{ asset('icons/logo.png') }}?v=5.2">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=5.2">
+    <link rel="manifest" href="{{ asset('manifest.json') }}?v=5.3">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.png') }}?v=5.3">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icon-192x192.png') }}?v=5.3">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}?v=5.3">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/favicon-16x16.png') }}?v=5.3">
+    <link rel="icon" type="image/png" href="{{ asset('icons/logo.png') }}?v=5.3">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=5.3">
 
     <!-- Iconos FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Estilos Base de la App Ciudadana -->
-    <link rel="stylesheet" href="{{ asset('css/citizen/layout.css') }}?v=5.2">
+    <link rel="stylesheet" href="{{ asset('css/citizen/layout.css') }}?v=5.3">
     @yield('page_css')
 </head>
 <body>
@@ -48,9 +48,13 @@
         <!-- ENCABEZADO SUPERIOR INSTITUCIONAL GUINDA CON ESCUDO OFICIAL -->
         <header class="app-header">
             <div class="header-brand">
-                <img src="{{ asset('images/alamo_shield.png') }}?v=5.2"
+                <img src="{{ asset('images/alamo_shield.png') }}?v=5.3"
                      alt="Escudo Municipal Álamo Temapache"
-                     class="brand-crest-shield">
+                     class="brand-crest-shield"
+                     width="48"
+                     height="48"
+                     loading="eager"
+                     decoding="sync">
                 <div class="header-brand-divider"></div>
                 <div class="brand-titles">
                     <span class="brand-name-city">ÁLAMO</span>
@@ -126,9 +130,11 @@
         <div class="pwa-modal-card">
             <div class="pwa-modal-header">
                 <div class="pwa-modal-title">
-                    <img src="{{ asset('images/alamo_shield.png') }}?v={{ time() }}"
+                    <img src="{{ asset('images/alamo_shield.png') }}?v=5.3"
                          alt="Escudo Oficial"
                          class="brand-crest-shield"
+                         width="32"
+                         height="32"
                          style="width: 32px; height: 32px; object-fit: contain;">
                     <span>Instalar Álamo Reporta</span>
                 </div>
@@ -210,7 +216,7 @@
     </div>
 
     <!-- Script Base del Layout y Soporte PWA -->
-    <script src="{{ asset('js/citizen/layout.js') }}?v=5.2"></script>
+    <script src="{{ asset('js/citizen/layout.js') }}?v=5.3"></script>
     @yield('page_js')
 </body>
 </html>

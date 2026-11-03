@@ -176,31 +176,47 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 4. Navegación ultra-rápida y prefetching inteligente (0ms de retraso)
+    // 4. Barra de Progreso y Navegación Fluida Instantánea (0ms de retraso, sin parpadeos)
     const navItems = document.querySelectorAll('.bottom-nav .nav-item');
     const progressBar = document.getElementById('app-progress-bar');
 
-    navItems.forEach(function (item) {
-        // Precargar el HTML de la página en segundo plano al rozar o tocar el botón
-        function prefetchSection() {
-            const href = item.getAttribute('href');
-            if (!href || href.startsWith('#')) return;
-            if (!document.querySelector('link[rel="prefetch"][href="' + href + '"]')) {
-                const prefetchTag = document.createElement('link');
-                prefetchTag.rel = 'prefetch';
-                prefetchTag.href = href;
-                document.head.appendChild(prefetchTag);
+    // Desvanecer barra de progreso al cargar la página
+    if (progressBar) {
+        progressBar.classList.add('is-finishing');
+        setTimeout(function () {
+            progressBar.classList.remove('is-loading', 'is-finishing');
+        }, 300);
+    }
+
+    // Prefetch real compatible con Safari (iOS) y Chrome usando fetch() en segundo plano
+    const prefetchedUrls = new Set();
+    function prefetchUrl(url) {
+        if (!url || prefetchedUrls.has(url) || url.startsWith('#') || url.startsWith('tel:') || url.startsWith('mailto:')) return;
+        prefetchedUrls.add(url);
+        try {
+            if ('fetch' in window) {
+                fetch(url, { priority: 'low', cache: 'default' }).catch(function () {});
             }
-        }
+        } catch (e) {}
+    }
 
-        item.addEventListener('pointerdown', prefetchSection, { passive: true });
-        item.addEventListener('touchstart', prefetchSection, { passive: true });
-        item.addEventListener('mouseenter', prefetchSection, { passive: true });
+    navItems.forEach(function (item) {
+        const href = item.getAttribute('href');
+        if (!href) return;
 
-        item.addEventListener('click', function () {
-            if (item.classList.contains('is-active')) return;
+        // Precargar silenciosamente al rozar o tocar el botón (touch / pointer)
+        item.addEventListener('touchstart', function () { prefetchUrl(href); }, { passive: true });
+        item.addEventListener('pointerdown', function () { prefetchUrl(href); }, { passive: true });
+        item.addEventListener('mouseenter', function () { prefetchUrl(href); }, { passive: true });
 
-            // Mover la píldora de selección inmediatamente bajo el dedo
+        item.addEventListener('click', function (e) {
+            // Si ya está en la pestaña activa, no recargar innecesariamente
+            if (item.classList.contains('is-active')) {
+                e.preventDefault();
+                return;
+            }
+
+            // Mover la píldora dorada instantáneamente bajo el dedo (0ms)
             navItems.forEach(function (i) { i.classList.remove('is-active'); });
             item.classList.add('is-active');
 
@@ -209,27 +225,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 progressBar.classList.remove('is-finishing');
                 progressBar.classList.add('is-loading');
             }
+            // Navegación nativa ultra-rápida sin interrupciones ni recargas duras
         });
     });
 
-    // 5. Asegurar que los enlaces internos se mantengan dentro del modo App en iOS
-    if (isStandalone) {
-        document.addEventListener('click', function (e) {
-            const link = e.target.closest('a');
-            if (link && link.href && link.target !== '_blank') {
-                const rawHref = link.getAttribute('href') || '';
-                // Permitir llamadas directas (tel:), emails, anclas (#) y descargas sin interceptar
-                if (rawHref.startsWith('#') || rawHref.startsWith('tel:') || rawHref.startsWith('mailto:') || rawHref.startsWith('javascript:')) {
-                    return;
-                }
-                try {
-                    const url = new URL(link.href, window.location.origin);
-                    if (url.origin === window.location.origin && !url.pathname.endsWith('.pdf')) {
-                        e.preventDefault();
-                        window.location.href = link.href;
-                    }
-                } catch (err) {}
-            }
-        }, false);
+    // Precargar las 5 rutas clave de la app ciudadana en tiempo de inactividad
+    const mainCitizenRoutes = [
+        '/',
+        '/reportar',
+        '/reportar/mapa',
+        '/reportar/seguimiento',
+        '/reportar/directorio',
+        '/reportar/perfil'
+    ];
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(function () {
+            mainCitizenRoutes.forEach(prefetchUrl);
+        });
+    } else {
+        setTimeout(function () {
+            mainCitizenRoutes.forEach(prefetchUrl);
+        }, 1200);
     }
 });

@@ -1,3 +1,10 @@
+.track-page-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100dvh - 170px);
+}
+
 .search-card {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -131,7 +138,6 @@
 
 .folio-chip:active {
     transform: scale(0.94);
-}
 }
 
 .track-error-box {

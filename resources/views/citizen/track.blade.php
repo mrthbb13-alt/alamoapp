@@ -3,10 +3,11 @@
 @section('title', 'Seguimiento de Folio | Álamo Reporta')
 
 @section('page_css')
-    <link rel="stylesheet" href="{{ asset('css/citizen/track.css') }}?v=5.2">
+    <link rel="stylesheet" href="{{ asset('css/citizen/track.css') }}?v=5.3">
 @endsection
 
 @section('content')
+<div class="track-page-container">
     <div id="track-config"
          data-search-base="{{ url('/reportar/api/folio') }}"
          data-initial-folio="{{ $initialFolio }}"
@@ -91,8 +92,9 @@
             </div>
         </div>
     </section>
+</div>
 @endsection
 
 @section('page_js')
-    <script src="{{ asset('js/citizen/track.js') }}?v=5.2"></script>
+    <script src="{{ asset('js/citizen/track.js') }}?v=5.3"></script>
 @endsection

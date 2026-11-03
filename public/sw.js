@@ -1,11 +1,11 @@
-// Service Worker de Álamo Reporta v5.2 - Carga Instantánea de Activos y Modo Offline
-const CACHE_NAME = 'alamo-reporta-v5.2';
+// Service Worker de Álamo Reporta v5.3 - Carga Instantánea de Activos y Modo Offline
+const CACHE_NAME = 'alamo-reporta-v5.3';
 
 const STATIC_PRECACHE = [
-    '/css/citizen/layout.css?v=5.2',
-    '/js/citizen/layout.js?v=5.2',
-    '/images/alamo_shield.png?v=5.2',
-    '/manifest.json?v=5.2',
+    '/css/citizen/layout.css?v=5.3',
+    '/js/citizen/layout.js?v=5.3',
+    '/images/alamo_shield.png?v=5.3',
+    '/manifest.json?v=5.3',
 ];
 
 self.addEventListener('install', (event) => {
