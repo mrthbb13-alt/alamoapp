@@ -176,15 +176,31 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 4. Micro-interacción instantánea al cambiar entre pestañas de navegación (0ms de retraso)
+    // 4. Navegación ultra-rápida y prefetching inteligente (0ms de retraso)
     const navItems = document.querySelectorAll('.bottom-nav .nav-item');
     const progressBar = document.getElementById('app-progress-bar');
 
     navItems.forEach(function (item) {
+        // Precargar el HTML de la página en segundo plano al rozar o tocar el botón
+        function prefetchSection() {
+            const href = item.getAttribute('href');
+            if (!href || href.startsWith('#')) return;
+            if (!document.querySelector('link[rel="prefetch"][href="' + href + '"]')) {
+                const prefetchTag = document.createElement('link');
+                prefetchTag.rel = 'prefetch';
+                prefetchTag.href = href;
+                document.head.appendChild(prefetchTag);
+            }
+        }
+
+        item.addEventListener('pointerdown', prefetchSection, { passive: true });
+        item.addEventListener('touchstart', prefetchSection, { passive: true });
+        item.addEventListener('mouseenter', prefetchSection, { passive: true });
+
         item.addEventListener('click', function () {
             if (item.classList.contains('is-active')) return;
 
-            // Desplazar animación de píldora de inmediato al elemento tocado
+            // Mover la píldora de selección inmediatamente bajo el dedo
             navItems.forEach(function (i) { i.classList.remove('is-active'); });
             item.classList.add('is-active');
 
@@ -192,14 +208,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (progressBar) {
                 progressBar.classList.remove('is-finishing');
                 progressBar.classList.add('is-loading');
-            }
-
-            // Transición suave de salida del contenido actual
-            const currentContent = document.querySelector('.app-content');
-            if (currentContent) {
-                currentContent.style.transition = 'opacity 0.14s ease, transform 0.14s ease';
-                currentContent.style.opacity = '0.4';
-                currentContent.style.transform = 'scale(0.985)';
             }
         });
     });

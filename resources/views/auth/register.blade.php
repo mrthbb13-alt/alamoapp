@@ -608,7 +608,7 @@
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
             </button>
             <div class="register-logo-circle">
-                <img src="{{ asset('images/alamo_shield.png') }}?v={{ time() }}"
+                <img src="{{ asset('images/alamo_shield.png') }}?v=5.2"
                      alt="Escudo Oficial Álamo Temapache"
                      style="width: 100%; height: 100%; object-fit: contain; display: block; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));">
             </div>

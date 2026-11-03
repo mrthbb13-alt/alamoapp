@@ -277,10 +277,10 @@ body {
     will-change: opacity, transform;
 }
 
-/* Barra de Navegación Inferior Flotante - Compacta, Centrada y 100% Anclada */
+/* Barra de Navegación Inferior Flotante - Compacta, Centrada y 100% Anclada (Posición uniforme en todas las pantallas) */
 .bottom-nav {
     position: fixed !important;
-    bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: 12px !important;
     left: 50% !important;
     transform: translateX(-50%) translateZ(0) !important;
     width: calc(100% - 24px) !important;

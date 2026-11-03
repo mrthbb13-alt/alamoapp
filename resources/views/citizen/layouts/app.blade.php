@@ -15,11 +15,6 @@
     <meta name="theme-color" content="#8C0326">
     <meta name="msapplication-navbutton-color" content="#8C0326">
 
-    <!-- PREVENCIÓN DE CACHÉ ESTRICTA PARA ACTUALIZACIÓN AUTOMÁTICA DE VERSIONES -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-
     <!-- INICIALIZACIÓN INMEDIATA DEL TEMA (MODO CLARO POR DEFECTO AL ENTRAR) -->
     <script>
         (function() {
@@ -31,20 +26,18 @@
     </script>
 
     <!-- ICONOS PARA PANTALLA DE INICIO (iOS Safari, Android Chrome y PWA) -->
-    <link rel="manifest" href="{{ asset('manifest.json') }}?v={{ time() }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.png') }}?v={{ time() }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icon-192x192.png') }}?v={{ time() }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}?v={{ time() }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/favicon-16x16.png') }}?v={{ time() }}">
-    <link rel="icon" type="image/png" href="{{ asset('icons/logo.png') }}?v={{ time() }}">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}?v=5.2">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.png') }}?v=5.2">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icon-192x192.png') }}?v=5.2">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}?v=5.2">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/favicon-16x16.png') }}?v=5.2">
+    <link rel="icon" type="image/png" href="{{ asset('icons/logo.png') }}?v=5.2">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=5.2">
 
     <!-- Iconos FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <!-- Estilos Base de la App Ciudadana -->
-    <link rel="stylesheet" href="{{ asset('css/citizen/layout.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('css/citizen/layout.css') }}?v=5.2">
     @yield('page_css')
 </head>
 <body>
@@ -55,7 +48,7 @@
         <!-- ENCABEZADO SUPERIOR INSTITUCIONAL GUINDA CON ESCUDO OFICIAL -->
         <header class="app-header">
             <div class="header-brand">
-                <img src="{{ asset('images/alamo_shield.png') }}?v={{ time() }}"
+                <img src="{{ asset('images/alamo_shield.png') }}?v=5.2"
                      alt="Escudo Municipal Álamo Temapache"
                      class="brand-crest-shield">
                 <div class="header-brand-divider"></div>
@@ -216,10 +209,8 @@
         </div>
     </div>
 
-    <!-- Librería Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Script Base del Layout y Soporte PWA -->
-    <script src="{{ asset('js/citizen/layout.js') }}?v={{ time() }}"></script>
+    <script src="{{ asset('js/citizen/layout.js') }}?v=5.2"></script>
     @yield('page_js')
 </body>
 </html>

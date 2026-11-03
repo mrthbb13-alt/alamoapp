@@ -3,7 +3,8 @@
 @section('title', 'Nuevo Reporte | Álamo Reporta')
 
 @section('page_css')
-    <link rel="stylesheet" href="{{ asset('css/citizen/home.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="{{ asset('css/citizen/home.css') }}?v=5.2">
 @endsection
 
 @section('content')
@@ -301,5 +302,6 @@
 @endsection
 
 @section('page_js')
-    <script src="{{ asset('js/citizen/home.js') }}?v={{ time() }}"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="{{ asset('js/citizen/home.js') }}?v=5.2"></script>
 @endsection
