@@ -12,8 +12,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Álamo Reporta">
     <meta name="application-name" content="Álamo Reporta">
-    <meta name="theme-color" content="#EA580C">
-    <meta name="msapplication-navbutton-color" content="#EA580C">
+    <meta name="theme-color" content="#8C0326">
+    <meta name="msapplication-navbutton-color" content="#8C0326">
 
     <!-- ICONOS PARA PANTALLA DE INICIO (iOS Safari, Android Chrome y PWA) -->
     <link rel="manifest" href="{{ asset('manifest.json') }}?v={{ time() }}">
@@ -38,7 +38,7 @@
 
         .register-hero-wave {
             position: relative;
-            background: linear-gradient(145deg, #FBBF24 0%, #F59E0B 40%, #EA580C 100%);
+            background: linear-gradient(135deg, #8C0326 0%, #74031F 50%, #5B0215 100%);
             padding: calc(42px + env(safe-area-inset-top, 0px)) 24px 75px 24px;
             text-align: center;
             color: #FFFFFF;
@@ -63,9 +63,9 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: #FFFFFF;
             font-size: 1.1rem;
             cursor: pointer;
@@ -78,22 +78,21 @@
 
         .theme-float-btn:hover {
             transform: scale(1.08);
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(0, 0, 0, 0.45);
         }
 
         .register-logo-circle {
-            width: 78px;
-            height: 78px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: #FFFFFF;
-            padding: 3.5px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #EA580C;
-            font-size: 2rem;
             margin-bottom: 12px;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+            border: 1.5px solid var(--accent-gold);
         }
 
         .register-brand-name {
@@ -101,11 +100,13 @@
             font-weight: 800;
             letter-spacing: -0.5px;
             margin-bottom: 3px;
+            color: #FFFFFF;
         }
 
         .register-brand-tagline {
             font-size: 0.92rem;
-            opacity: 0.92;
+            color: var(--accent-gold);
+            font-weight: 600;
         }
 
         .register-body {
@@ -125,7 +126,7 @@
             border: 1px solid var(--border-color);
             border-radius: 32px;
             padding: 32px 24px;
-            box-shadow: 0 16px 36px -8px rgba(234, 88, 12, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+            box-shadow: var(--shadow-card);
             transition: background-color 0.25s, border-color 0.25s;
         }
 
@@ -137,7 +138,7 @@
             display: block;
             font-size: 0.84rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #FFFFFF;
             margin-bottom: 6px;
             padding-left: 6px;
         }
@@ -161,9 +162,9 @@
             height: 50px;
             padding: 0 46px 0 46px;
             border-radius: 9999px;
-            border: 1.5px solid var(--border-subtle);
+            border: 1.5px solid rgba(140, 3, 38, 0.45);
             background: var(--bg-input);
-            color: var(--text-primary);
+            color: #FFFFFF;
             font-size: 0.95rem;
             font-weight: 500;
             transition: all 0.2s ease;
@@ -171,9 +172,9 @@
 
         .input-pill:focus {
             outline: none;
-            border-color: var(--accent-orange);
+            border-color: var(--accent-gold);
             background: var(--bg-surface);
-            box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.14);
+            box-shadow: 0 0 0 4px rgba(245, 215, 163, 0.18);
         }
 
         .toggle-pwd-btn {
@@ -189,7 +190,7 @@
         }
 
         .toggle-pwd-btn:hover {
-            color: var(--accent-orange);
+            color: var(--accent-gold);
         }
 
         /* Indicadores de requisitos de contraseña estilo apps comerciales */
@@ -197,6 +198,7 @@
             margin-top: 8px;
             padding: 8px 14px;
             background: var(--bg-elevated);
+            border: 1px solid rgba(140, 3, 38, 0.35);
             border-radius: 14px;
             font-size: 0.78rem;
             display: flex;
@@ -226,7 +228,7 @@
         /* Selector de archivo INE (Cámara, Galería o Documentos) */
         .file-upload-dropzone {
             display: block;
-            border: 2px dashed var(--accent-orange);
+            border: 2px dashed rgba(245, 215, 163, 0.35);
             border-radius: 24px;
             padding: 20px 16px;
             background-color: var(--bg-elevated);
@@ -236,7 +238,8 @@
         }
 
         .file-upload-dropzone:hover {
-            background-color: var(--accent-yellow-soft);
+            background-color: #2D0A1B;
+            border-color: var(--accent-gold);
         }
 
         .file-input-hidden {
@@ -254,10 +257,110 @@
             width: 52px;
             height: 52px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
-            color: #FFFFFF;
+            background: #7A0A22;
+            color: var(--accent-gold);
             font-size: 1.3rem;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 14px rgba(122, 10, 34, 0.4);
+            margin-bottom: 4px;
+        }
+
+        .upload-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+
+        .upload-subtitle {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+        }
+
+        /* Tarjeta del archivo seleccionado */
+        .selected-file-card {
+            background: var(--bg-elevated);
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+        }
+
+        .file-preview-thumb {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+        .file-preview-thumb:hover {
+            transform: scale(1.05);
+        }
+
+        .file-icon-thumb {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: #7A0A22;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #FFFFFF;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+        }
+
+        .file-meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-view-preview {
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Botón circular [X] para retirar el archivo */
+        .btn-remove-file {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1.5px solid #EF4444;
+            color: #EF4444;
+            display: flex;
+            align-items: center;
             align-items: center;
             justify-content: center;
             box-shadow: 0 6px 14px rgba(234, 88, 12, 0.3);
@@ -434,8 +537,8 @@
             width: 100%;
             height: 54px;
             border-radius: 9999px;
-            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
-            color: #FFFFFF;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            color: var(--accent-wine-deep);
             border: none;
             font-size: 1.05rem;
             font-weight: 800;
@@ -444,14 +547,14 @@
             justify-content: center;
             gap: 10px;
             cursor: pointer;
-            box-shadow: 0 10px 22px -5px rgba(234, 88, 12, 0.42);
+            box-shadow: 0 10px 24px rgba(212, 175, 55, 0.35);
             margin-top: 14px;
             transition: transform 0.15s, box-shadow 0.2s;
         }
 
         .btn-pill-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 14px 26px -4px rgba(234, 88, 12, 0.52);
+            box-shadow: 0 14px 28px rgba(212, 175, 55, 0.45);
         }
 
         .btn-pill-submit:active {
@@ -459,8 +562,8 @@
         }
 
         .error-pill {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.35);
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.45);
             color: #EF4444;
             padding: 12px 18px;
             border-radius: 16px;
@@ -481,15 +584,10 @@
     <div class="register-page">
 
         <header class="register-hero-wave">
-            <button type="button" id="theme-toggle-btn" class="theme-float-btn" aria-label="Cambiar tema">
-                <i id="theme-icon" class="fa-solid fa-moon"></i>
-            </button>
-
-            <div class="register-logo-circle" style="overflow: hidden; border: none;">
-                <img src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                     alt="Álamo Reporta"
-                     class="brand-logo-img"
-                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain; display: block;">
+            <div class="register-logo-circle">
+                <img src="{{ asset('images/alamo_shield.png') }}?v={{ time() }}"
+                     alt="Escudo Oficial Álamo Temapache"
+                     style="width: 100%; height: 100%; object-fit: contain; display: block; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));">
             </div>
             <h1 class="register-brand-name">Registrarse</h1>
             <p class="register-brand-tagline">H. Ayuntamiento de Álamo Temapache, Ver.</p>
@@ -651,7 +749,7 @@
 
                 <div style="text-align: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle);">
                     <span style="font-size: 0.86rem; color: var(--text-secondary);">¿Ya tienes una cuenta registrada?</span>
-                    <a href="{{ route('login') }}" style="display: block; margin-top: 8px; color: var(--accent-orange); font-weight: 800; text-decoration: none; font-size: 0.94rem;">
+                    <a href="{{ route('login') }}" style="display: block; margin-top: 8px; color: var(--accent-gold); font-weight: 800; text-decoration: none; font-size: 0.94rem;">
                         &larr; Volver a Iniciar Sesión
                     </a>
                 </div>

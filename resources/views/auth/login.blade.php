@@ -12,8 +12,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Álamo Reporta">
     <meta name="application-name" content="Álamo Reporta">
-    <meta name="theme-color" content="#EA580C">
-    <meta name="msapplication-navbutton-color" content="#EA580C">
+    <meta name="theme-color" content="#8C0326">
+    <meta name="msapplication-navbutton-color" content="#8C0326">
 
     <!-- ICONOS PARA PANTALLA DE INICIO (iOS Safari, Android Chrome y PWA) -->
     <link rel="manifest" href="{{ asset('manifest.json') }}?v={{ time() }}">
@@ -36,10 +36,10 @@
             overflow-x: hidden;
         }
 
-        /* Cabecera ondulada orgánica inspirada en TravelApp */
+        /* Cabecera institucional guinda con silueta y ondas */
         .login-hero-wave {
             position: relative;
-            background: linear-gradient(145deg, #FBBF24 0%, #F59E0B 40%, #EA580C 100%);
+            background: linear-gradient(135deg, #8C0326 0%, #74031F 50%, #5B0215 100%);
             padding: calc(48px + env(safe-area-inset-top, 0px)) 24px 80px 24px;
             text-align: center;
             color: #FFFFFF;
@@ -64,9 +64,9 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: #FFFFFF;
             font-size: 1.1rem;
             cursor: pointer;
@@ -78,31 +78,30 @@
         }
         .theme-float-btn:hover {
             transform: scale(1.08);
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(0, 0, 0, 0.45);
         }
 
         .login-logo-circle {
-            width: 86px;
-            height: 86px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
-            background: #FFFFFF;
-            padding: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #EA580C;
-            font-size: 2.3rem;
             margin-bottom: 14px;
-            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
             position: relative;
         }
 
         .login-logo-circle::before {
             content: '';
             position: absolute;
-            inset: -5px;
+            inset: -4px;
             border-radius: 50%;
-            border: 2px dashed rgba(255, 255, 255, 0.7);
+            border: 1.5px solid var(--accent-gold);
+            opacity: 0.6;
         }
 
         .login-brand-name {
@@ -110,13 +109,13 @@
             font-weight: 800;
             letter-spacing: -0.5px;
             margin-bottom: 4px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #FFFFFF;
         }
 
         .login-brand-tagline {
             font-size: 0.95rem;
-            opacity: 0.92;
-            font-weight: 500;
+            color: var(--accent-gold);
+            font-weight: 600;
         }
 
         /* Contenedor flotante del formulario */
@@ -137,14 +136,14 @@
             border: 1px solid var(--border-color);
             border-radius: 32px;
             padding: 34px 28px;
-            box-shadow: 0 16px 36px -8px rgba(234, 88, 12, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+            box-shadow: var(--shadow-card);
             transition: background-color 0.25s, border-color 0.25s;
         }
 
         .login-card-title {
             font-size: 1.25rem;
             font-weight: 800;
-            color: var(--text-primary);
+            color: #FFFFFF;
             margin-bottom: 6px;
             text-align: center;
         }
@@ -164,7 +163,7 @@
             display: block;
             font-size: 0.84rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #FFFFFF;
             margin-bottom: 7px;
             padding-left: 6px;
         }
@@ -189,9 +188,9 @@
             height: 52px;
             padding: 0 20px 0 48px;
             border-radius: 9999px;
-            border: 1.5px solid var(--border-subtle);
+            border: 1.5px solid rgba(140, 3, 38, 0.45);
             background: var(--bg-input);
-            color: var(--text-primary);
+            color: #FFFFFF;
             font-size: 0.98rem;
             font-weight: 500;
             transition: all 0.2s ease;
@@ -199,13 +198,12 @@
 
         .input-pill:focus {
             outline: none;
-            border-color: var(--accent-orange);
-            background: var(--bg-surface);
-            box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.14);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 4px rgba(245, 215, 163, 0.18);
         }
 
         .input-pill:focus + .input-pill-icon {
-            color: var(--accent-orange);
+            color: var(--accent-gold);
         }
 
         .toggle-pwd-btn {
@@ -221,7 +219,7 @@
         }
 
         .toggle-pwd-btn:hover {
-            color: var(--accent-orange);
+            color: var(--accent-gold);
         }
 
         .remember-wrap {
@@ -245,44 +243,44 @@
         .remember-checkbox {
             width: 18px;
             height: 18px;
-            accent-color: var(--accent-orange);
+            accent-color: var(--accent-gold);
             cursor: pointer;
             border-radius: 5px;
         }
 
-        /* Botón estilo píldora TravelApp */
+        /* Botón estilo píldora institucional */
         .btn-pill-submit {
             width: 100%;
             height: 54px;
             border-radius: 9999px;
-            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
-            color: #FFFFFF;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            color: var(--accent-wine-deep);
             border: none;
             font-size: 1.05rem;
-            font-weight: 700;
+            font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             cursor: pointer;
-            box-shadow: 0 10px 22px -5px rgba(234, 88, 12, 0.42);
-            transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s;
+            box-shadow: 0 10px 24px rgba(212, 175, 55, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
             margin-top: 10px;
         }
 
         .btn-pill-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 14px 26px -4px rgba(234, 88, 12, 0.52);
+            box-shadow: 0 14px 28px rgba(212, 175, 55, 0.45);
         }
 
         .btn-pill-submit:active {
             transform: translateY(1px);
         }
 
-        /* Alerta limpia únicamente si hay error */
+        /* Alerta limpia si hay error */
         .error-pill {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.35);
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.45);
             color: #EF4444;
             padding: 12px 18px;
             border-radius: 16px;
@@ -305,21 +303,16 @@
 <body>
     <div class="login-page">
 
-        <!-- CABECERA ONDULADA CON LOGO Y BOTÓN DE MODO CLARO / OSCURO -->
+        <!-- CABECERA INSTITUCIONAL CON ESCUDO OFICIAL -->
         <header class="login-hero-wave">
-            <button type="button" id="theme-toggle-btn" class="theme-float-btn" aria-label="Cambiar tema">
-                <i id="theme-icon" class="fa-solid fa-moon"></i>
-            </button>
-
-            <div class="login-logo-circle" style="overflow: hidden; border: none;">
+            <div class="login-logo-circle">
                 <img id="login-brand-logo"
-                     src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                     alt="Álamo Reporta"
-                     class="brand-logo-img"
-                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain; display: block;">
+                     src="{{ asset('images/alamo_shield.png') }}?v={{ time() }}"
+                     alt="Escudo Oficial Álamo Temapache"
+                     style="width: 100%; height: 100%; object-fit: contain; display: block; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));">
             </div>
             <h1 class="login-brand-name">Álamo Reporta</h1>
-            <p class="login-brand-tagline">Atención Ciudadana y Respuesta Inmediata</p>
+            <p class="login-brand-tagline">Gobierno Municipal 2026-2029</p>
         </header>
 
         <!-- TARJETA FLOTANTE CON CAMPOS ESTILO TRAVELAPP -->
@@ -384,7 +377,7 @@
 
                 <div style="text-align: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle);">
                     <span style="font-size: 0.86rem; color: var(--text-secondary);">¿Aún no tienes una cuenta?</span>
-                    <a href="{{ route('register') }}" style="display: block; margin-top: 8px; color: var(--accent-orange); font-weight: 800; text-decoration: none; font-size: 0.94rem;">
+                    <a href="{{ route('register') }}" style="display: block; margin-top: 8px; color: var(--accent-gold); font-weight: 800; text-decoration: none; font-size: 0.94rem;">
                         Registrarse &rarr;
                     </a>
                 </div>

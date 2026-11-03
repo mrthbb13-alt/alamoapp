@@ -1,51 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-:root[data-theme="light"] {
-    --bg-body: #F8FAFC;
-    --bg-surface: #FFFFFF;
-    --bg-elevated: #FFF7ED;
-    --bg-input: #FFFFFF;
-    --text-primary: #0F172A;
-    --text-secondary: #64748B;
-    --text-muted: #94A3B8;
-    --accent-yellow: #FBBF24;
-    --accent-yellow-soft: #FEF3C7;
-    --accent-orange: #EA580C;
-    --accent-orange-hover: #C2410C;
-    --accent-orange-soft: #FFEDD5;
-    --border-color: rgba(245, 158, 11, 0.22);
-    --border-subtle: #E2E8F0;
-    --shadow-card: 0 14px 34px -8px rgba(234, 88, 12, 0.09), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
-    --shadow-float: 0 18px 40px -10px rgba(234, 88, 12, 0.25);
-    --header-gradient: linear-gradient(145deg, #FBBF24 0%, #F59E0B 45%, #EA580C 100%);
+:root,
+:root[data-theme="light"],
+:root[data-theme="dark"] {
+    --bg-body: #0B040B;
+    --bg-surface: #14050D;
+    --bg-elevated: #200713;
+    --bg-input: #190510;
+    --text-primary: #FFFFFF;
+    --text-secondary: #D1C4C8;
+    --text-muted: #8E7B82;
+    --accent-wine: #8C0326;
+    --accent-wine-deep: #5B0215;
+    --accent-wine-dark: #3F010E;
+    --accent-wine-light: #A71B36;
+    --accent-gold: #F5D7A3;
+    --accent-gold-dark: #D4AF37;
+    --accent-gold-badge: #FEE7BE;
+    --border-color: rgba(140, 3, 38, 0.4);
+    --border-subtle: rgba(245, 215, 163, 0.16);
+    --shadow-card: 0 16px 36px -8px rgba(0, 0, 0, 0.65);
+    --shadow-float: 0 18px 40px -10px rgba(0, 0, 0, 0.8);
+    --header-gradient: linear-gradient(135deg, #8C0326 0%, #74031F 50%, #5B0215 100%);
     --header-text: #FFFFFF;
     --status-pending: #EF4444;
     --status-process: #F59E0B;
     --status-resolved: #10B981;
-}
-
-:root[data-theme="dark"] {
-    --bg-body: #090D16;
-    --bg-surface: #131B2E;
-    --bg-elevated: #1E293B;
-    --bg-input: #0B1120;
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
-    --text-muted: #64748B;
-    --accent-yellow: #FBBF24;
-    --accent-yellow-soft: rgba(251, 191, 36, 0.15);
-    --accent-orange: #FB923C;
-    --accent-orange-hover: #F97316;
-    --accent-orange-soft: rgba(251, 146, 60, 0.18);
-    --border-color: rgba(245, 158, 11, 0.25);
-    --border-subtle: #334155;
-    --shadow-card: 0 16px 36px -8px rgba(0, 0, 0, 0.55);
-    --shadow-float: 0 18px 40px -10px rgba(0, 0, 0, 0.7);
-    --header-gradient: linear-gradient(145deg, #FBBF24 0%, #F59E0B 45%, #EA580C 100%);
-    --header-text: #FFFFFF;
-    --status-pending: #F87171;
-    --status-process: #FBBF24;
-    --status-resolved: #34D399;
 }
 
 * {
@@ -58,6 +38,7 @@
 html {
     height: 100%;
     overscroll-behavior-y: none;
+    background-color: var(--bg-body);
 }
 
 body {
@@ -82,18 +63,18 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
-/* Encabezado Superior Curvo Inspirado en TravelApp con soporte Safe Area (iPhone Notch) */
+/* ENCABEZADO SUPERIOR INSTITUCIONAL GUINDA */
 .app-header {
     background: var(--header-gradient);
-    padding: calc(16px + env(safe-area-inset-top, 0px)) 20px 24px 20px;
+    padding: calc(14px + env(safe-area-inset-top, 0px)) 18px 20px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 0 0 28px 28px;
-    box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.22);
+    box-shadow: 0 10px 25px -5px rgba(91, 2, 21, 0.45);
     position: sticky;
     top: 0;
     z-index: 90;
@@ -106,54 +87,52 @@ body {
     gap: 12px;
 }
 
-.logo-placeholder {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    padding: 2.5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-    flex-shrink: 0;
-    overflow: hidden;
-}
-
-.brand-logo-img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+.brand-crest-shield {
+    height: 48px;
+    width: auto;
+    max-width: 52px;
     object-fit: contain;
     display: block;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
 }
 
-.logo-tag {
-    display: none;
+.header-brand-divider {
+    width: 1.5px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.38);
+    border-radius: 2px;
 }
 
 .brand-titles {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    line-height: 1.1;
 }
 
-.brand-locality {
-    font-size: 11px;
+.brand-name-city {
+    font-size: 16.5px;
     font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--header-text);
-    opacity: 0.92;
-    transition: color 0.25s ease;
 }
 
-.brand-name {
-    font-size: 19px;
+.brand-name-sub {
+    font-size: 16.5px;
     font-weight: 800;
-    color: var(--header-text);
-    line-height: 1.15;
-    letter-spacing: -0.3px;
-    transition: color 0.25s ease;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+}
+
+.brand-slogan {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    margin-top: 2.5px;
 }
 
 .header-actions {
@@ -162,15 +141,16 @@ body {
     gap: 10px;
 }
 
-.theme-btn {
+.header-settings-btn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: none;
-    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.28);
     backdrop-filter: blur(8px);
     color: #FFFFFF;
-    font-size: 1rem;
+    font-size: 1.05rem;
+    text-decoration: none;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -178,42 +158,39 @@ body {
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.theme-btn:hover {
-    transform: scale(1.08);
-    background: rgba(255, 255, 255, 0.35);
+.header-settings-btn:hover {
+    transform: scale(1.06);
+    background: rgba(0, 0, 0, 0.45);
 }
 
-.theme-btn:active {
+.header-settings-btn:active {
     transform: scale(0.95);
 }
 
 /* Área de Contenido Principal con soporte Safe Area Inferior */
 .app-content {
     flex: 1;
-    padding: 20px 16px calc(86px + env(safe-area-inset-bottom, 0px)) 16px;
+    padding: 16px 16px calc(96px + env(safe-area-inset-bottom, 0px)) 16px;
 }
 
-/* Barra de Navegación Inferior Anclada al Fondo (Estilo App Nativa) */
+/* Barra de Navegación Inferior Flotante Estilo Cápsula Institucional */
 .bottom-nav {
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 520px;
-    background-color: var(--bg-surface);
-    border-top: 1.5px solid var(--border-color);
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
-    border-bottom: none;
-    border-radius: 22px 22px 0 0;
+    width: calc(100% - 24px);
+    max-width: 496px;
+    background-color: #560315;
+    border: 1.5px solid rgba(245, 215, 163, 0.22);
+    border-radius: 36px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)) 12px;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px)) 8px;
+    margin-bottom: 12px;
     z-index: 100;
-    box-shadow: 0 -8px 24px -4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(16px);
-    transition: background-color 0.25s, border-color 0.25s;
     user-select: none;
     -webkit-user-select: none;
     box-sizing: border-box;
@@ -225,12 +202,17 @@ body {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: var(--text-secondary);
-    padding: 6px 4px;
+    color: #FFFFFF;
+    opacity: 0.85;
+    padding: 8px 6px;
     border-radius: 9999px;
     transition: all 0.2s ease;
     gap: 3px;
     -webkit-touch-callout: none;
+}
+
+.nav-item:hover {
+    opacity: 1;
 }
 
 .nav-icon {
@@ -244,50 +226,63 @@ body {
 }
 
 .nav-item.is-active {
-    background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
-    color: #FFFFFF;
-    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+    background: var(--accent-gold);
+    color: var(--accent-wine-deep);
+    opacity: 1;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
 .nav-item.is-active .nav-icon {
+    color: var(--accent-wine-deep);
     transform: translateY(-1px);
 }
 
-/* BANNER Y MODAL DE INSTALACIÓN PWA / AGREGAR A PANTALLA DE INICIO */
+.nav-item.is-active .nav-label {
+    color: var(--accent-wine-deep);
+    font-weight: 800;
+}
+
+/* BANNER DE INSTALACIÓN PWA */
 .pwa-install-banner {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(234, 88, 12, 0.15) 100%);
-    border: 1.5px solid var(--accent-orange);
-    border-radius: 20px;
+    background: linear-gradient(135deg, #1C0510 0%, #2A0717 100%);
+    border: 1.5px solid rgba(140, 3, 38, 0.6);
+    border-radius: 22px;
     padding: 12px 16px;
-    margin-bottom: 18px;
+    margin: 14px 16px 0 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    box-shadow: 0 8px 20px -4px rgba(234, 88, 12, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .pwa-banner-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     flex: 1;
     min-width: 0;
 }
 
-.pwa-banner-icon {
-    width: 38px;
-    height: 38px;
+.pwa-banner-phone-icon {
+    width: 36px;
+    height: 36px;
     border-radius: 12px;
+    background: rgba(140, 3, 38, 0.45);
+    border: 1px solid rgba(245, 215, 163, 0.25);
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
     flex-shrink: 0;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
 }
 
 .pwa-banner-text {
-    font-size: 12.5px;
+    font-size: 13px;
     font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.3;
+    color: #FFFFFF;
+    line-height: 1.25;
 }
 
 .pwa-banner-sub {
@@ -297,26 +292,46 @@ body {
     display: block;
 }
 
+.pwa-banner-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
 .pwa-banner-btn {
-    background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
-    color: #FFFFFF;
+    background: var(--accent-gold);
+    color: var(--accent-wine-deep);
     border: none;
-    padding: 7px 14px;
+    padding: 7px 16px;
     border-radius: 9999px;
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 800;
     cursor: pointer;
     flex-shrink: 0;
-    box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(245, 215, 163, 0.25);
+    transition: transform 0.15s ease;
+}
+
+.pwa-banner-btn:hover {
+    transform: translateY(-1px);
 }
 
 .pwa-banner-close {
     background: none;
     border: none;
-    color: var(--text-muted);
-    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 14px;
     cursor: pointer;
     padding: 4px;
+    transition: color 0.15s ease;
+}
+
+.pwa-banner-close:hover {
+    color: #FFFFFF;
 }
 
 /* Modal Instrucciones para iOS y Android */
@@ -324,8 +339,8 @@ body {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
     z-index: 9999;
     align-items: flex-end;
     justify-content: center;
@@ -341,8 +356,8 @@ body {
     background: var(--bg-surface);
     border-radius: 28px 28px 0 0;
     padding: 26px 22px calc(24px + env(safe-area-inset-bottom, 0px)) 22px;
-    border-top: 1px solid var(--border-color);
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+    border-top: 1.5px solid var(--border-color);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.45);
     animation: slideUp 0.25s ease-out;
 }
 
@@ -364,7 +379,7 @@ body {
     color: var(--text-primary);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .pwa-step {
@@ -378,8 +393,8 @@ body {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
-    color: #FFFFFF;
+    background: var(--accent-gold);
+    color: var(--accent-wine-deep);
     font-weight: 800;
     font-size: 13px;
     display: flex;
@@ -397,20 +412,20 @@ body {
 
 .pwa-step-highlight {
     font-weight: 800;
-    color: var(--accent-orange);
+    color: var(--accent-gold);
 }
 
 .pwa-modal-close-btn {
     width: 100%;
     height: 48px;
     border-radius: 9999px;
-    background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
-    color: #FFFFFF;
+    background: var(--accent-gold);
+    color: var(--accent-wine-deep);
     border: none;
     font-size: 14px;
     font-weight: 800;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 /* Utilidades Globales */

@@ -12,8 +12,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Álamo Reporta">
     <meta name="application-name" content="Álamo Reporta">
-    <meta name="theme-color" content="#EA580C">
-    <meta name="msapplication-navbutton-color" content="#EA580C">
+    <meta name="theme-color" content="#8C0326">
+    <meta name="msapplication-navbutton-color" content="#8C0326">
 
     <!-- ICONOS PARA PANTALLA DE INICIO (iOS Safari, Android Chrome y PWA) -->
     <link rel="manifest" href="{{ asset('manifest.json') }}?v={{ time() }}">
@@ -35,44 +35,39 @@
 <body>
 
     <div class="app-shell">
-        <!-- ENCABEZADO SUPERIOR CON LOGO OFICIAL Y MODO CLARO/OSCURO -->
+        <!-- ENCABEZADO SUPERIOR INSTITUCIONAL GUINDA CON ESCUDO OFICIAL -->
         <header class="app-header">
             <div class="header-brand">
-                <div class="logo-placeholder" title="Álamo Reporta">
-                    <img src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                         alt="Álamo Reporta"
-                         class="brand-logo-img">
-                </div>
+                <img src="{{ asset('images/alamo_shield.png') }}?v={{ time() }}"
+                     alt="Escudo Municipal Álamo Temapache"
+                     class="brand-crest-shield">
+                <div class="header-brand-divider"></div>
                 <div class="brand-titles">
-                    <span class="brand-locality">Álamo Temapache, Ver.</span>
-                    <h1 class="brand-name">Reporte Ciudadano</h1>
+                    <span class="brand-name-city">ÁLAMO</span>
+                    <span class="brand-name-sub">TEMAPACHE</span>
+                    <span class="brand-slogan">GOBIERNO MUNICIPAL 2026-2029</span>
                 </div>
             </div>
 
             <div class="header-actions">
-                @auth
-                    <a href="{{ route('citizen.profile') }}" class="theme-btn" title="Mi Perfil: {{ Auth::user()->name }}" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; justify-content: center;">
-                        <i class="fa-solid fa-circle-user" style="color: var(--accent-orange); font-size: 1.15rem;"></i>
-                    </a>
-                @endauth
-                <button type="button" id="theme-toggle-btn" class="theme-btn" aria-label="Cambiar modo de color">
-                    <i id="theme-icon" class="fa-solid fa-moon"></i>
-                </button>
+                <a href="{{ route('citizen.profile') }}" class="header-settings-btn" aria-label="Ajustes y Perfil" title="Ajustes y Perfil">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
             </div>
         </header>
 
-        <!-- BANNER DISCRETO DE INSTALACIÓN (Solo visible si se abre en el navegador Safari/Chrome y no en modo app) -->
-        <div id="pwa-install-banner" class="pwa-install-banner is-hidden" style="margin: 14px 16px 0 16px;">
+        <!-- BANNER DE INSTALACIÓN PWA -->
+        <div id="pwa-install-banner" class="pwa-install-banner is-hidden">
             <div class="pwa-banner-left">
-                <img src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                     alt="App Icon"
-                     class="pwa-banner-icon brand-logo-img">
-                <div>
+                <div class="pwa-banner-phone-icon">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                </div>
+                <div class="pwa-banner-info">
                     <span class="pwa-banner-text">Instalar como App</span>
                     <span class="pwa-banner-sub">Úsala a pantalla completa sin barras</span>
                 </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="pwa-banner-right">
                 <button type="button" id="btn-show-pwa-modal" class="pwa-banner-btn">
                     <i class="fa-solid fa-arrow-down"></i> Instalar
                 </button>
@@ -90,7 +85,7 @@
         <!-- BARRA DE NAVEGACIÓN INFERIOR (ESTILO APP MÓVIL) -->
         <nav class="bottom-nav">
             <a href="{{ route('citizen.home') }}" class="nav-item {{ request()->routeIs('citizen.home') ? 'is-active' : '' }}">
-                <i class="fa-solid fa-camera-retro nav-icon"></i>
+                <i class="fa-solid fa-camera nav-icon"></i>
                 <span class="nav-label">Reportar</span>
             </a>
 
@@ -116,10 +111,10 @@
         <div class="pwa-modal-card">
             <div class="pwa-modal-header">
                 <div class="pwa-modal-title">
-                    <img src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                         alt="Logo"
-                         class="brand-logo-img"
-                         style="width: 32px; height: 32px; border-radius: 50%; object-fit: contain;">
+                    <img src="{{ asset('images/alamo_shield.png') }}?v={{ time() }}"
+                         alt="Escudo Oficial"
+                         class="brand-crest-shield"
+                         style="width: 32px; height: 32px; object-fit: contain;">
                     <span>Instalar Álamo Reporta</span>
                 </div>
                 <button type="button" id="btn-close-pwa-modal" style="background: none; border: none; font-size: 1.2rem; color: var(--text-muted); cursor: pointer;">
@@ -134,21 +129,21 @@
                 <div class="pwa-step">
                     <div class="pwa-step-num">1</div>
                     <div class="pwa-step-desc">
-                        Presiona el botón <span class="pwa-step-highlight">Compartir</span> en la barra inferior de Safari (<i class="fa-solid fa-arrow-up-from-bracket" style="color: var(--accent-orange);"></i>).
+                        Presiona el botón <span class="pwa-step-highlight">Compartir</span> en la barra inferior de Safari (<i class="fa-solid fa-arrow-up-from-bracket" style="color: var(--accent-gold);"></i>).
                     </div>
                 </div>
 
                 <div class="pwa-step">
                     <div class="pwa-step-num">2</div>
                     <div class="pwa-step-desc">
-                        Baja y selecciona la opción <span class="pwa-step-highlight">"Agregar a pantalla de inicio"</span> (<i class="fa-solid fa-square-plus" style="color: var(--accent-orange);"></i>).
+                        Baja y selecciona la opción <span class="pwa-step-highlight">"Agregar a pantalla de inicio"</span> (<i class="fa-solid fa-square-plus" style="color: var(--accent-gold);"></i>).
                     </div>
                 </div>
 
                 <div class="pwa-step">
                     <div class="pwa-step-num">3</div>
                     <div class="pwa-step-desc">
-                        Toca <span class="pwa-step-highlight">"Agregar"</span> en la esquina superior derecha. ¡Listo! Se abrirá desde tu pantalla como una app nativa con el logo oficial.
+                        Toca <span class="pwa-step-highlight">"Agregar"</span> en la esquina superior derecha. ¡Listo! Se abrirá desde tu pantalla como una app nativa con el escudo oficial.
                     </div>
                 </div>
             </div>

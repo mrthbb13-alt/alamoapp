@@ -16,8 +16,17 @@
          class="is-hidden">
     </div>
 
-    <!-- BANNER DE BIENVENIDA Y ESTADÍSTICAS RÁPIDAS ESTILO TRAVELAPP -->
+    <!-- BANNER DE BIENVENIDA Y ESTADÍSTICAS RÁPIDAS ESTILO GUINDA Y ORO -->
     <section class="hero-card">
+        <!-- Silueta arquitectónica municipal de fondo estilo marca de agua -->
+        <svg class="hero-watermark-church" viewBox="0 0 160 100" fill="currentColor" aria-hidden="true">
+            <path d="M110,95 L110,40 L105,40 L105,30 L115,30 L115,20 L118,20 L118,12 L122,12 L122,20 L125,20 L125,30 L135,30 L135,40 L130,40 L130,95 Z" opacity="0.8"/>
+            <rect x="116" y="38" width="8" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M70,95 L70,55 Q90,45 110,55 L110,95 Z" opacity="0.6"/>
+            <path d="M82,75 Q90,65 98,75 L98,95 L82,95 Z" opacity="0.4"/>
+            <path d="M45,95 Q50,60 60,40 Q45,35 30,42 Q48,45 52,50 Q30,55 25,65 Q45,62 55,60 Q40,75 42,95 Z" opacity="0.7"/>
+        </svg>
+
         <div class="hero-text">
             <span class="hero-badge">Atención Directa Municipal</span>
             <h2 class="hero-title">¿Qué sucede hoy en tu calle o colonia?</h2>
@@ -33,6 +42,12 @@
                 <span class="metric-label">Atendidos</span>
             </div>
         </div>
+
+        <!-- Ondas doradas decorativas institucionales en el borde inferior -->
+        <svg class="hero-gold-waves" viewBox="0 0 500 50" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,50 Q120,45 220,38 T420,15 Q465,10 500,2 L500,50 L0,50 Z" fill="#D4AF37" opacity="0.85"/>
+            <path d="M0,50 Q140,48 250,40 T440,24 Q475,20 500,12 L500,50 L0,50 Z" fill="#F5D7A3" opacity="0.95"/>
+        </svg>
     </section>
 
     <!-- ALERTA DE ÉXITO AL ENVIAR REPORTE (OCULTA POR DEFECTO) -->
@@ -83,14 +98,14 @@
 
                 <button type="button" class="category-tile" data-category="alumbrado">
                     <span class="tile-icon"><i class="fa-solid fa-lightbulb"></i></span>
-                    <span class="tile-name">Luminaria</span>
-                    <span class="tile-dept">Alumbrado</span>
+                    <span class="tile-name">Alumbrado Público</span>
+                    <span class="tile-dept">Servicios Municipales</span>
                 </button>
 
                 <button type="button" class="category-tile" data-category="agua">
                     <span class="tile-icon"><i class="fa-solid fa-faucet-drip"></i></span>
-                    <span class="tile-name">Fuga de Agua</span>
-                    <span class="tile-dept">Agua Potable</span>
+                    <span class="tile-name">Agua Potable</span>
+                    <span class="tile-dept">CMAS</span>
                 </button>
 
                 <button type="button" class="category-tile" data-category="basura">
@@ -136,7 +151,7 @@
             </label>
 
             <!-- Tarjeta con el archivo seleccionado (igual que la INE en Registro) -->
-            <div id="photo-selected-card" class="selected-file-card is-hidden" style="display: none; background: var(--bg-surface); border: 1.5px solid var(--accent-orange); border-radius: 20px; padding: 12px 14px; align-items: center; gap: 12px; box-shadow: 0 8px 18px rgba(234, 88, 12, 0.12);">
+            <div id="photo-selected-card" class="selected-file-card is-hidden" style="display: none; background: var(--bg-elevated); border: 1.5px solid var(--accent-gold); border-radius: 20px; padding: 12px 14px; align-items: center; gap: 12px; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);">
                 <img id="photo-preview-thumb" src="" alt="Vista previa" style="width: 58px; height: 58px; border-radius: 14px; object-fit: cover; cursor: pointer; border: 1.5px solid var(--border-subtle); flex-shrink: 0;">
                 
                 <div class="file-info" style="flex: 1; min-width: 0;">
@@ -144,21 +159,21 @@
                     <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px; display: flex; align-items: center; gap: 6px;">
                         <span id="photo-file-size">0 KB</span>
                         <span>•</span>
-                        <button type="button" id="btn-view-photo-lightbox" style="background: none; border: none; color: var(--accent-orange); font-size: 11.5px; font-weight: 700; cursor: pointer; padding: 0;">
+                        <button type="button" id="btn-view-photo-lightbox" style="background: none; border: none; color: var(--accent-gold); font-size: 11.5px; font-weight: 700; cursor: pointer; padding: 0;">
                             <i class="fa-solid fa-magnifying-glass-plus"></i> Ver foto
                         </button>
                     </div>
                 </div>
 
                 <!-- Botón circular [X] para retirar el archivo -->
-                <button type="button" id="btn-clear-photo" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(239, 68, 68, 0.12); border: 1.5px solid #EF4444; color: #EF4444; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; flex-shrink: 0;" title="Quitar fotografía">
+                <button type="button" id="btn-clear-photo" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(239, 68, 68, 0.15); border: 1.5px solid #EF4444; color: #EF4444; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; flex-shrink: 0;" title="Quitar fotografía">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <!-- Aviso / Opción clara de imagen por defecto -->
-            <div id="default-photo-notice" style="margin-top: 12px; display: flex; align-items: center; gap: 10px; background: rgba(245, 158, 11, 0.1); border: 1px dashed rgba(245, 158, 11, 0.4); padding: 10px 14px; border-radius: 16px;">
-                <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-orange); font-size: 14px; flex-shrink: 0;"></i>
+            <div id="default-photo-notice" style="margin-top: 12px; display: flex; align-items: center; gap: 10px; background: rgba(140, 3, 38, 0.25); border: 1px dashed rgba(245, 215, 163, 0.35); padding: 10px 14px; border-radius: 16px;">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-gold); font-size: 14px; flex-shrink: 0;"></i>
                 <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.35;">
                     <span style="font-weight: 700; color: var(--text-primary); display: block;">Se usará imagen por defecto si no agregas foto</span>
                     <span>Si no tienes una foto al momento, el sistema asignará automáticamente una imagen ilustrativa por defecto según el caso seleccionado.</span>

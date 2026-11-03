@@ -7,8 +7,8 @@
   "display": "standalone",
   "display_override": ["standalone", "fullscreen", "window-controls-overlay"],
   "orientation": "portrait",
-  "background_color": "#F8FAFC",
-  "theme_color": "#EA580C",
+  "background_color": "#0B040B",
+  "theme_color": "#8C0326",
   "categories": ["government", "utilities"],
   "lang": "es-MX",
   "icons": [
