@@ -39,6 +39,7 @@ Route::middleware(CitizenAuth::class)->prefix('reportar')->group(function () {
     Route::get('/', [CitizenAppController::class, 'home'])->name('citizen.home');
     Route::get('/comunidad', [CitizenAppController::class, 'feed'])->name('citizen.feed');
     Route::get('/seguimiento', [CitizenAppController::class, 'track'])->name('citizen.track');
+    Route::get('/directorio', [CitizenAppController::class, 'directory'])->name('citizen.directory');
 
     // Apartado de Perfil Ciudadano
     Route::get('/perfil', [AuthController::class, 'profile'])->name('citizen.profile');

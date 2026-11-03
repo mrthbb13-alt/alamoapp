@@ -91,12 +91,17 @@
 
             <a href="{{ route('citizen.feed') }}" class="nav-item {{ request()->routeIs('citizen.feed') ? 'is-active' : '' }}">
                 <i class="fa-solid fa-map-location-dot nav-icon"></i>
-                <span class="nav-label">Mapa Vecinal</span>
+                <span class="nav-label">Mapa</span>
             </a>
 
             <a href="{{ route('citizen.track') }}" class="nav-item {{ request()->routeIs('citizen.track') ? 'is-active' : '' }}">
                 <i class="fa-solid fa-magnifying-glass-location nav-icon"></i>
                 <span class="nav-label">Mi Folio</span>
+            </a>
+
+            <a href="{{ route('citizen.directory') }}" class="nav-item {{ request()->routeIs('citizen.directory') ? 'is-active' : '' }}">
+                <i class="fa-solid fa-address-book nav-icon"></i>
+                <span class="nav-label">Directorio</span>
             </a>
 
             <a href="{{ route('citizen.profile') }}" class="nav-item {{ request()->routeIs('citizen.profile') ? 'is-active' : '' }}">
@@ -122,9 +127,49 @@
                 </button>
             </div>
 
-            <!-- Contenido dinámico según el sistema (iOS o Android) -->
-            <div id="pwa-ios-instructions">
-                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">Para usar la aplicación a pantalla completa en tu iPhone o iPad sin barras de Safari:</p>
+            <!-- División por pestañas para Android y para iOS -->
+            <div class="pwa-platform-tabs">
+                <button type="button" id="tab-pwa-android" class="pwa-platform-tab is-active">
+                    <i class="fa-brands fa-android"></i> Android
+                </button>
+                <button type="button" id="tab-pwa-ios" class="pwa-platform-tab">
+                    <i class="fa-brands fa-apple"></i> iPhone / iOS
+                </button>
+            </div>
+
+            <!-- Contenido para Android -->
+            <div id="pwa-android-instructions">
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">Pasos para instalar en teléfonos Samsung, Xiaomi, Motorola, etc.:</p>
+
+                <button type="button" id="btn-android-install-trigger" class="btn-pill-submit" style="margin-bottom: 14px; height: 46px; font-size: 13px;">
+                    <i class="fa-solid fa-download"></i> Instalar Aplicación Ahora
+                </button>
+
+                <div class="pwa-step">
+                    <div class="pwa-step-num">1</div>
+                    <div class="pwa-step-desc">
+                        Abre el menú de Chrome tocando los <span class="pwa-step-highlight">3 puntos (⋮)</span> en la esquina superior derecha.
+                    </div>
+                </div>
+
+                <div class="pwa-step">
+                    <div class="pwa-step-num">2</div>
+                    <div class="pwa-step-desc">
+                        Selecciona la opción <span class="pwa-step-highlight">"Instalar aplicación"</span> o <span class="pwa-step-highlight">"Agregar a la pantalla principal"</span>.
+                    </div>
+                </div>
+
+                <div class="pwa-step">
+                    <div class="pwa-step-num">3</div>
+                    <div class="pwa-step-desc">
+                        Presiona <span class="pwa-step-highlight">"Instalar"</span>. ¡Listo! Quedará en tu menú de aplicaciones con el escudo oficial.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido para iOS (iPhone / iPad) -->
+            <div id="pwa-ios-instructions" class="is-hidden">
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">Pasos para usar a pantalla completa en tu iPhone o iPad sin barras de Safari:</p>
                 
                 <div class="pwa-step">
                     <div class="pwa-step-num">1</div>
@@ -136,7 +181,7 @@
                 <div class="pwa-step">
                     <div class="pwa-step-num">2</div>
                     <div class="pwa-step-desc">
-                        Baja y selecciona la opción <span class="pwa-step-highlight">"Agregar a pantalla de inicio"</span> (<i class="fa-solid fa-square-plus" style="color: var(--accent-gold);"></i>).
+                        Desliza y selecciona la opción <span class="pwa-step-highlight">"Agregar a pantalla de inicio"</span> (<i class="fa-solid fa-square-plus" style="color: var(--accent-gold);"></i>).
                     </div>
                 </div>
 
@@ -146,14 +191,6 @@
                         Toca <span class="pwa-step-highlight">"Agregar"</span> en la esquina superior derecha. ¡Listo! Se abrirá desde tu pantalla como una app nativa con el escudo oficial.
                     </div>
                 </div>
-            </div>
-
-            <div id="pwa-android-instructions" class="is-hidden">
-                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">Para instalar Álamo Reporta en tu dispositivo Android:</p>
-                <button type="button" id="btn-android-install-trigger" class="btn-pill-submit" style="margin-bottom: 12px; height: 48px;">
-                    <i class="fa-solid fa-download"></i> Instalar Aplicación Ahora
-                </button>
-                <p style="font-size: 12px; color: var(--text-muted); text-align: center;">O toca los 3 puntos (&#8942;) del navegador y elige <strong>"Instalar aplicación"</strong> o <strong>"Agregar a la pantalla principal"</strong>.</p>
             </div>
 
             <button type="button" id="btn-understood-pwa" class="pwa-modal-close-btn">

@@ -53,15 +53,49 @@ document.addEventListener('DOMContentLoaded', function () {
     const iosInstructions = document.getElementById('pwa-ios-instructions');
     const androidInstructions = document.getElementById('pwa-android-instructions');
     const btnAndroidInstall = document.getElementById('btn-android-install-trigger');
+    const tabAndroid = document.getElementById('tab-pwa-android');
+    const tabIos = document.getElementById('tab-pwa-ios');
 
     let deferredPrompt = null;
+
+    // Control de pestañas Android / iOS en el modal de instalación
+    function selectPlatform(platform) {
+        if (platform === 'ios') {
+            if (tabIos) tabIos.classList.add('is-active');
+            if (tabAndroid) tabAndroid.classList.remove('is-active');
+            if (iosInstructions) iosInstructions.classList.remove('is-hidden');
+            if (androidInstructions) androidInstructions.classList.add('is-hidden');
+        } else {
+            if (tabAndroid) tabAndroid.classList.add('is-active');
+            if (tabIos) tabIos.classList.remove('is-active');
+            if (androidInstructions) androidInstructions.classList.remove('is-hidden');
+            if (iosInstructions) iosInstructions.classList.add('is-hidden');
+        }
+    }
+
+    if (tabAndroid) {
+        tabAndroid.addEventListener('click', function () {
+            selectPlatform('android');
+        });
+    }
+
+    if (tabIos) {
+        tabIos.addEventListener('click', function () {
+            selectPlatform('ios');
+        });
+    }
+
+    // Auto-seleccionar según dispositivo detectado
+    if (isIos) {
+        selectPlatform('ios');
+    } else {
+        selectPlatform('android');
+    }
 
     // Capturar evento de instalación nativo en Android / Chrome
     window.addEventListener('beforeinstallprompt', function (e) {
         e.preventDefault();
         deferredPrompt = e;
-        if (androidInstructions) androidInstructions.classList.remove('is-hidden');
-        if (iosInstructions) iosInstructions.classList.add('is-hidden');
         if (!isStandalone && pwaBanner && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
             pwaBanner.classList.remove('is-hidden');
         }
@@ -72,11 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const wasDismissed = sessionStorage.getItem('pwa_banner_dismissed') === 'true';
         if (!wasDismissed) {
             pwaBanner.classList.remove('is-hidden');
-        }
-
-        if (isIos && iosInstructions && androidInstructions) {
-            iosInstructions.classList.remove('is-hidden');
-            androidInstructions.classList.add('is-hidden');
         }
     }
 

@@ -81,6 +81,20 @@
             </form>
         </div>
 
+        <!-- ACCESO RÁPIDO AL DIRECTORIO MUNICIPAL -->
+        <a href="{{ route('citizen.directory') }}" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface); border: 1.5px solid var(--border-color); border-radius: 20px; padding: 18px 22px; margin-bottom: 22px; box-shadow: var(--shadow-card); transition: all 0.2s ease;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(245, 215, 163, 0.12); border: 1.5px solid rgba(245, 215, 163, 0.35); display: flex; align-items: center; justify-content: center; color: var(--accent-gold); font-size: 1.25rem;">
+                    <i class="fa-solid fa-address-book"></i>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-weight: 800; font-size: 0.98rem; color: #FFFFFF;">Directorio Municipal</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">Regidores, Directores y DIF de Álamo</div>
+                </div>
+            </div>
+            <i class="fa-solid fa-chevron-right" style="color: var(--accent-gold); font-size: 0.9rem;"></i>
+        </a>
+
         <!-- BOTÓN CERRAR SESIÓN -->
         <form action="{{ route('logout') }}" method="POST">
             @csrf

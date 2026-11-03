@@ -179,15 +179,15 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% - 24px);
-    max-width: 496px;
+    width: calc(100% - 20px);
+    max-width: 500px;
     background-color: #560315;
     border: 1.5px solid rgba(245, 215, 163, 0.22);
     border-radius: 36px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px)) 8px;
-    margin-bottom: 12px;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px)) 4px;
+    margin-bottom: 10px;
     z-index: 100;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(16px);
@@ -204,10 +204,10 @@ body {
     text-decoration: none;
     color: #FFFFFF;
     opacity: 0.85;
-    padding: 8px 6px;
+    padding: 6px 2px;
     border-radius: 9999px;
     transition: all 0.2s ease;
-    gap: 3px;
+    gap: 2.5px;
     -webkit-touch-callout: none;
 }
 
@@ -216,13 +216,14 @@ body {
 }
 
 .nav-icon {
-    font-size: 17px;
+    font-size: 16px;
     transition: transform 0.2s ease;
 }
 
 .nav-label {
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .nav-item.is-active {
@@ -380,6 +381,45 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+/* Selector de Plataformas Android / iOS */
+.pwa-platform-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 18px;
+    background: var(--bg-elevated);
+    padding: 4px;
+    border-radius: 9999px;
+    border: 1px solid var(--border-color);
+}
+
+.pwa-platform-tab {
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pwa-platform-tab:hover {
+    color: #FFFFFF;
+}
+
+.pwa-platform-tab.is-active {
+    background: var(--accent-gold);
+    color: var(--accent-wine-deep);
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(245, 215, 163, 0.25);
 }
 
 .pwa-step {

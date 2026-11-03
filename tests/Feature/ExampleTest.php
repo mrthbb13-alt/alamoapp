@@ -98,6 +98,12 @@ class ExampleTest extends TestCase
         $this->actingAs($user)->get(route('citizen.feed'))->assertStatus(200);
         $this->actingAs($user)->get(route('citizen.track'))->assertStatus(200);
         $this->actingAs($user)->get(route('citizen.profile'))->assertStatus(200);
+        $this->actingAs($user)->get(route('citizen.directory'))
+            ->assertStatus(200)
+            ->assertSee('Directorio Municipal')
+            ->assertSee('Regidores')
+            ->assertSee('Directores')
+            ->assertSee('DIF Municipal');
         $this->get(route('municipal.dashboard'))->assertStatus(200);
         $this->actingAs($user)->get('/reportar/api/folio/ALM-2026-0001')->assertStatus(200);
     }

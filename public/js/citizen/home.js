@@ -23,15 +23,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 2. Control de Fotografía (Dropzone atractivo + Tarjeta de previsualización estilo INE + Lightbox)
+    // 2. Control de Fotografía y Archivos (Dropzone + Vista Previa Grande + Documentos + Lightbox)
     const evidenceInput = document.getElementById('evidence-input');
     const photoDropzone = document.getElementById('photo-dropzone');
     const photoSelectedCard = document.getElementById('photo-selected-card');
-    const photoPreviewThumb = document.getElementById('photo-preview-thumb');
+    const photoPreviewLarge = document.getElementById('photo-preview-large');
+    const photoImgContainer = document.getElementById('photo-img-container');
+    const photoDocContainer = document.getElementById('photo-doc-container');
+    const docFileNameText = document.getElementById('doc-file-name-text');
     const photoFileName = document.getElementById('photo-file-name');
     const photoFileSize = document.getElementById('photo-file-size');
     const btnClearPhoto = document.getElementById('btn-clear-photo');
-    const btnViewPhotoLightbox = document.getElementById('btn-view-photo-lightbox');
+    const badgeViewFullscreen = document.getElementById('badge-view-fullscreen');
 
     // Lightbox modal para ampliar foto con fondo transparente
     const homeLightboxModal = document.getElementById('home-lightbox-modal');
@@ -45,19 +48,33 @@ document.addEventListener('DOMContentLoaded', function () {
             const file = e.target.files[0];
             if (!file) return;
 
+            const isImage = file.type.startsWith('image/') || /\.(jpe?g|png|webp|gif)$/i.test(file.name);
             if (photoFileName) photoFileName.textContent = file.name;
             if (photoFileSize) photoFileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
 
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                currentPhotoUrl = event.target.result;
-                if (photoPreviewThumb) photoPreviewThumb.src = currentPhotoUrl;
-                if (homeLightboxImg) homeLightboxImg.src = currentPhotoUrl;
+            if (isImage) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    currentPhotoUrl = event.target.result;
+                    if (photoPreviewLarge) photoPreviewLarge.src = currentPhotoUrl;
+                    if (homeLightboxImg) homeLightboxImg.src = currentPhotoUrl;
+
+                    if (photoImgContainer) photoImgContainer.style.display = 'block';
+                    if (photoDocContainer) photoDocContainer.style.display = 'none';
+
+                    if (photoDropzone) photoDropzone.style.display = 'none';
+                    if (photoSelectedCard) photoSelectedCard.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                currentPhotoUrl = '';
+                if (photoImgContainer) photoImgContainer.style.display = 'none';
+                if (photoDocContainer) photoDocContainer.style.display = 'block';
+                if (docFileNameText) docFileNameText.textContent = file.name;
 
                 if (photoDropzone) photoDropzone.style.display = 'none';
-                if (photoSelectedCard) photoSelectedCard.style.display = 'flex';
-            };
-            reader.readAsDataURL(file);
+                if (photoSelectedCard) photoSelectedCard.style.display = 'block';
+            }
         });
     }
 
@@ -78,8 +95,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    if (btnViewPhotoLightbox) btnViewPhotoLightbox.addEventListener('click', openLightbox);
-    if (photoPreviewThumb) photoPreviewThumb.addEventListener('click', openLightbox);
+    if (badgeViewFullscreen) badgeViewFullscreen.addEventListener('click', openLightbox);
+    if (photoPreviewLarge) photoPreviewLarge.addEventListener('click', openLightbox);
 
     // Cerrar visor
     if (btnCloseHomeLightbox) {

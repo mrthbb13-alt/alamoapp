@@ -122,17 +122,17 @@
             </div>
         </div>
 
-        <!-- PASO 2: EVIDENCIA FOTOGRÁFICA (ESPACIADO ATRACTIVO CON CÁMARA, GALERÍA O DOCUMENTO) -->
+        <!-- PASO 2: EVIDENCIA FOTOGRÁFICA, TÍTULO Y SUBTÍTULO DEL REPORTE -->
         <div class="form-step-card">
             <div class="step-header">
                 <span class="step-number">2</span>
                 <div>
-                    <h3 class="step-title">Toma o sube una fotografía</h3>
-                    <p class="step-hint">Cámara, Galería de fotos o Archivos</p>
+                    <h3 class="step-title">Fotografía y detalles del reporte</h3>
+                    <p class="step-hint">Toma o sube una foto o archivo y describe brevemente el problema</p>
                 </div>
             </div>
 
-            <!-- Selector de archivo con espaciado atractivo (sin capture forzado para elegir Cámara, Galería o Documentos) -->
+            <!-- Selector de archivo con espaciado atractivo (Cámara, Galería o Documentos) -->
             <label for="evidence-input" id="photo-dropzone" class="photo-upload-box">
                 <input type="file"
                        id="evidence-input"
@@ -146,38 +146,55 @@
                         <i class="fa-solid fa-camera"></i>
                     </div>
                     <span class="upload-main-text">Toca para abrir cámara, galería o archivos</span>
-                    <span class="upload-sub-text">Formatos JPG, PNG, WebP o Fotos</span>
+                    <span class="upload-sub-text">Formatos JPG, PNG, WebP, PDF o Fotos</span>
                 </div>
             </label>
 
-            <!-- Tarjeta con el archivo seleccionado (igual que la INE en Registro) -->
-            <div id="photo-selected-card" class="selected-file-card is-hidden" style="display: none; background: var(--bg-elevated); border: 1.5px solid var(--accent-gold); border-radius: 20px; padding: 12px 14px; align-items: center; gap: 12px; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);">
-                <img id="photo-preview-thumb" src="" alt="Vista previa" style="width: 58px; height: 58px; border-radius: 14px; object-fit: cover; cursor: pointer; border: 1.5px solid var(--border-subtle); flex-shrink: 0;">
-                
-                <div class="file-info" style="flex: 1; min-width: 0;">
-                    <span id="photo-file-name" style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">evidencia.jpg</span>
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px; display: flex; align-items: center; gap: 6px;">
-                        <span id="photo-file-size">0 KB</span>
-                        <span>•</span>
-                        <button type="button" id="btn-view-photo-lightbox" style="background: none; border: none; color: var(--accent-gold); font-size: 11.5px; font-weight: 700; cursor: pointer; padding: 0;">
-                            <i class="fa-solid fa-magnifying-glass-plus"></i> Ver foto
-                        </button>
-                    </div>
+            <!-- Tarjeta con la foto o archivo seleccionado visible en grande -->
+            <div id="photo-selected-card" class="photo-preview-large-wrap is-hidden" style="display: none; background: var(--bg-elevated); border: 1.5px solid var(--accent-gold); border-radius: 22px; padding: 14px; margin-bottom: 16px; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);">
+                <!-- Imagen visible grande -->
+                <div id="photo-img-container" style="position: relative; width: 100%; border-radius: 16px; overflow: hidden; background: #000;">
+                    <img id="photo-preview-large" src="" alt="Vista previa de la evidencia" class="photo-preview-img-large" style="width: 100%; max-height: 240px; object-fit: cover; border-radius: 16px; display: block; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.15);">
+                    <button type="button" id="badge-view-fullscreen" style="position: absolute; bottom: 10px; right: 10px; background: rgba(11, 4, 11, 0.88); color: var(--accent-gold); border: 1px solid rgba(245, 215, 163, 0.4); padding: 5px 12px; border-radius: 9999px; font-size: 11.5px; font-weight: 700; display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                        <i class="fa-solid fa-expand"></i> Ver foto completa
+                    </button>
                 </div>
 
-                <!-- Botón circular [X] para retirar el archivo -->
-                <button type="button" id="btn-clear-photo" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(239, 68, 68, 0.15); border: 1.5px solid #EF4444; color: #EF4444; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; flex-shrink: 0;" title="Quitar fotografía">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <!-- Si es archivo documento (PDF, etc) -->
+                <div id="photo-doc-container" class="is-hidden" style="display: none; padding: 22px 14px; text-align: center; background: rgba(255, 255, 255, 0.05); border-radius: 16px;">
+                    <i class="fa-solid fa-file-lines" style="font-size: 2.6rem; color: var(--accent-gold); margin-bottom: 8px; display: inline-block;"></i>
+                    <span id="doc-file-name-text" style="display: block; font-size: 13.5px; font-weight: 700; color: #FFFFFF;">documento.pdf</span>
+                </div>
+
+                <div class="photo-preview-footer" style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px; gap: 10px;">
+                    <div style="flex: 1; min-width: 0;">
+                        <span id="photo-file-name" style="font-size: 13px; font-weight: 700; color: #FFFFFF; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">evidencia.jpg</span>
+                        <span id="photo-file-size" style="font-size: 11px; color: var(--text-secondary);">0 KB</span>
+                    </div>
+                    <button type="button" id="btn-clear-photo" style="background: rgba(239, 68, 68, 0.15); border: 1.5px solid #EF4444; color: #EF4444; padding: 6px 14px; border-radius: 9999px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Quitar archivo">
+                        <i class="fa-solid fa-trash-can"></i> Quitar archivo
+                    </button>
+                </div>
             </div>
 
-            <!-- Aviso / Opción clara de imagen por defecto -->
-            <div id="default-photo-notice" style="margin-top: 12px; display: flex; align-items: center; gap: 10px; background: rgba(140, 3, 38, 0.25); border: 1px dashed rgba(245, 215, 163, 0.35); padding: 10px 14px; border-radius: 16px;">
+            <!-- Aviso / Opción de imagen por defecto -->
+            <div id="default-photo-notice" style="margin-top: 12px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; background: rgba(140, 3, 38, 0.25); border: 1px dashed rgba(245, 215, 163, 0.35); padding: 10px 14px; border-radius: 16px;">
                 <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-gold); font-size: 14px; flex-shrink: 0;"></i>
                 <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.35;">
-                    <span style="font-weight: 700; color: var(--text-primary); display: block;">Se usará imagen por defecto si no agregas foto</span>
-                    <span>Si no tienes una foto al momento, el sistema asignará automáticamente una imagen ilustrativa por defecto según el caso seleccionado.</span>
+                    <span style="font-weight: 700; color: #FFFFFF; display: block;">Se usará imagen por defecto si no agregas foto</span>
+                    <span>Si no tienes una foto al momento, el sistema asignará automáticamente una imagen ilustrativa oficial según el caso seleccionado.</span>
                 </div>
+            </div>
+
+            <!-- CAMPOS DE TÍTULO Y SUBTÍTULO DEL REPORTE -->
+            <div class="input-group">
+                <label for="input-title" class="field-label">Título del reporte *</label>
+                <input type="text" id="input-title" name="title" class="field-input" placeholder="Ej: Bache profundo en la calle, Fuga de agua, Luminaria..." required>
+            </div>
+
+            <div class="input-group" style="margin-bottom: 0;">
+                <label for="input-description" class="field-label">Subtítulo o descripción breve</label>
+                <textarea id="input-description" name="description" rows="2" class="field-input" placeholder="Ej: Describe detalles adicionales del problema o qué riesgo genera..."></textarea>
             </div>
         </div>
 
@@ -220,19 +237,14 @@
             </div>
         </div>
 
-        <!-- PASO 4: DETALLES RÁPIDOS DE REFERENCIA -->
+        <!-- PASO 4: LOCALIDAD Y DATOS DE REFERENCIA -->
         <div class="form-step-card">
             <div class="step-header">
                 <span class="step-number">4</span>
                 <div>
-                    <h3 class="step-title">Datos de referencia</h3>
-                    <p class="step-hint">Ayuda a la cuadrilla municipal a encontrarlo más rápido</p>
+                    <h3 class="step-title">Colonia y referencias del lugar</h3>
+                    <p class="step-hint">Ayuda a la cuadrilla municipal a encontrar la ubicación exacta</p>
                 </div>
-            </div>
-
-            <div class="input-group">
-                <label for="input-title" class="field-label">Título breve del problema *</label>
-                <input type="text" id="input-title" name="title" class="field-input" placeholder="Ej: Tapa de drenaje rota a media calle" required>
             </div>
 
             <div class="input-group">
@@ -253,12 +265,7 @@
 
             <div class="input-group">
                 <label for="input-address" class="field-label">Calle y referencia visual</label>
-                <input type="text" id="input-address" name="address_reference" class="field-input" placeholder="Ej: Calle Independencia frente a la escuela">
-            </div>
-
-            <div class="input-group">
-                <label for="input-description" class="field-label">Descripción adicional (Opcional)</label>
-                <textarea id="input-description" name="description" rows="2" class="field-input" placeholder="Describe desde cuándo está el problema o el riesgo que representa..."></textarea>
+                <input type="text" id="input-address" name="address_reference" class="field-input" placeholder="Ej: Calle Independencia casi esquina con 5 de Mayo">
             </div>
 
             <div class="citizen-optional-grid">
@@ -278,6 +285,7 @@
                 <i class="fa-solid fa-paper-plane"></i>
                 <span id="btn-submit-text">Enviar Reporte al Municipio</span>
             </button>
+        </div>
         </div>
     </form>
 
