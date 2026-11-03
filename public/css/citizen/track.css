@@ -15,7 +15,7 @@
 .search-title {
     font-size: 19px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     margin-bottom: 4px;
     letter-spacing: -0.3px;
 }
@@ -46,7 +46,7 @@
     border-radius: 9999px;
     border: 1.5px solid rgba(140, 3, 38, 0.45);
     background-color: var(--bg-input);
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-size: 13.5px;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -108,8 +108,8 @@
 
 .folio-chip {
     background-color: var(--bg-elevated);
-    border: 1.5px solid rgba(140, 3, 38, 0.4);
-    color: #FFFFFF;
+    border: 1.5px solid var(--border-color);
+    color: var(--text-primary);
     padding: 7px 14px;
     border-radius: 9999px;
     font-size: 12px;
@@ -173,7 +173,7 @@
 .result-title {
     font-size: 18px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     margin-bottom: 4px;
 }
 
@@ -264,7 +264,7 @@
 
 .note-content {
     font-size: 13.5px;
-    color: #FFFFFF;
+    color: var(--text-primary);
     line-height: 1.4;
 }
 

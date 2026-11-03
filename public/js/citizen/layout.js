@@ -1,18 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. Control de Tema Claro / Oscuro
+    // 1. Control de Tema Claro / Oscuro (Al entrar siempre inicia en Modo Claro por defecto)
     const htmlRoot = document.documentElement;
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const themeIcon = document.getElementById('theme-icon');
 
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.getItem('alamo_citizen_theme') || (prefersDark ? 'dark' : 'light');
+    // Al entrar a la app siempre inicia en modo claro por defecto
+    const savedTheme = sessionStorage.getItem('alamo_citizen_theme') || 'light';
     applyTheme(savedTheme);
 
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', function () {
-            const currentTheme = htmlRoot.getAttribute('data-theme');
+            const currentTheme = htmlRoot.getAttribute('data-theme') || 'light';
             const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
             applyTheme(nextTheme);
+            sessionStorage.setItem('alamo_citizen_theme', nextTheme);
             localStorage.setItem('alamo_citizen_theme', nextTheme);
         });
     }
@@ -29,13 +30,49 @@ document.addEventListener('DOMContentLoaded', function () {
                 themeIcon.classList.add('fa-moon');
             }
         }
+
+        if (themeToggleBtn) {
+            const label = theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+            themeToggleBtn.setAttribute('title', label);
+            themeToggleBtn.setAttribute('aria-label', label);
+        }
     }
 
-    // 2. Registro del Service Worker para soporte PWA y modo independiente
+    // 2. Registro del Service Worker y Auto-Refresco de Cachés para Nuevas Versiones
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
-            navigator.serviceWorker.register('/sw.js').catch(function (err) {
-                // Silencioso
+            navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' })
+                .then(function (reg) {
+                    // Forzar comprobación inmediata de actualizaciones de versión
+                    reg.update();
+
+                    if (reg.waiting) {
+                        reg.waiting.postMessage({ action: 'skipWaiting' });
+                    }
+
+                    reg.addEventListener('updatefound', function () {
+                        const newWorker = reg.installing;
+                        if (newWorker) {
+                            newWorker.addEventListener('statechange', function () {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // Nueva versión detectada e instalada: solicitar activación
+                                    newWorker.postMessage({ action: 'skipWaiting' });
+                                }
+                            });
+                        }
+                    });
+                })
+                .catch(function (err) {
+                    // Silencioso
+                });
+
+            // Al tomar control la nueva versión, refrescar automáticamente para aplicar cambios
+            let isRefreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', function () {
+                if (!isRefreshing) {
+                    isRefreshing = true;
+                    window.location.reload();
+                }
             });
         });
     }

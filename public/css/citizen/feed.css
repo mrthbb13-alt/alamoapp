@@ -5,7 +5,7 @@
 .page-title {
     font-size: 20px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     letter-spacing: -0.3px;
     margin-bottom: 4px;
 }
@@ -78,8 +78,8 @@
 
 .filter-pill {
     background-color: var(--bg-surface);
-    border: 1.5px solid rgba(140, 3, 38, 0.45);
-    color: #FFFFFF;
+    border: 1.5px solid var(--border-color);
+    color: var(--text-primary);
     padding: 8px 16px;
     border-radius: 9999px;
     font-size: 12.5px;
@@ -198,7 +198,7 @@
 .card-title {
     font-size: 15.5px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     margin-bottom: 6px;
     line-height: 1.3;
 }

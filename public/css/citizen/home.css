@@ -151,7 +151,7 @@
 .step-title {
     font-size: 16px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     letter-spacing: -0.2px;
 }
 
@@ -170,7 +170,7 @@
 
 .category-tile {
     background-color: var(--bg-elevated);
-    border: 1px solid rgba(140, 3, 38, 0.35);
+    border: 1px solid var(--border-color);
     border-radius: 22px;
     padding: 18px 12px;
     display: flex;
@@ -179,7 +179,7 @@
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 .tile-icon {
@@ -191,7 +191,7 @@
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    color: #FFFFFF;
+    color: var(--accent-gold);
     margin-bottom: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     transition: all 0.2s ease;
@@ -201,12 +201,12 @@
     font-size: 13.5px;
     font-weight: 800;
     margin-bottom: 3px;
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 .tile-dept {
     font-size: 10.5px;
-    color: #B8A6AC;
+    color: var(--text-secondary);
     font-weight: 600;
 }
 
@@ -221,6 +221,10 @@
     border: 2px solid var(--accent-gold);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(140, 3, 38, 0.45);
+}
+
+.category-tile.is-selected .tile-name {
+    color: #FFFFFF;
 }
 
 .category-tile.is-selected .tile-icon {
@@ -290,7 +294,7 @@
 .upload-main-text {
     font-size: 14px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 .upload-sub-text {
@@ -400,7 +404,7 @@
 .duplicate-title {
     font-size: 13px;
     font-weight: 700;
-    color: #FFFFFF;
+    color: var(--text-primary);
     margin-bottom: 4px;
 }
 
@@ -452,7 +456,7 @@
     display: block;
     font-size: 13px;
     font-weight: 700;
-    color: #FFFFFF;
+    color: var(--text-primary);
     margin-bottom: 6px;
     padding-left: 6px;
 }
@@ -464,7 +468,7 @@
     border-radius: 9999px;
     border: 1.5px solid rgba(140, 3, 38, 0.45);
     background-color: var(--bg-input);
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
@@ -556,7 +560,7 @@ textarea.field-input {
 .success-title {
     font-size: 19px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     margin-bottom: 6px;
 }
 
@@ -608,7 +612,7 @@ textarea.field-input {
     border-radius: 9999px;
     background-color: transparent;
     border: 1.5px solid var(--border-subtle);
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;

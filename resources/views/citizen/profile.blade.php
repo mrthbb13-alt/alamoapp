@@ -20,7 +20,7 @@
                 <div style="width: 84px; height: 84px; border-radius: 50%; background: #FFFFFF; border: 3.5px solid var(--accent-gold); color: #5B0215; display: inline-flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.4);">
                     {{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}
                 </div>
-                <h2 style="font-size: 1.35rem; font-weight: 800; color: #FFFFFF; margin-bottom: 4px;">{{ $user->name ?? 'Ciudadano' }}</h2>
+                <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">{{ $user->name ?? 'Ciudadano' }}</h2>
                 <span style="display: inline-block; background: #2D0A1B; color: var(--accent-gold); border: 1px solid rgba(140, 3, 38, 0.6); font-size: 0.82rem; font-weight: 700; padding: 4px 14px; border-radius: 9999px; margin-bottom: 20px;">
                     @<span>{{ $user->username ?? 'user' }}</span>
                 </span>
@@ -31,7 +31,7 @@
                         <span style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Mis Reportes</span>
                     </div>
                     <div style="background: var(--bg-elevated); padding: 14px; border-radius: 20px;">
-                        <span style="font-size: 1.15rem; font-weight: 800; color: #FFFFFF; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $user->colonia ?: 'Zona Centro' }}</span>
+                        <span style="font-size: 1.15rem; font-weight: 800; color: var(--text-primary); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $user->colonia ?: 'Zona Centro' }}</span>
                         <span style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Localidad</span>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
 
         <!-- FORMULARIO DE INFORMACIÓN PERSONAL -->
         <div style="background: var(--bg-surface); border: 1.5px solid var(--border-color); border-radius: 28px; padding: 26px 24px; box-shadow: var(--shadow-card); margin-bottom: 22px;">
-            <h3 style="font-size: 1.1rem; font-weight: 800; color: #FFFFFF; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;">
+            <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 18px; display: flex; align-items: center; gap: 10px;">
                 <i class="fa-solid fa-id-badge" style="color: var(--accent-gold);"></i> Datos de la Cuenta
             </h3>
 
@@ -48,20 +48,20 @@
                 @csrf
 
                 <div style="margin-bottom: 16px;">
-                    <label style="display: block; font-size: 0.83rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px; padding-left: 6px;">Nombre Completo</label>
+                    <label style="display: block; font-size: 0.83rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; padding-left: 6px;">Nombre Completo</label>
                     <input type="text" name="name" value="{{ old('name', $user->name ?? '') }}" required
-                           style="width: 100%; height: 50px; padding: 0 18px; border-radius: 9999px; border: 1.5px solid rgba(140, 3, 38, 0.45); background: var(--bg-input); color: #FFFFFF; font-size: 0.95rem; font-weight: 500;">
+                           style="width: 100%; height: 50px; padding: 0 18px; border-radius: 9999px; border: 1.5px solid rgba(140, 3, 38, 0.45); background: var(--bg-input); color: var(--text-primary); font-size: 0.95rem; font-weight: 500;">
                 </div>
 
                 <div style="margin-bottom: 16px;">
-                    <label style="display: block; font-size: 0.83rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px; padding-left: 6px;">Teléfono / WhatsApp</label>
+                    <label style="display: block; font-size: 0.83rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; padding-left: 6px;">Teléfono / WhatsApp</label>
                     <input type="tel" name="phone" value="{{ old('phone', $user->phone ?? '') }}" placeholder="765 100 0000"
-                           style="width: 100%; height: 50px; padding: 0 18px; border-radius: 9999px; border: 1.5px solid rgba(140, 3, 38, 0.45); background: var(--bg-input); color: #FFFFFF; font-size: 0.95rem; font-weight: 500;">
+                           style="width: 100%; height: 50px; padding: 0 18px; border-radius: 9999px; border: 1.5px solid rgba(140, 3, 38, 0.45); background: var(--bg-input); color: var(--text-primary); font-size: 0.95rem; font-weight: 500;">
                 </div>
 
                 <div style="margin-bottom: 22px;">
-                    <label style="display: block; font-size: 0.83rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px; padding-left: 6px;">Colonia o Localidad en Álamo</label>
-                    <select name="colonia" style="width: 100%; height: 50px; padding: 0 18px; border-radius: 9999px; border: 1.5px solid rgba(140, 3, 38, 0.45); background: var(--bg-input); color: #FFFFFF; font-size: 0.95rem; font-weight: 500;">
+                    <label style="display: block; font-size: 0.83rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; padding-left: 6px;">Colonia o Localidad en Álamo</label>
+                    <select name="colonia" style="width: 100%; height: 50px; padding: 0 18px; border-radius: 9999px; border: 1.5px solid rgba(140, 3, 38, 0.45); background: var(--bg-input); color: var(--text-primary); font-size: 0.95rem; font-weight: 500;">
                         @php $userColonia = $user->colonia ?? 'Zona Centro'; @endphp
                         <option value="Zona Centro" {{ $userColonia === 'Zona Centro' ? 'selected' : '' }}>Zona Centro</option>
                         <option value="Col. Heroica Veracruz" {{ $userColonia === 'Col. Heroica Veracruz' ? 'selected' : '' }}>Col. Heroica Veracruz</option>
@@ -88,7 +88,7 @@
                     <i class="fa-solid fa-address-book"></i>
                 </div>
                 <div style="text-align: left;">
-                    <div style="font-weight: 800; font-size: 0.98rem; color: #FFFFFF;">Directorio Municipal</div>
+                    <div style="font-weight: 800; font-size: 0.98rem; color: var(--text-primary);">Directorio Municipal</div>
                     <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">Regidores, Directores y DIF de Álamo</div>
                 </div>
             </div>

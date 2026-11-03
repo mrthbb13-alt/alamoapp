@@ -15,6 +15,21 @@
     <meta name="theme-color" content="#8C0326">
     <meta name="msapplication-navbutton-color" content="#8C0326">
 
+    <!-- PREVENCIÓN DE CACHÉ ESTRICTA PARA ACTUALIZACIÓN AUTOMÁTICA -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- INICIALIZACIÓN INMEDIATA DEL TEMA (MODO CLARO POR DEFECTO AL ENTRAR) -->
+    <script>
+        (function() {
+            try {
+                var theme = sessionStorage.getItem('alamo_citizen_theme') || 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+
     <!-- ICONOS PARA PANTALLA DE INICIO (iOS Safari, Android Chrome y PWA) -->
     <link rel="manifest" href="{{ asset('manifest.json') }}?v={{ time() }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.png') }}?v={{ time() }}">
@@ -25,7 +40,7 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/citizen/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/citizen/layout.css') }}?v={{ time() }}">
     <style>
         .register-page {
             min-height: 100vh;
@@ -893,20 +908,20 @@
             });
         }
 
-        // 4. Modo Claro / Oscuro con persistencia en localStorage
+        // 4. Modo Claro / Oscuro (Al entrar siempre inicia en modo claro)
         const htmlRoot = document.documentElement;
         const themeBtn = document.getElementById('theme-toggle-btn');
         const themeIcon = document.getElementById('theme-icon');
 
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const savedTheme = localStorage.getItem('alamo_citizen_theme') || (prefersDark ? 'dark' : 'light');
+        const savedTheme = sessionStorage.getItem('alamo_citizen_theme') || 'light';
         applyTheme(savedTheme);
 
         if (themeBtn) {
             themeBtn.addEventListener('click', function () {
-                const current = htmlRoot.getAttribute('data-theme');
+                const current = htmlRoot.getAttribute('data-theme') || 'light';
                 const next = current === 'light' ? 'dark' : 'light';
                 applyTheme(next);
+                sessionStorage.setItem('alamo_citizen_theme', next);
                 localStorage.setItem('alamo_citizen_theme', next);
             });
         }

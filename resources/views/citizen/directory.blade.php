@@ -32,7 +32,7 @@
             <input type="text"
                    id="directory-search-input"
                    placeholder="Buscar regidor, director, DIF u obras..."
-                   style="width: 100%; height: 50px; padding: 0 46px; border-radius: 9999px; border: 1.5px solid rgba(140, 3, 38, 0.45); background: var(--bg-surface); color: #FFFFFF; font-size: 14px; font-weight: 600; outline: none; transition: border-color 0.2s, box-shadow 0.2s;"
+                   style="width: 100%; height: 50px; padding: 0 46px; border-radius: 9999px; border: 1.5px solid rgba(140, 3, 38, 0.45); background: var(--bg-surface); color: var(--text-primary); font-size: 14px; font-weight: 600; outline: none; transition: border-color 0.2s, box-shadow 0.2s;"
                    onfocus="this.style.borderColor='var(--accent-gold)'; this.style.boxShadow='0 0 0 4px rgba(245, 215, 163, 0.18)';"
                    onblur="this.style.borderColor='rgba(140, 3, 38, 0.45)'; this.style.boxShadow='none';">
             <button type="button" id="btn-clear-directory-search" style="display: none; position: absolute; right: 14px; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; padding: 6px;">
@@ -105,7 +105,7 @@
     <!-- MENSAJE SI NO HAY RESULTADOS DE BÚSQUEDA -->
     <div id="dir-empty-state" style="display: none; text-align: center; padding: 40px 20px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 28px; margin-top: 10px;">
         <i class="fa-solid fa-magnifying-glass" style="font-size: 2.2rem; color: var(--accent-gold); opacity: 0.6; margin-bottom: 12px; display: inline-block;"></i>
-        <h4 style="font-size: 16px; font-weight: 800; color: #FFFFFF; margin-bottom: 6px;">No se encontraron contactos</h4>
+        <h4 style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px;">No se encontraron contactos</h4>
         <p style="font-size: 12.5px; color: var(--text-secondary);">Intenta buscando con otra palabra o selecciona "Todos".</p>
     </div>
 
@@ -113,7 +113,7 @@
         .dir-filter-pill {
             background-color: var(--bg-surface);
             border: 1.5px solid rgba(140, 3, 38, 0.45);
-            color: #FFFFFF;
+            color: var(--text-primary);
             padding: 8px 16px;
             border-radius: 9999px;
             font-size: 12.5px;
@@ -180,7 +180,7 @@
         .dir-title {
             font-size: 15px;
             font-weight: 800;
-            color: #FFFFFF;
+            color: var(--text-primary);
             line-height: 1.25;
             margin-bottom: 2px;
         }

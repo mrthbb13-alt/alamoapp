@@ -3,7 +3,7 @@
 @section('title', 'Seguimiento de Folio | Álamo Reporta')
 
 @section('page_css')
-    <link rel="stylesheet" href="{{ asset('css/citizen/track.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/citizen/track.css') }}?v={{ time() }}">
 @endsection
 
 @section('content')

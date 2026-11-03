@@ -1,7 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root,
-:root[data-theme="light"],
+:root[data-theme="light"] {
+    --bg-body: #F6F4F5;
+    --bg-surface: #FFFFFF;
+    --bg-elevated: #FCF8F9;
+    --bg-input: #FFFFFF;
+    --text-primary: #1E0E14;
+    --text-secondary: #5F4B53;
+    --text-muted: #8E7A82;
+    --accent-wine: #8C0326;
+    --accent-wine-deep: #5B0215;
+    --accent-wine-dark: #3F010E;
+    --accent-wine-light: #A71B36;
+    --accent-gold: #D4AF37;
+    --accent-gold-dark: #B89324;
+    --accent-gold-badge: #FEF3DB;
+    --border-color: rgba(140, 3, 38, 0.16);
+    --border-subtle: #E8DEE2;
+    --shadow-card: 0 10px 28px -6px rgba(140, 3, 38, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+    --shadow-float: 0 16px 36px -8px rgba(140, 3, 38, 0.22);
+    --header-gradient: linear-gradient(135deg, #8C0326 0%, #74031F 50%, #5B0215 100%);
+    --header-text: #FFFFFF;
+    --status-pending: #DC2626;
+    --status-process: #D97706;
+    --status-resolved: #059669;
+}
+
 :root[data-theme="dark"] {
     --bg-body: #0B040B;
     --bg-surface: #14050D;
@@ -63,6 +88,11 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.25s ease;
+}
+
+:root[data-theme="dark"] .app-shell {
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
@@ -139,6 +169,32 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.theme-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-size: 1.05rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-btn:hover {
+    transform: scale(1.08);
+    background: rgba(0, 0, 0, 0.45);
+    color: var(--accent-gold);
+}
+
+.theme-btn:active {
+    transform: scale(0.95);
 }
 
 .header-settings-btn {
@@ -245,8 +301,8 @@ body {
 
 /* BANNER DE INSTALACIÓN PWA */
 .pwa-install-banner {
-    background: linear-gradient(135deg, #1C0510 0%, #2A0717 100%);
-    border: 1.5px solid rgba(140, 3, 38, 0.6);
+    background: linear-gradient(135deg, #FFF5F7 0%, #FEECEF 100%);
+    border: 1.5px solid rgba(140, 3, 38, 0.22);
     border-radius: 22px;
     padding: 12px 16px;
     margin: 14px 16px 0 16px;
@@ -254,6 +310,12 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+    box-shadow: 0 8px 24px rgba(140, 3, 38, 0.08);
+}
+
+:root[data-theme="dark"] .pwa-install-banner {
+    background: linear-gradient(135deg, #1C0510 0%, #2A0717 100%);
+    border: 1.5px solid rgba(140, 3, 38, 0.6);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -269,8 +331,8 @@ body {
     width: 36px;
     height: 36px;
     border-radius: 12px;
-    background: rgba(140, 3, 38, 0.45);
-    border: 1px solid rgba(245, 215, 163, 0.25);
+    background: var(--accent-wine);
+    border: 1px solid rgba(245, 215, 163, 0.35);
     color: var(--accent-gold);
     display: flex;
     align-items: center;
@@ -282,8 +344,12 @@ body {
 .pwa-banner-text {
     font-size: 13px;
     font-weight: 700;
-    color: #FFFFFF;
+    color: var(--text-primary);
     line-height: 1.25;
+}
+
+:root[data-theme="dark"] .pwa-banner-text {
+    color: #FFFFFF;
 }
 
 .pwa-banner-sub {
@@ -324,7 +390,7 @@ body {
 .pwa-banner-close {
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--text-muted);
     font-size: 14px;
     cursor: pointer;
     padding: 4px;
@@ -332,7 +398,7 @@ body {
 }
 
 .pwa-banner-close:hover {
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 /* Modal Instrucciones para iOS y Android */

@@ -3,7 +3,7 @@
 @section('title', 'Nuevo Reporte | Álamo Reporta')
 
 @section('page_css')
-    <link rel="stylesheet" href="{{ asset('css/citizen/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/citizen/home.css') }}?v={{ time() }}">
 @endsection
 
 @section('content')
@@ -163,12 +163,12 @@
                 <!-- Si es archivo documento (PDF, etc) -->
                 <div id="photo-doc-container" class="is-hidden" style="display: none; padding: 22px 14px; text-align: center; background: rgba(255, 255, 255, 0.05); border-radius: 16px;">
                     <i class="fa-solid fa-file-lines" style="font-size: 2.6rem; color: var(--accent-gold); margin-bottom: 8px; display: inline-block;"></i>
-                    <span id="doc-file-name-text" style="display: block; font-size: 13.5px; font-weight: 700; color: #FFFFFF;">documento.pdf</span>
+                    <span id="doc-file-name-text" style="display: block; font-size: 13.5px; font-weight: 700; color: var(--text-primary);">documento.pdf</span>
                 </div>
 
                 <div class="photo-preview-footer" style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px; gap: 10px;">
                     <div style="flex: 1; min-width: 0;">
-                        <span id="photo-file-name" style="font-size: 13px; font-weight: 700; color: #FFFFFF; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">evidencia.jpg</span>
+                        <span id="photo-file-name" style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">evidencia.jpg</span>
                         <span id="photo-file-size" style="font-size: 11px; color: var(--text-secondary);">0 KB</span>
                     </div>
                     <button type="button" id="btn-clear-photo" style="background: rgba(239, 68, 68, 0.15); border: 1.5px solid #EF4444; color: #EF4444; padding: 6px 14px; border-radius: 9999px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Quitar archivo">
@@ -178,10 +178,10 @@
             </div>
 
             <!-- Aviso / Opción de imagen por defecto -->
-            <div id="default-photo-notice" style="margin-top: 12px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; background: rgba(140, 3, 38, 0.25); border: 1px dashed rgba(245, 215, 163, 0.35); padding: 10px 14px; border-radius: 16px;">
+            <div id="default-photo-notice" style="margin-top: 12px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; background: rgba(140, 3, 38, 0.15); border: 1px dashed rgba(245, 215, 163, 0.35); padding: 10px 14px; border-radius: 16px;">
                 <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-gold); font-size: 14px; flex-shrink: 0;"></i>
                 <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.35;">
-                    <span style="font-weight: 700; color: #FFFFFF; display: block;">Se usará imagen por defecto si no agregas foto</span>
+                    <span style="font-weight: 700; color: var(--text-primary); display: block;">Se usará imagen por defecto si no agregas foto</span>
                     <span>Si no tienes una foto al momento, el sistema asignará automáticamente una imagen ilustrativa oficial según el caso seleccionado.</span>
                 </div>
             </div>

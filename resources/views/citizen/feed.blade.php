@@ -3,7 +3,7 @@
 @section('title', 'Mapa Vecinal | Álamo Reporta')
 
 @section('page_css')
-    <link rel="stylesheet" href="{{ asset('css/citizen/feed.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/citizen/feed.css') }}?v={{ time() }}">
 @endsection
 
 @section('content')

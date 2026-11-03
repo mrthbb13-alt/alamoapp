@@ -15,6 +15,21 @@
     <meta name="theme-color" content="#8C0326">
     <meta name="msapplication-navbutton-color" content="#8C0326">
 
+    <!-- PREVENCIÓN DE CACHÉ ESTRICTA PARA ACTUALIZACIÓN AUTOMÁTICA DE VERSIONES -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- INICIALIZACIÓN INMEDIATA DEL TEMA (MODO CLARO POR DEFECTO AL ENTRAR) -->
+    <script>
+        (function() {
+            try {
+                var theme = sessionStorage.getItem('alamo_citizen_theme') || 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+
     <!-- ICONOS PARA PANTALLA DE INICIO (iOS Safari, Android Chrome y PWA) -->
     <link rel="manifest" href="{{ asset('manifest.json') }}?v={{ time() }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.png') }}?v={{ time() }}">
@@ -50,9 +65,9 @@
             </div>
 
             <div class="header-actions">
-                <a href="{{ route('citizen.profile') }}" class="header-settings-btn" aria-label="Ajustes y Perfil" title="Ajustes y Perfil">
-                    <i class="fa-solid fa-gear"></i>
-                </a>
+                <button type="button" id="theme-toggle-btn" class="theme-btn" aria-label="Cambiar modo claro y oscuro" title="Cambiar a modo oscuro">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
             </div>
         </header>
 
