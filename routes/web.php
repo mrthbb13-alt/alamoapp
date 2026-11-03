@@ -44,6 +44,25 @@ Route::get('/api/db-status', function () {
     }
 });
 
+// Endpoint opcional para sincronizar Git desde navegador o webhook
+Route::get('/api/git-pull', function () {
+    if (request('token') !== 'alamo2026') {
+        abort(403);
+    }
+    try {
+        $output = shell_exec('git pull origin main 2>&1');
+        return response()->json([
+            'success' => true,
+            'output'  => $output,
+        ]);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'success' => false,
+            'error'   => $e->getMessage(),
+        ], 500);
+    }
+});
+
 // ====================================================
 // FASE 1: PLATAFORMA WEB GOBIERNO MUNICIPAL (BACKOFFICE / C2)
 // ====================================================
