@@ -215,11 +215,22 @@
     border-color: rgba(245, 215, 163, 0.45);
 }
 
+.category-tile:active {
+    transform: scale(0.96);
+}
+
+/* Animación de Rebote Suave al Seleccionar */
+@keyframes tileSelect {
+    0% { transform: scale(0.95); }
+    50% { transform: scale(1.02); }
+    100% { transform: translateY(-2px) scale(1); }
+}
+
 /* Categoría Seleccionada: Fondo Guinda #690518, Borde Oro #F4D59C e Icono Oro */
 .category-tile.is-selected {
     background-color: #690518;
     border: 2px solid var(--accent-gold);
-    transform: translateY(-2px);
+    animation: tileSelect 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     box-shadow: 0 8px 24px rgba(140, 3, 38, 0.45);
 }
 
@@ -556,7 +567,7 @@ textarea.field-input {
 }
 
 .btn-submit-main:active {
-    transform: translateY(1px);
+    transform: scale(0.96);
 }
 
 .error-banner {

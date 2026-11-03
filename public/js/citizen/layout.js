@@ -38,14 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // 2. Registro del Service Worker y Auto-Refresco de Cachés para Nuevas Versiones
+    // 2. Registro del Service Worker PWA de Forma Estable (Sin bucle de recarga ni parpadeo)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
-            navigator.serviceWorker.register('/sw.js?v=' + Date.now(), { updateViaCache: 'none' })
+            navigator.serviceWorker.register('/sw.js')
                 .then(function (reg) {
-                    // Forzar comprobación inmediata de actualizaciones de versión
-                    reg.update();
-
+                    // Si ya hay un worker en espera, solicitar su activación silenciosa
                     if (reg.waiting) {
                         reg.waiting.postMessage({ action: 'skipWaiting' });
                     }
@@ -55,25 +53,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (newWorker) {
                             newWorker.addEventListener('statechange', function () {
                                 if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    // Nueva versión detectada e instalada: solicitar activación
+                                    // Nueva versión lista en segundo plano
                                     newWorker.postMessage({ action: 'skipWaiting' });
                                 }
                             });
                         }
                     });
                 })
-                .catch(function (err) {
+                .catch(function () {
                     // Silencioso
                 });
-
-            // Al tomar control la nueva versión, refrescar automáticamente para aplicar cambios
-            let isRefreshing = false;
-            navigator.serviceWorker.addEventListener('controllerchange', function () {
-                if (!isRefreshing) {
-                    isRefreshing = true;
-                    window.location.reload();
-                }
-            });
         });
     }
 
@@ -192,11 +181,18 @@ document.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('click', function (e) {
             const link = e.target.closest('a');
             if (link && link.href && link.target !== '_blank') {
-                const url = new URL(link.href, window.location.origin);
-                if (url.origin === window.location.origin) {
-                    e.preventDefault();
-                    window.location.href = link.href;
+                const rawHref = link.getAttribute('href') || '';
+                // Permitir llamadas directas (tel:), emails, anclas (#) y descargas sin interceptar
+                if (rawHref.startsWith('#') || rawHref.startsWith('tel:') || rawHref.startsWith('mailto:') || rawHref.startsWith('javascript:')) {
+                    return;
                 }
+                try {
+                    const url = new URL(link.href, window.location.origin);
+                    if (url.origin === window.location.origin && !url.pathname.endsWith('.pdf')) {
+                        e.preventDefault();
+                        window.location.href = link.href;
+                    }
+                } catch (err) {}
             }
         }, false);
     }

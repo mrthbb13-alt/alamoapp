@@ -235,6 +235,14 @@
             transform: translateY(-1px);
             box-shadow: 0 6px 16px rgba(212, 175, 55, 0.35);
         }
+
+        .btn-dir-call:active {
+            transform: scale(0.96);
+        }
+
+        .dir-filter-pill:active {
+            transform: scale(0.95);
+        }
     </style>
 @endsection
 

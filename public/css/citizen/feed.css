@@ -109,13 +109,26 @@
     gap: 18px;
 }
 
+/* Animación de entrada de tarjetas de la comunidad */
+@keyframes cardFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 .report-card {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 28px;
     overflow: hidden;
     box-shadow: var(--shadow-card);
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    animation: cardFadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .report-card:hover {
@@ -294,6 +307,10 @@
     color: var(--accent-gold);
 }
 
+.btn-focus-map:active {
+    transform: scale(0.95);
+}
+
 .btn-upvote {
     background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
     border: none;
@@ -313,6 +330,10 @@
 .btn-upvote:hover {
     transform: translateY(-1px);
     box-shadow: 0 6px 18px rgba(212, 175, 55, 0.45);
+}
+
+.btn-upvote:active {
+    transform: scale(0.95);
 }
 
 .btn-upvote:disabled {

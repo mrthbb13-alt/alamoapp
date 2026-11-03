@@ -282,7 +282,6 @@
                 <span id="btn-submit-text">Enviar Reporte al Municipio</span>
             </button>
         </div>
-        </div>
     </form>
 
     <!-- MODAL LIGHTBOX TRANSPARENTE PARA VISUALIZAR FOTO CON BOTÓN [X] -->

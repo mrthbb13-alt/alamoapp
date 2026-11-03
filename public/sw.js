@@ -1,5 +1,5 @@
-// Service Worker de Álamo Reporta con auto-actualización de versiones y purga de caché
-const CACHE_NAME = 'alamo-reporta-v3-' + Date.now();
+// Service Worker de Álamo Reporta v5.0 - Rendimiento Fluido y Cero Bucles de Recarga
+const CACHE_NAME = 'alamo-reporta-v5.0';
 
 self.addEventListener('install', (event) => {
     // Tomar control inmediato sin esperar al cierre de pestañas
@@ -27,14 +27,14 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Network-First: Siempre intenta obtener la versión más reciente del servidor
+    // Network-First: Siempre intenta obtener la versión más reciente del servidor en vivo
     event.respondWith(
         fetch(event.request)
             .then((networkResponse) => {
                 return networkResponse;
             })
             .catch(() => {
-                // Si está offline, recurre a lo guardado en caché
+                // Si está offline o sin conexión, recurre a lo guardado en caché
                 return caches.match(event.request);
             })
     );
