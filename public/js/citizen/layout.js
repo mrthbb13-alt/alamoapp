@@ -29,15 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 themeIcon.classList.add('fa-moon');
             }
         }
-
-        // Alternar el logo entre claro (corazón blanco) y oscuro (corazón negro)
-        const isDark = theme === 'dark';
-        const brandLogos = document.querySelectorAll('.brand-logo-img');
-        brandLogos.forEach(function (img) {
-            const lightSrc = img.dataset.light || '/icons/logo.png';
-            const darkSrc = img.dataset.dark || '/icons/logo-dark.png';
-            img.src = isDark ? darkSrc : lightSrc;
-        });
     }
 
     // 2. Registro del Service Worker para soporte PWA y modo independiente

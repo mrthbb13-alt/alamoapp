@@ -40,8 +40,6 @@
             <div class="header-brand">
                 <div class="logo-placeholder" title="Álamo Reporta">
                     <img src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                         data-light="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                         data-dark="{{ asset('icons/logo-dark.png') }}?v={{ time() }}"
                          alt="Álamo Reporta"
                          class="brand-logo-img">
                 </div>
@@ -67,8 +65,6 @@
         <div id="pwa-install-banner" class="pwa-install-banner is-hidden" style="margin: 14px 16px 0 16px;">
             <div class="pwa-banner-left">
                 <img src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                     data-light="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                     data-dark="{{ asset('icons/logo-dark.png') }}?v={{ time() }}"
                      alt="App Icon"
                      class="pwa-banner-icon brand-logo-img">
                 <div>
@@ -121,8 +117,6 @@
             <div class="pwa-modal-header">
                 <div class="pwa-modal-title">
                     <img src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                         data-light="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                         data-dark="{{ asset('icons/logo-dark.png') }}?v={{ time() }}"
                          alt="Logo"
                          class="brand-logo-img"
                          style="width: 32px; height: 32px; border-radius: 50%; object-fit: contain;">

@@ -8,6 +8,42 @@ document.addEventListener('DOMContentLoaded', function () {
     const trackBaseUrl = configEl.dataset.trackUrl;
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+    // Mapeo de imágenes de referencia locales por categoría
+    const categoryRefImages = {
+        'bache': {
+            'src': '/images/categories/ref_bache.jpg',
+            'name': 'ref_bache.jpg',
+            'desc': 'Imagen sugerida para bache o daño en calle'
+        },
+        'drenaje': {
+            'src': '/images/categories/ref_drenaje.jpg',
+            'name': 'ref_drenaje.jpg',
+            'desc': 'Imagen sugerida para tapa o alcantarilla de drenaje'
+        },
+        'alumbrado': {
+            'src': '/images/categories/ref_alumbrado.jpg',
+            'name': 'ref_alumbrado.jpg',
+            'desc': 'Imagen sugerida para luminaria pública'
+        },
+        'agua': {
+            'src': '/images/categories/ref_agua.jpg',
+            'name': 'ref_agua.jpg',
+            'desc': 'Imagen sugerida para fuga de agua potable'
+        },
+        'basura': {
+            'src': '/images/categories/ref_basura.jpg',
+            'name': 'ref_basura.jpg',
+            'desc': 'Imagen sugerida para acumulación de basura'
+        },
+        'accidente': {
+            'src': '/images/categories/ref_accidente.jpg',
+            'name': 'ref_accidente.jpg',
+            'desc': 'Imagen sugerida para accidente vial o riesgo'
+        }
+    };
+
+    let hasUserPhoto = false;
+
     // 1. Selección de Categoría
     const categoryTiles = document.querySelectorAll('.category-tile');
     const categoryInput = document.getElementById('selected-category');
@@ -18,44 +54,81 @@ document.addEventListener('DOMContentLoaded', function () {
                 t.classList.remove('is-selected');
             });
             tile.classList.add('is-selected');
-            categoryInput.value = tile.dataset.category;
+            const cat = tile.dataset.category;
+            categoryInput.value = cat;
+
+            // Si el usuario no ha subido foto propia, actualizar la imagen de referencia sugerida
+            if (!hasUserPhoto && categoryRefImages[cat]) {
+                updateReferencePhoto(cat);
+            }
+
             verifyNearbyDuplicate();
         });
     });
 
-    // 2. Previsualización de Fotografía, Nombre, Tamaño, Lightbox y Botón [X]
+    // 2. Control de Fotografía (Referencia Automática + Opción de Foto Real)
     const evidenceInput = document.getElementById('evidence-input');
-    const photoDropzone = document.getElementById('photo-dropzone');
-    const photoSelectedCard = document.getElementById('photo-selected-card');
+    const btnTriggerUpload = document.getElementById('btn-trigger-upload');
+    const btnUploadText = document.getElementById('btn-upload-text');
     const photoPreviewThumb = document.getElementById('photo-preview-thumb');
     const photoFileName = document.getElementById('photo-file-name');
-    const photoFileSize = document.getElementById('photo-file-size');
-    const btnViewPhotoLightbox = document.getElementById('btn-view-photo-lightbox');
+    const photoFileDesc = document.getElementById('photo-file-desc');
+    const photoStatusBadge = document.getElementById('photo-status-badge');
+    const photoBadgeText = document.getElementById('photo-badge-text');
     const btnClearPhoto = document.getElementById('btn-clear-photo');
+    const btnViewPhotoLightbox = document.getElementById('btn-view-photo-lightbox');
 
     // Lightbox modal para ampliar foto con fondo transparente
     const homeLightboxModal = document.getElementById('home-lightbox-modal');
     const homeLightboxImg = document.getElementById('home-lightbox-img');
     const btnCloseHomeLightbox = document.getElementById('btn-close-home-lightbox');
 
-    let currentPhotoUrl = '';
+    let currentPhotoUrl = '/images/categories/ref_bache.jpg';
+    if (homeLightboxImg) homeLightboxImg.src = currentPhotoUrl;
+
+    function updateReferencePhoto(cat) {
+        const ref = categoryRefImages[cat] || categoryRefImages['bache'];
+        currentPhotoUrl = ref.src;
+        if (photoPreviewThumb) photoPreviewThumb.src = ref.src;
+        if (homeLightboxImg) homeLightboxImg.src = ref.src;
+        if (photoFileName) photoFileName.textContent = ref.name;
+        if (photoFileDesc) photoFileDesc.textContent = ref.desc;
+        if (photoBadgeText) photoBadgeText.textContent = 'Imagen de referencia';
+        if (photoStatusBadge) {
+            photoStatusBadge.style.color = '#EA580C';
+            photoStatusBadge.style.background = 'rgba(234, 88, 12, 0.12)';
+        }
+        if (btnClearPhoto) btnClearPhoto.style.display = 'none';
+        if (btnUploadText) btnUploadText.textContent = 'Tomar foto real o elegir de galería';
+    }
+
+    if (btnTriggerUpload && evidenceInput) {
+        btnTriggerUpload.addEventListener('click', function () {
+            evidenceInput.click();
+        });
+    }
 
     if (evidenceInput) {
         evidenceInput.addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (!file) return;
 
+            hasUserPhoto = true;
             if (photoFileName) photoFileName.textContent = file.name;
-            if (photoFileSize) photoFileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            if (photoFileDesc) photoFileDesc.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB • Foto adjunta por ti';
+            if (photoBadgeText) photoBadgeText.textContent = 'Tu foto real adjunta';
+            if (photoStatusBadge) {
+                photoStatusBadge.style.color = '#10B981';
+                photoStatusBadge.style.background = 'rgba(16, 185, 129, 0.15)';
+            }
+            if (btnClearPhoto) btnClearPhoto.style.display = 'inline-flex';
+            if (btnUploadText) btnUploadText.textContent = 'Cambiar foto (Cámara / Galería)';
 
             const reader = new FileReader();
             reader.onload = function (event) {
                 currentPhotoUrl = event.target.result;
                 if (photoPreviewThumb) photoPreviewThumb.src = currentPhotoUrl;
                 if (homeLightboxImg) homeLightboxImg.src = currentPhotoUrl;
-
-                if (photoDropzone) photoDropzone.style.display = 'none';
-                if (photoSelectedCard) photoSelectedCard.style.display = 'flex';
             };
             reader.readAsDataURL(file);
         });
@@ -63,10 +136,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function removeSelectedPhoto() {
         if (evidenceInput) evidenceInput.value = '';
-        currentPhotoUrl = '';
-        if (photoSelectedCard) photoSelectedCard.style.display = 'none';
-        if (photoDropzone) photoDropzone.style.display = 'block';
-        if (homeLightboxModal) homeLightboxModal.style.display = 'none';
+        hasUserPhoto = false;
+        const currentCat = categoryInput ? categoryInput.value : 'bache';
+        updateReferencePhoto(currentCat);
     }
 
     if (btnClearPhoto) btnClearPhoto.addEventListener('click', removeSelectedPhoto);

@@ -136,6 +136,18 @@ class ExampleTest extends TestCase
         $storeResponse->assertJson(['success' => true]);
         $reportData = $storeResponse->json('report');
 
+        // Test reporte sin subir archivo (usa imagen de referencia de la categoría)
+        $noFileReport = $this->actingAs($user)->post(route('citizen.store'), [
+            'category'          => 'accidente',
+            'title'             => 'Accidente vial en crucero',
+            'colonia'           => 'Zona Centro',
+            'latitude'          => 20.9125,
+            'longitude'         => -97.6745,
+        ]);
+        $noFileReport->assertStatus(200);
+        $noFileReport->assertJson(['success' => true]);
+        $this->assertStringContainsString('ref_accidente.jpg', $noFileReport->json('report.evidence_initial'));
+
         // 2. Dar +1 Me afecta
         $upvoteResponse = $this->actingAs($user)->post(route('citizen.upvote', ['id' => $reportData['id']]));
         $upvoteResponse->assertStatus(200);

@@ -56,13 +56,13 @@ class CitizenAppController extends Controller
             'longitude'         => 'required|numeric',
             'citizen_name'      => 'nullable|string|max:100',
             'citizen_phone'     => 'nullable|string|max:25',
-            'evidence_initial'  => 'required|image|max:8192',
+            'evidence_initial'  => 'nullable|image|max:8192',
         ]);
 
         $routing = IncidentReport::resolveDepartmentAndPriority($request->category);
         $folio = IncidentReport::generateNextFolio();
 
-        // Guardar evidencia fotográfica en public/uploads/evidences (compatible con Hostinger)
+        // Guardar evidencia fotográfica o asignar imagen de referencia local si no se tomó foto
         $evidenceUrl = null;
         if ($request->hasFile('evidence_initial')) {
             $file = $request->file('evidence_initial');
@@ -75,6 +75,12 @@ class CitizenAppController extends Controller
 
             $file->move($destinationPath, $filename);
             $evidenceUrl = asset('uploads/evidences/' . $filename);
+        } else {
+            // Asignar imagen local de referencia según categoría para que nunca quede vacío
+            $cat = in_array($request->category, ['bache', 'drenaje', 'alumbrado', 'agua', 'basura', 'accidente'])
+                ? $request->category
+                : 'bache';
+            $evidenceUrl = asset('images/categories/ref_' . $cat . '.jpg');
         }
 
         $report = IncidentReport::create([

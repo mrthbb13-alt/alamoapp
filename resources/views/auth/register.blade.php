@@ -94,24 +94,6 @@
             font-size: 2rem;
             margin-bottom: 12px;
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-            transition: background-color 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        :root[data-theme="dark"] .register-logo-circle {
-            background: #0F172A;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
-        }
-
-        :root[data-theme="dark"] .register-brand-name,
-        :root[data-theme="dark"] .register-brand-tagline {
-            color: #0F172A;
-            transition: color 0.25s ease;
-        }
-
-        :root[data-theme="dark"] .theme-float-btn {
-            background: rgba(15, 23, 42, 0.18);
-            border-color: rgba(15, 23, 42, 0.25);
-            color: #0F172A;
         }
 
         .register-brand-name {
@@ -505,8 +487,6 @@
 
             <div class="register-logo-circle" style="overflow: hidden; border: none;">
                 <img src="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                     data-light="{{ asset('icons/logo.png') }}?v={{ time() }}"
-                     data-dark="{{ asset('icons/logo-dark.png') }}?v={{ time() }}"
                      alt="Álamo Reporta"
                      class="brand-logo-img"
                      style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain; display: block;">
@@ -844,14 +824,6 @@
                     themeIcon.classList.add('fa-moon');
                 }
             }
-
-            const isDark = theme === 'dark';
-            const brandLogos = document.querySelectorAll('.brand-logo-img');
-            brandLogos.forEach(function (img) {
-                const lightSrc = img.dataset.light || '{{ asset('icons/logo.png') }}';
-                const darkSrc = img.dataset.dark || '{{ asset('icons/logo-dark.png') }}';
-                img.src = isDark ? darkSrc : lightSrc;
-            });
         }
     </script>
 </body>
