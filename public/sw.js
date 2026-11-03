@@ -1,5 +1,5 @@
 // Service Worker de Álamo Reporta con auto-actualización de versiones y purga de caché
-const CACHE_NAME = 'alamo-reporta-v2';
+const CACHE_NAME = 'alamo-reporta-v3-' + Date.now();
 
 self.addEventListener('install', (event) => {
     // Tomar control inmediato sin esperar al cierre de pestañas

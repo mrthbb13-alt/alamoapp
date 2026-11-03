@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2. Registro del Service Worker y Auto-Refresco de Cachés para Nuevas Versiones
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
-            navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' })
+            navigator.serviceWorker.register('/sw.js?v=' + Date.now(), { updateViaCache: 'none' })
                 .then(function (reg) {
                     // Forzar comprobación inmediata de actualizaciones de versión
                     reg.update();
