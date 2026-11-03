@@ -76,7 +76,7 @@ class AppServiceProvider extends ServiceProvider
                 });
             }
 
-            // 5. Garantizar carpeta public_html/images en Hostinger para compartir fotos entre ambas plataformas
+            // 5. Garantizar y sincronizar bidireccionalmente la carpeta images en Hostinger entre ambas plataformas
             $candidateImagesDirs = [
                 base_path('../public_html/images'),
                 base_path('../../public_html/images'),
@@ -85,6 +85,12 @@ class AppServiceProvider extends ServiceProvider
                 '/home/u841520431/public_html/images',
                 '/home/u841520431/domains/gestionmaplingps.com/public_html/images',
             ];
+
+            $localImagesDir = public_path('images');
+            if (!file_exists($localImagesDir)) {
+                @mkdir($localImagesDir, 0775, true);
+            }
+
             foreach ($candidateImagesDirs as $dir) {
                 if (!file_exists($dir)) {
                     $parent = dirname($dir);
@@ -92,8 +98,24 @@ class AppServiceProvider extends ServiceProvider
                         @mkdir($dir, 0775, true);
                     }
                 }
-                if (is_dir($dir) && !file_exists($dir . '/placeholder.svg') && file_exists(public_path('images/placeholder.svg'))) {
-                    @copy(public_path('images/placeholder.svg'), $dir . '/placeholder.svg');
+                if (is_dir($dir)) {
+                    // Si falta el placeholder en el directorio compartido
+                    if (!file_exists($dir . '/placeholder.svg') && file_exists($localImagesDir . '/placeholder.svg')) {
+                        @copy($localImagesDir . '/placeholder.svg', $dir . '/placeholder.svg');
+                    }
+
+                    // Sincronizar hacia AlamoApp cualquier foto de resolución que haya subido la otra plataforma
+                    if (realpath($dir) !== realpath($localImagesDir)) {
+                        $files = @scandir($dir) ?: [];
+                        foreach ($files as $file) {
+                            if ($file !== '.' && $file !== '..' && !is_dir($dir . '/' . $file)) {
+                                $localTarget = $localImagesDir . '/' . $file;
+                                if (!file_exists($localTarget)) {
+                                    @copy($dir . '/' . $file, $localTarget);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         } catch (\Throwable $e) {

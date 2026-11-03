@@ -22,6 +22,32 @@ Route::get('/registro', [AuthController::class, 'showRegister'])->name('register
 Route::post('/registro', [AuthController::class, 'register'])->name('register.post');
 Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
 
+// ====================================================
+// ENTREGA Y SINCRONIZACIÓN DE IMÁGENES ENTRE PLATAFORMAS (HOSTINGER)
+// ====================================================
+Route::get('/images/{filename}', function ($filename) {
+    $cleanFilename = basename($filename);
+    $foundPath = \App\Models\IncidentReport::locateImageOnHostinger($cleanFilename);
+
+    if ($foundPath && file_exists($foundPath)) {
+        $mime = @mime_content_type($foundPath) ?: 'image/jpeg';
+        return response()->file($foundPath, [
+            'Content-Type'  => $mime,
+            'Cache-Control' => 'public, max-age=604800, immutable',
+        ]);
+    }
+
+    $placeholder = public_path('images/placeholder.svg');
+    if (file_exists($placeholder)) {
+        return response()->file($placeholder, [
+            'Content-Type'  => 'image/svg+xml',
+            'Cache-Control' => 'no-cache, private',
+        ]);
+    }
+
+    abort(404);
+})->where('filename', '[A-Za-z0-9_\-\.]+');
+
 // Diagnóstico de Conexión en Vivo a Hostinger MySQL
 Route::get('/api/db-status', function () {
     try {

@@ -91,15 +91,120 @@ class IncidentReport extends Model
     }
 
     /**
-     * Devuelve la imagen de evidencia inicial o null si no se adjuntó foto
+     * Normaliza cualquier ruta de evidencia para que siempre devuelva una URL válida accesible en el navegador (/images/...)
      */
-    public function getEvidenceInitialAttribute($value): ?string
+    public static function formatEvidenceUrl(?string $value): ?string
     {
-        if (!empty($value) && $value !== 'null') {
+        if (empty($value) || $value === 'null' || $value === 'undefined') {
+            return null;
+        }
+
+        $value = trim($value);
+
+        // Si ya es una URL absoluta HTTP/HTTPS
+        if (preg_match('/^https?:\/\//i', $value)) {
             return $value;
         }
 
+        // Limpiar diagonales invertidas
+        $normalized = str_replace('\\', '/', $value);
+
+        // Si empieza con /images/ o images/
+        if (preg_match('/^\/?images\/(.+)$/i', $normalized, $matches)) {
+            return '/images/' . ltrim($matches[1], '/');
+        }
+
+        // Si es solo el nombre de archivo (ej: res_ALM-2026-0002_1793738183.jpeg)
+        $filename = basename($normalized);
+        if (!empty($filename)) {
+            return '/images/' . $filename;
+        }
+
+        return '/' . ltrim($normalized, '/');
+    }
+
+    /**
+     * Localiza físicamente un archivo de imagen en cualquiera de los directorios de Hostinger
+     * (tanto en la carpeta de AlamoApp como en la raíz public_html compartida de la segunda plataforma)
+     */
+    public static function locateImageOnHostinger(string $filename): ?string
+    {
+        $filename = basename(str_replace('\\', '/', $filename));
+        if (empty($filename)) {
+            return null;
+        }
+
+        $localDir = public_path('images');
+        $localPath = $localDir . DIRECTORY_SEPARATOR . $filename;
+        if (file_exists($localPath)) {
+            return $localPath;
+        }
+
+        // Directorios candidatos donde la segunda plataforma (C2 / Centro de Mando) almacena imágenes en Hostinger
+        $candidateDirs = [
+            $localDir,
+            base_path('images'),
+            base_path('../public_html/images'),
+            base_path('../../public_html/images'),
+            base_path('../images'),
+            dirname(base_path()) . '/images',
+            dirname(base_path()) . '/public_html/images',
+            dirname(dirname(base_path())) . '/public_html/images',
+            dirname(dirname(base_path())) . '/images',
+            '/home/u841520431/public_html/images',
+            '/home/u841520431/domains/gestionmaplingps.com/public_html/images',
+            '/home/u841520431/domains/gestionmaplingps.com/public_html/alamoapp/images',
+            '/home/u841520431/domains/gestionmaplingps.com/public_html/alamoapp/public/images',
+            '/home/u841520431/public_html/alamoapp/images',
+            '/home/u841520431/public_html/alamoapp/public/images',
+        ];
+
+        if (isset($_SERVER['DOCUMENT_ROOT'])) {
+            $docRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\');
+            $candidateDirs[] = $docRoot . '/images';
+            $candidateDirs[] = dirname($docRoot) . '/images';
+            $candidateDirs[] = dirname($docRoot) . '/public_html/images';
+            $candidateDirs[] = dirname(dirname($docRoot)) . '/public_html/images';
+            $candidateDirs[] = dirname(dirname($docRoot)) . '/images';
+        }
+
+        foreach (array_unique($candidateDirs) as $dir) {
+            if (!$dir || !is_dir($dir)) {
+                continue;
+            }
+            $target = rtrim($dir, '/\\') . DIRECTORY_SEPARATOR . $filename;
+            if (file_exists($target) && is_file($target)) {
+                // Si está en otra carpeta de Hostinger, copiar a public/images de AlamoApp para caché ultra-rápido
+                try {
+                    if (!file_exists($localDir)) {
+                        @mkdir($localDir, 0775, true);
+                    }
+                    if (is_dir($localDir) && realpath($dir) !== realpath($localDir)) {
+                        @copy($target, $localPath);
+                    }
+                } catch (\Throwable $e) {}
+
+                return $target;
+            }
+        }
+
         return null;
+    }
+
+    /**
+     * Accesor para evidencia inicial ciudadana
+     */
+    public function getEvidenceInitialAttribute($value): ?string
+    {
+        return self::formatEvidenceUrl($value);
+    }
+
+    /**
+     * Accesor para evidencia de resolución municipal
+     */
+    public function getEvidenceResolutionAttribute($value): ?string
+    {
+        return self::formatEvidenceUrl($value);
     }
 
     /**

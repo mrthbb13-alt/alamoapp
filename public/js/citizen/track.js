@@ -43,11 +43,15 @@ document.addEventListener('DOMContentLoaded', function () {
             resTitle.textContent = r.title;
             resDept.textContent = r.department + ' • ' + r.colonia;
             resNotes.textContent = r.resolution_notes;
+            let initUrl = r.evidence_initial;
+            if (initUrl && !initUrl.startsWith('http') && !initUrl.startsWith('/')) {
+                initUrl = '/images/' + initUrl;
+            }
             resImgBefore.onerror = function() {
                 this.onerror = null;
                 this.src = '/images/placeholder.svg';
             };
-            resImgBefore.src = r.evidence_initial || '/images/placeholder.svg';
+            resImgBefore.src = initUrl || '/images/placeholder.svg';
 
             // Actualizar barra de estado
             stepRecibido.classList.add('is-completed');
@@ -56,7 +60,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Mostrar evidencia del "Después" si ya fue cargada desde el Panel Municipal
             if (r.evidence_resolution) {
-                resImgAfter.src = r.evidence_resolution;
+                let resUrl = r.evidence_resolution;
+                if (!resUrl.startsWith('http') && !resUrl.startsWith('/')) {
+                    resUrl = '/images/' + resUrl;
+                }
+                resImgAfter.onerror = function() {
+                    this.onerror = null;
+                    this.src = '/images/placeholder.svg';
+                };
+                resImgAfter.src = resUrl;
                 resImgAfter.style.display = 'block';
                 resEmptyAfter.style.display = 'none';
             } else {

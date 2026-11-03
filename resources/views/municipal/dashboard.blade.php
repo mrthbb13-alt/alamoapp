@@ -484,8 +484,8 @@
                         </td>
                         <td class="py-3.5 px-4">
                             <div class="flex items-center gap-1.5">
-                                <img src="${report.evidence_initial || '/images/placeholder.svg'}" onerror="this.src='/images/placeholder.svg'" onclick="openReportModal(${report.id})" class="w-12 h-12 rounded-lg object-cover border border-slate-700 cursor-pointer hover:scale-105 transition" title="Foto Antes">
-                                ${report.evidence_resolution ? `<img src="${report.evidence_resolution}" onclick="openReportModal(${report.id})" class="w-12 h-12 rounded-lg object-cover border-2 border-emerald-500 cursor-pointer" title="Foto Después">` : ''}
+                                <img src="${report.evidence_initial ? (report.evidence_initial.startsWith('/') || report.evidence_initial.startsWith('http') ? report.evidence_initial : '/images/' + report.evidence_initial) : '/images/placeholder.svg'}" onerror="this.src='/images/placeholder.svg'" onclick="openReportModal(${report.id})" class="w-12 h-12 rounded-lg object-cover border border-slate-700 cursor-pointer hover:scale-105 transition" title="Foto Antes">
+                                ${report.evidence_resolution ? `<img src="${report.evidence_resolution.startsWith('/') || report.evidence_resolution.startsWith('http') ? report.evidence_resolution : '/images/' + report.evidence_resolution}" onerror="this.src='/images/placeholder.svg'" onclick="openReportModal(${report.id})" class="w-12 h-12 rounded-lg object-cover border-2 border-emerald-500 cursor-pointer" title="Foto Después">` : ''}
                             </div>
                         </td>
                         <td class="py-3.5 px-4">
@@ -565,7 +565,15 @@
             const imgRes = document.getElementById('modal-img-resolution');
             const noRes = document.getElementById('modal-no-resolution');
             if (report.evidence_resolution) {
-                imgRes.src = report.evidence_resolution;
+                let rUrl = report.evidence_resolution;
+                if (!rUrl.startsWith('/') && !rUrl.startsWith('http')) {
+                    rUrl = '/images/' + rUrl;
+                }
+                imgRes.src = rUrl;
+                imgRes.onerror = function() {
+                    this.onerror = null;
+                    this.src = '/images/placeholder.svg';
+                };
                 imgRes.classList.remove('hidden');
                 noRes.classList.add('hidden');
             } else {
