@@ -86,14 +86,33 @@
             height: 86px;
             border-radius: 50%;
             background: #FFFFFF;
+            padding: 4px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: #EA580C;
             font-size: 2.3rem;
             margin-bottom: 14px;
-            box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
             position: relative;
+            transition: background-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        :root[data-theme="dark"] .login-logo-circle {
+            background: #0F172A;
+            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.35);
+        }
+
+        :root[data-theme="dark"] .login-brand-name,
+        :root[data-theme="dark"] .login-brand-tagline {
+            color: #0F172A;
+            transition: color 0.25s ease;
+        }
+
+        :root[data-theme="dark"] .theme-float-btn {
+            background: rgba(15, 23, 42, 0.18);
+            border-color: rgba(15, 23, 42, 0.25);
+            color: #0F172A;
         }
 
         .login-logo-circle::before {
@@ -310,8 +329,14 @@
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
             </button>
 
-            <div class="login-logo-circle" style="padding: 0; overflow: hidden; border: none; background: transparent; box-shadow: none;">
-                <img src="{{ asset('icons/logo.png') }}?v={{ time() }}" alt="Álamo Reporta" style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain; display: block;">
+            <div class="login-logo-circle" style="overflow: hidden; border: none;">
+                <img id="login-brand-logo"
+                     src="{{ asset('icons/logo.png') }}?v={{ time() }}"
+                     data-light="{{ asset('icons/logo.png') }}?v={{ time() }}"
+                     data-dark="{{ asset('icons/logo-dark.png') }}?v={{ time() }}"
+                     alt="Álamo Reporta"
+                     class="brand-logo-img"
+                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain; display: block;">
             </div>
             <h1 class="login-brand-name">Álamo Reporta</h1>
             <p class="login-brand-tagline">Atención Ciudadana y Respuesta Inmediata</p>
@@ -408,7 +433,8 @@
         const themeBtn = document.getElementById('theme-toggle-btn');
         const themeIcon = document.getElementById('theme-icon');
 
-        const savedTheme = localStorage.getItem('alamo_citizen_theme') || 'light';
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('alamo_citizen_theme') || (prefersDark ? 'dark' : 'light');
         applyTheme(savedTheme);
 
         if (themeBtn) {
@@ -422,14 +448,23 @@
 
         function applyTheme(theme) {
             htmlRoot.setAttribute('data-theme', theme);
-            if (!themeIcon) return;
-            if (theme === 'dark') {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
+            if (themeIcon) {
+                if (theme === 'dark') {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
             }
+
+            const isDark = theme === 'dark';
+            const brandLogos = document.querySelectorAll('.brand-logo-img');
+            brandLogos.forEach(function (img) {
+                const lightSrc = img.dataset.light || '{{ asset('icons/logo.png') }}';
+                const darkSrc = img.dataset.dark || '{{ asset('icons/logo-dark.png') }}';
+                img.src = isDark ? darkSrc : lightSrc;
+            });
         }
     </script>
 </body>

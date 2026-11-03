@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const themeIcon = document.getElementById('theme-icon');
 
-    const savedTheme = localStorage.getItem('alamo_citizen_theme') || 'light';
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('alamo_citizen_theme') || (prefersDark ? 'dark' : 'light');
     applyTheme(savedTheme);
 
     if (themeToggleBtn) {
@@ -18,15 +19,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function applyTheme(theme) {
         htmlRoot.setAttribute('data-theme', theme);
-        if (!themeIcon) return;
 
-        if (theme === 'dark') {
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-        } else {
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
+        if (themeIcon) {
+            if (theme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
         }
+
+        // Alternar el logo entre claro (corazón blanco) y oscuro (corazón negro)
+        const isDark = theme === 'dark';
+        const brandLogos = document.querySelectorAll('.brand-logo-img');
+        brandLogos.forEach(function (img) {
+            const lightSrc = img.dataset.light || '/icons/logo.png';
+            const darkSrc = img.dataset.dark || '/icons/logo-dark.png';
+            img.src = isDark ? darkSrc : lightSrc;
+        });
     }
 
     // 2. Registro del Service Worker para soporte PWA y modo independiente

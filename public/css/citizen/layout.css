@@ -41,8 +41,8 @@
     --border-subtle: #334155;
     --shadow-card: 0 16px 36px -8px rgba(0, 0, 0, 0.55);
     --shadow-float: 0 18px 40px -10px rgba(0, 0, 0, 0.7);
-    --header-gradient: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
-    --header-text: #F8FAFC;
+    --header-gradient: linear-gradient(145deg, #FBBF24 0%, #F59E0B 45%, #EA580C 100%);
+    --header-text: #0F172A;
     --status-pending: #F87171;
     --status-process: #FBBF24;
     --status-resolved: #34D399;
@@ -111,19 +111,28 @@ body {
     height: 44px;
     border-radius: 50%;
     background: #FFFFFF;
+    padding: 2.5px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
     flex-shrink: 0;
     overflow: hidden;
+    transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+:root[data-theme="dark"] .logo-placeholder {
+    background: #0F172A;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.35);
 }
 
 .brand-logo-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    border-radius: 50%;
+    object-fit: contain;
     display: block;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .logo-tag {
@@ -141,7 +150,8 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--header-text);
-    opacity: 0.9;
+    opacity: 0.92;
+    transition: color 0.25s ease;
 }
 
 .brand-name {
@@ -150,6 +160,7 @@ body {
     color: var(--header-text);
     line-height: 1.15;
     letter-spacing: -0.3px;
+    transition: color 0.25s ease;
 }
 
 .header-actions {
@@ -165,13 +176,18 @@ body {
     border: none;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(8px);
-    color: #FFFFFF;
+    color: var(--header-text);
     font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+:root[data-theme="dark"] .theme-btn {
+    background: rgba(15, 23, 42, 0.18);
+    color: #0F172A;
 }
 
 .theme-btn:hover {
