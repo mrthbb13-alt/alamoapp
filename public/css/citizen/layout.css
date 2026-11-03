@@ -244,92 +244,133 @@ body {
     }
 }
 
+/* Barra de Progreso de Navegación Rápida Superior */
+.app-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-gold) 0%, #FFFFFF 50%, var(--accent-gold) 100%);
+    z-index: 99999;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.9);
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.app-progress-bar.is-loading {
+    opacity: 1;
+    width: 80%;
+}
+
+.app-progress-bar.is-finishing {
+    width: 100%;
+    opacity: 0;
+}
+
 /* Área de Contenido Principal con soporte Safe Area Inferior */
 .app-content {
     flex: 1;
-    padding: 16px 16px calc(96px + env(safe-area-inset-bottom, 0px)) 16px;
+    padding: 16px 16px calc(86px + env(safe-area-inset-bottom, 12px)) 16px;
     animation: pageEnter 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
     will-change: opacity, transform;
 }
 
-/* Barra de Navegación Inferior Flotante Estilo Cápsula Institucional */
+/* Barra de Navegación Inferior Flotante - Compacta, Centrada y 100% Anclada */
 .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%) translateZ(0);
-    width: calc(100% - 20px);
-    max-width: 500px;
-    background-color: #560315;
-    border: 1.5px solid rgba(245, 215, 163, 0.22);
-    border-radius: 36px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px)) 4px;
-    margin-bottom: 10px;
-    z-index: 100;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    user-select: none;
-    -webkit-user-select: none;
-    box-sizing: border-box;
-    will-change: transform;
+    position: fixed !important;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateZ(0) !important;
+    width: calc(100% - 24px) !important;
+    max-width: 440px !important;
+    height: 56px !important; /* Altura compacta, elegante y no estorba */
+    background: #560315 !important;
+    border: 1.5px solid rgba(245, 215, 163, 0.28) !important;
+    border-radius: 9999px !important; /* Estilo Cápsula Dock moderna */
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    align-items: center !important;
+    padding: 3px 5px !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    box-sizing: border-box !important;
+    will-change: transform !important;
 }
 
 .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: #FFFFFF;
-    opacity: 0.85;
-    padding: 6px 2px;
-    border-radius: 9999px;
-    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.2s ease,
-                color 0.2s ease,
-                box-shadow 0.2s ease;
-    gap: 2.5px;
-    -webkit-touch-callout: none;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    color: #FFFFFF !important;
+    opacity: 0.8 !important;
+    padding: 3px 2px !important;
+    border-radius: 9999px !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    gap: 2px !important;
+    -webkit-touch-callout: none !important;
+    position: relative !important;
 }
 
 .nav-item:hover {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .nav-item:active {
-    transform: scale(0.92);
+    transform: scale(0.92) !important;
 }
 
 .nav-icon {
-    font-size: 16px;
-    transition: transform 0.2s ease;
+    font-size: 19px !important; /* Íconos más grandes, visibles y nítidos */
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease !important;
 }
 
 .nav-label {
-    font-size: 10px;
-    font-weight: 700;
-    white-space: nowrap;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.1px !important;
+    transition: color 0.2s ease !important;
+}
+
+/* Animación elástica de la Píldora de Selección */
+@keyframes navPillPop {
+    0% { transform: scale(0.92); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1.02); }
 }
 
 .nav-item.is-active {
-    background: var(--accent-gold);
-    color: var(--accent-wine-deep);
-    opacity: 1;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.45);
+    background: linear-gradient(135deg, #F5D7A3 0%, #D4AF37 100%) !important;
+    color: #5B0215 !important;
+    opacity: 1 !important;
+    animation: navPillPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.5) !important;
 }
 
 .nav-item.is-active .nav-icon {
-    color: var(--accent-wine-deep);
-    transform: translateY(-1px) scale(1.05);
+    color: #5B0215 !important;
+    font-size: 20px !important;
+    transform: translateY(-0.5px) !important;
 }
 
 .nav-item.is-active .nav-label {
-    color: var(--accent-wine-deep);
-    font-weight: 800;
+    color: #5B0215 !important;
+    font-weight: 800 !important;
 }
 
 /* BANNER DE INSTALACIÓN PWA */

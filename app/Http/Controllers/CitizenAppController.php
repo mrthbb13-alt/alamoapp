@@ -279,7 +279,7 @@ class CitizenAppController extends Controller
         $routing = IncidentReport::resolveDepartmentAndPriority($request->category);
         $folio = IncidentReport::generateNextFolio();
 
-        // Guardar evidencia fotográfica en carpeta images de Hostinger o dejar null si no se adjuntó
+        // Guardar evidencia fotográfica en carpeta images de Hostinger y sincronizar a public_html/images
         $evidenceUrl = null;
         if ($request->hasFile('evidence_initial')) {
             $file = $request->file('evidence_initial');
@@ -292,7 +292,11 @@ class CitizenAppController extends Controller
             }
 
             $file->move($destinationPath, $filename);
+            $savedPath = $destinationPath . DIRECTORY_SEPARATOR . $filename;
             $evidenceUrl = '/images/' . $filename;
+
+            // Sincronizar automáticamente hacia la raíz public_html/images de Hostinger
+            IncidentReport::syncImageToHostingerPublicHtml($filename, $savedPath);
         }
 
         $report = IncidentReport::create([

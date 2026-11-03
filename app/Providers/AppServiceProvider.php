@@ -75,6 +75,27 @@ class AppServiceProvider extends ServiceProvider
                     $table->integer('last_activity')->index();
                 });
             }
+
+            // 5. Garantizar carpeta public_html/images en Hostinger para compartir fotos entre ambas plataformas
+            $candidateImagesDirs = [
+                base_path('../public_html/images'),
+                base_path('../../public_html/images'),
+                dirname(base_path()) . '/images',
+                dirname(base_path()) . '/public_html/images',
+                '/home/u841520431/public_html/images',
+                '/home/u841520431/domains/gestionmaplingps.com/public_html/images',
+            ];
+            foreach ($candidateImagesDirs as $dir) {
+                if (!file_exists($dir)) {
+                    $parent = dirname($dir);
+                    if (is_dir($parent) && is_writable($parent)) {
+                        @mkdir($dir, 0775, true);
+                    }
+                }
+                if (is_dir($dir) && !file_exists($dir . '/placeholder.svg') && file_exists(public_path('images/placeholder.svg'))) {
+                    @copy(public_path('images/placeholder.svg'), $dir . '/placeholder.svg');
+                }
+            }
         } catch (\Throwable $e) {
             // Ignorar excepción en entornos sin extensión PDO MySQL
         }

@@ -117,6 +117,17 @@
     gap: 18px;
 }
 
+@keyframes stepCardIn {
+    0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.985);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 .form-step-card {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -124,7 +135,13 @@
     padding: 22px 18px;
     box-shadow: var(--shadow-card);
     transition: background-color 0.25s, border-color 0.25s;
+    animation: stepCardIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+.form-step-card:nth-of-type(1) { animation-delay: 0.04s; }
+.form-step-card:nth-of-type(2) { animation-delay: 0.08s; }
+.form-step-card:nth-of-type(3) { animation-delay: 0.12s; }
+.form-step-card:nth-of-type(4) { animation-delay: 0.16s; }
 
 .step-header {
     display: flex;

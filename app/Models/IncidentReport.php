@@ -40,6 +40,57 @@ class IncidentReport extends Model
     ];
 
     /**
+     * Sincroniza automáticamente una imagen subida hacia la raíz public_html/images de Hostinger
+     * para que ambas plataformas (App Ciudadana y Centro de Mando) puedan consumirla de inmediato.
+     */
+    public static function syncImageToHostingerPublicHtml(string $filename, string $sourcePath): void
+    {
+        if (!file_exists($sourcePath)) {
+            return;
+        }
+
+        $candidateDirs = [
+            // Si alamoapp está como subcarpeta dentro de public_html (ej: /public_html/alamoapp):
+            dirname(base_path()) . '/images',
+            dirname(base_path()) . '/public_html/images',
+            // Si alamoapp está al nivel de la raíz de la cuenta (ej: /home/u841520431/alamoapp):
+            base_path('../public_html/images'),
+            base_path('../../public_html/images'),
+            // Rutas absolutas estándar en servidor Hostinger:
+            '/home/u841520431/public_html/images',
+            '/home/u841520431/domains/gestionmaplingps.com/public_html/images',
+        ];
+
+        if (isset($_SERVER['DOCUMENT_ROOT'])) {
+            $docRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\');
+            $candidateDirs[] = $docRoot . '/images';
+            $candidateDirs[] = dirname($docRoot) . '/images';
+            $candidateDirs[] = dirname($docRoot) . '/public_html/images';
+        }
+
+        $sourceDirReal = realpath(dirname($sourcePath));
+
+        foreach ($candidateDirs as $dir) {
+            try {
+                if (!file_exists($dir)) {
+                    $parent = dirname($dir);
+                    if (is_dir($parent) && is_writable($parent)) {
+                        @mkdir($dir, 0775, true);
+                    }
+                }
+                if (is_dir($dir)) {
+                    $targetReal = realpath($dir);
+                    if ($targetReal !== $sourceDirReal) {
+                        @copy($sourcePath, $dir . DIRECTORY_SEPARATOR . $filename);
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Silencioso para no detener el flujo del usuario
+            }
+        }
+    }
+
+    /**
      * Devuelve la imagen de evidencia inicial o null si no se adjuntó foto
      */
     public function getEvidenceInitialAttribute($value): ?string

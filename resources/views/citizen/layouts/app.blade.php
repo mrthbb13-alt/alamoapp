@@ -48,6 +48,8 @@
     @yield('page_css')
 </head>
 <body>
+    <!-- BARRA DE PROGRESO DE NAVEGACIÓN RÁPIDA -->
+    <div id="app-progress-bar" class="app-progress-bar"></div>
 
     <div class="app-shell">
         <!-- ENCABEZADO SUPERIOR INSTITUCIONAL GUINDA CON ESCUDO OFICIAL -->
@@ -96,35 +98,35 @@
         <main class="app-content">
             @yield('content')
         </main>
-
-        <!-- BARRA DE NAVEGACIÓN INFERIOR (ESTILO APP MÓVIL) -->
-        <nav class="bottom-nav">
-            <a href="{{ route('citizen.home') }}" class="nav-item {{ request()->routeIs('citizen.home') ? 'is-active' : '' }}">
-                <i class="fa-solid fa-camera nav-icon"></i>
-                <span class="nav-label">Reportar</span>
-            </a>
-
-            <a href="{{ route('citizen.feed') }}" class="nav-item {{ request()->routeIs('citizen.feed') ? 'is-active' : '' }}">
-                <i class="fa-solid fa-map-location-dot nav-icon"></i>
-                <span class="nav-label">Mapa</span>
-            </a>
-
-            <a href="{{ route('citizen.track') }}" class="nav-item {{ request()->routeIs('citizen.track') ? 'is-active' : '' }}">
-                <i class="fa-solid fa-magnifying-glass-location nav-icon"></i>
-                <span class="nav-label">Mi Folio</span>
-            </a>
-
-            <a href="{{ route('citizen.directory') }}" class="nav-item {{ request()->routeIs('citizen.directory') ? 'is-active' : '' }}">
-                <i class="fa-solid fa-address-book nav-icon"></i>
-                <span class="nav-label">Directorio</span>
-            </a>
-
-            <a href="{{ route('citizen.profile') }}" class="nav-item {{ request()->routeIs('citizen.profile') ? 'is-active' : '' }}">
-                <i class="fa-solid fa-user-gear nav-icon"></i>
-                <span class="nav-label">Perfil</span>
-            </a>
-        </nav>
     </div>
+
+    <!-- BARRA DE NAVEGACIÓN INFERIOR (100% ANCLADA AL VIEWPORT) -->
+    <nav class="bottom-nav">
+        <a href="{{ route('citizen.home') }}" class="nav-item {{ request()->routeIs('citizen.home') ? 'is-active' : '' }}">
+            <i class="fa-solid fa-camera nav-icon"></i>
+            <span class="nav-label">Reportar</span>
+        </a>
+
+        <a href="{{ route('citizen.feed') }}" class="nav-item {{ request()->routeIs('citizen.feed') ? 'is-active' : '' }}">
+            <i class="fa-solid fa-map-location-dot nav-icon"></i>
+            <span class="nav-label">Mapa</span>
+        </a>
+
+        <a href="{{ route('citizen.track') }}" class="nav-item {{ request()->routeIs('citizen.track') ? 'is-active' : '' }}">
+            <i class="fa-solid fa-magnifying-glass-location nav-icon"></i>
+            <span class="nav-label">Mi Folio</span>
+        </a>
+
+        <a href="{{ route('citizen.directory') }}" class="nav-item {{ request()->routeIs('citizen.directory') ? 'is-active' : '' }}">
+            <i class="fa-solid fa-address-book nav-icon"></i>
+            <span class="nav-label">Directorio</span>
+        </a>
+
+        <a href="{{ route('citizen.profile') }}" class="nav-item {{ request()->routeIs('citizen.profile') ? 'is-active' : '' }}">
+            <i class="fa-solid fa-user-gear nav-icon"></i>
+            <span class="nav-label">Perfil</span>
+        </a>
+    </nav>
 
     <!-- MODAL DE INSTRUCCIONES PARA AGREGAR A PANTALLA DE INICIO (iOS y Android) -->
     <div id="pwa-instructions-modal" class="pwa-modal-backdrop">

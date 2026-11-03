@@ -258,10 +258,17 @@
     color: var(--text-secondary);
 }
 
+@keyframes stepPulse {
+    0% { transform: scale(0.92); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
 .p-step.is-completed .p-circle {
     background: linear-gradient(135deg, #10B981 0%, #059669 100%);
     border-color: #10B981;
     color: #FFFFFF;
+    animation: stepPulse 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
 }
 

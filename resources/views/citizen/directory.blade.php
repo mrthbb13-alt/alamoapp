@@ -139,6 +139,17 @@
             box-shadow: 0 4px 12px rgba(245, 215, 163, 0.25);
         }
 
+        @keyframes dirCardSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(12px) scale(0.985);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         .dir-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -146,6 +157,7 @@
             padding: 18px 18px;
             box-shadow: var(--shadow-card);
             transition: transform 0.2s ease, border-color 0.2s ease;
+            animation: dirCardSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
         .dir-card:hover {

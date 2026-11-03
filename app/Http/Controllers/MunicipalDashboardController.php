@@ -71,7 +71,11 @@ class MunicipalDashboardController extends Controller
             }
 
             $evidenceFile->move($destinationPath, $filename);
+            $savedPath = $destinationPath . DIRECTORY_SEPARATOR . $filename;
             $report->evidence_resolution = '/images/' . $filename;
+
+            // Sincronizar automáticamente hacia la raíz public_html/images de Hostinger
+            IncidentReport::syncImageToHostingerPublicHtml($filename, $savedPath);
         }
 
         $report->save();

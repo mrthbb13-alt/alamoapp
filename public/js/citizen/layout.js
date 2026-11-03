@@ -176,7 +176,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 4. Asegurar que los enlaces internos se mantengan dentro del modo App en iOS
+    // 4. Micro-interacción instantánea al cambiar entre pestañas de navegación (0ms de retraso)
+    const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+    const progressBar = document.getElementById('app-progress-bar');
+
+    navItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            if (item.classList.contains('is-active')) return;
+
+            // Desplazar animación de píldora de inmediato al elemento tocado
+            navItems.forEach(function (i) { i.classList.remove('is-active'); });
+            item.classList.add('is-active');
+
+            // Disparar barra de progreso institucional superior
+            if (progressBar) {
+                progressBar.classList.remove('is-finishing');
+                progressBar.classList.add('is-loading');
+            }
+
+            // Transición suave de salida del contenido actual
+            const currentContent = document.querySelector('.app-content');
+            if (currentContent) {
+                currentContent.style.transition = 'opacity 0.14s ease, transform 0.14s ease';
+                currentContent.style.opacity = '0.4';
+                currentContent.style.transform = 'scale(0.985)';
+            }
+        });
+    });
+
+    // 5. Asegurar que los enlaces internos se mantengan dentro del modo App en iOS
     if (isStandalone) {
         document.addEventListener('click', function (e) {
             const link = e.target.closest('a');
