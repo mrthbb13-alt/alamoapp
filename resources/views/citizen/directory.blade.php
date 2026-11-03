@@ -16,7 +16,7 @@
         <div class="hero-text">
             <span class="hero-badge">Directorio Oficial 2026-2029</span>
             <h2 class="hero-title">Directorio Municipal</h2>
-            <p class="hero-subtitle">Comunícate directamente por teléfono o WhatsApp con Regidores, Directores y DIF Municipal de Álamo Temapache.</p>
+            <p class="hero-subtitle">Comunícate directamente por llamada telefónica con Regidores, Directores y DIF Municipal de Álamo Temapache.</p>
         </div>
 
         <svg class="hero-gold-waves" viewBox="0 0 500 50" preserveAspectRatio="none" aria-hidden="true">
@@ -91,21 +91,12 @@
                     </div>
                 </div>
 
-                <!-- ACCIONES RÁPIDAS: LLAMAR Y WHATSAPP -->
+                <!-- ACCIÓN DIRECTA: LLAMADA TELEFÓNICA -->
                 <div class="dir-actions">
                     <a href="tel:{{ $contact['phone'] }}" class="btn-dir-call">
                         <i class="fa-solid fa-phone"></i>
-                        <span>Llamar</span>
+                        <span>Llamar &nbsp;|&nbsp; {{ $contact['phone_display'] ?? $contact['phone'] }}</span>
                     </a>
-                    @if(!empty($contact['whatsapp']))
-                        <a href="https://wa.me/{{ $contact['whatsapp'] }}?text=Hola,%20buenas%20tardes.%20Me%20comunico%20desde%20la%20App%20Ciudadana%20de%20%C3%81lamo%20Temapache."
-                           target="_blank"
-                           rel="noopener"
-                           class="btn-dir-wa">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <span>WhatsApp</span>
-                        </a>
-                    @endif
                 </div>
             </div>
         @endforeach
@@ -219,49 +210,30 @@
         }
 
         .dir-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            display: flex;
+            width: 100%;
         }
 
         .btn-dir-call {
+            width: 100%;
             background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
             color: var(--accent-wine-deep);
             text-decoration: none;
             border-radius: 9999px;
-            height: 42px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            font-size: 12.5px;
+            gap: 8px;
+            font-size: 13px;
             font-weight: 800;
             box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
-            transition: transform 0.15s ease;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
         .btn-dir-call:hover {
             transform: translateY(-1px);
-        }
-
-        .btn-dir-wa {
-            background: #25D366;
-            color: #FFFFFF;
-            text-decoration: none;
-            border-radius: 9999px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: 12.5px;
-            font-weight: 800;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
-            transition: transform 0.15s ease;
-        }
-
-        .btn-dir-wa:hover {
-            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.35);
         }
     </style>
 @endsection
